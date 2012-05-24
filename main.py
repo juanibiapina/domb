@@ -20,14 +20,16 @@ class TileSet(object):
                             Rect(x, y, self.TILE_SIZE, self.TILE_SIZE))
 
 class Cow(object):
-    def __init__(self, tileset):
-        self.tileset = tileset
+    def __init__(self, tile_set, screen):
+        self.tile_set = tile_set
+        self.screen = screen
         self.pos = (0, 0)
 
     def draw(self, surface):
-        tile_set.blit_tile(screen, COW_TILE, self.pos)
+        self.tile_set.blit_tile(surface, COW_TILE, self.pos)
     
     def move(self, dx, dy):
+        screen = self.screen
         new_pos_x = self.pos[0] + dx
         new_pos_y = self.pos[1] + dy
         if (new_pos_x >= 0 and new_pos_y >= 0 and new_pos_x < screen.get_width()/32 and new_pos_y < screen.get_height()/32): 
@@ -47,13 +49,13 @@ def handle_input(cow):
         if ev.key == K_ESCAPE:
             sys.exit(0)
 
-if __name__ == '__main__':
+def main():
     screen = pygame.display.set_mode((640, 480))
     pygame.display.init()
 
     tile_set = TileSet()
     the_map = generate_map(tile_set)
-    cow = Cow(tile_set)
+    cow = Cow(tile_set, screen)
     
     running = True
     while running:
@@ -64,3 +66,6 @@ if __name__ == '__main__':
         cow.draw(screen)
 
         pygame.display.flip()
+
+if __name__ == '__main__':
+    main()
