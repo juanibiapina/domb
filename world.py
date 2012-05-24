@@ -8,8 +8,11 @@ class Spot(object):
     def __init__(self, tile_index):
         self.tile_index = tile_index
 
+    def draw(self, screen, tileset, pos):
+        tileset.blit_tile(screen, self.tile_index, pos)
 
-class GameMap(object):
+
+class World(object):
     def __init__(self, data, obstacles, tile_set):
         self._data = data
         self._obstacles = obstacles
@@ -17,16 +20,16 @@ class GameMap(object):
 
     def draw(self, screen):
         for pos, spot in self._data.iteritems():
-            self._tile_set.blit_tile(screen, spot.tile_index, pos)
+            spot.draw(screen, self._tile_set, pos)
         for pos, spot in self._obstacles.iteritems():
-            self._tile_set.blit_tile(screen, spot.tile_index, pos)
+            spot.draw(screen, self._tile_set, pos)
 
     def walkable(self, x, y):
         return (x, y) in self._data.keys() and (x, y) not in self._obstacles.keys()
 
 
-def generate_map(tile_set):
-    return GameMap(generate_rectangle(20, 15, GROUND_TILE), generate_obstacles(20, 15), tile_set)
+def generate_world(tile_set):
+    return World(generate_rectangle(20, 15, GROUND_TILE), generate_obstacles(20, 15), tile_set)
 
 
 def generate_rectangle(width, height, tile):
