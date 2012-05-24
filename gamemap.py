@@ -1,6 +1,6 @@
 GROUND_TILE = (9, 31)
 
-class Map(object):
+class GameMap(object):
     def __init__(self, data, tile_set):
         self._data = data
         self._tile_set = tile_set
@@ -13,7 +13,7 @@ class Map(object):
         return (x, y) in self._data.keys()
 
 def generate_map(tile_set):
-    return Map(generate_square(10, GROUND_TILE), tile_set)
+    return GameMap(generate_square(10, GROUND_TILE), tile_set)
 
 def generate_square(size, tile):
     square = {}
