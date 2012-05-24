@@ -19,21 +19,20 @@ class GameMap(object):
         return (x, y) in self._data.keys()
 
 def generate_map(tile_set):
-    return GameMap(generate_square(10, GROUND_TILE), generate_obstacles(10), tile_set)
+    return GameMap(generate_rectangle(15, 10, GROUND_TILE), generate_obstacles(15, 10), tile_set)
 
-def generate_square(size, tile):
-    square = {}
-    for i in xrange(size):
-      for j in xrange(size):
-        square[(i,j)] = tile
-    return square
+def generate_rectangle(width, height, tile):
+    rect = {}
+    for i in xrange(width):
+      for j in xrange(height):
+        rect[(i,j)] = tile
+    return rect
 
-def generate_obstacles(size):
+def generate_obstacles(width, height):
     obstacles = {}
-    for i in xrange(size):
-        for j in xrange(size):
+    for i in xrange(width):
+        for j in xrange(height):
             if(random.randint(0,10) < 3):
                 obstacles[(i,j)] = HOLE_TILE
 
     return obstacles 
-
