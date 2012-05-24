@@ -24,7 +24,10 @@ class Cow(object):
         tile_set.blit_tile(screen, COW_TILE, self.pos)
     
     def move(self, dx, dy):
-        self.pos = self.pos[0] + dx, self.pos[1] + dy
+        new_pos_x = self.pos[0] + dx
+        new_pos_y = self.pos[1] + dy
+        if (new_pos_x >= 0 and new_pos_y >= 0 and new_pos_x < screen.get_width()/32 and new_pos_y < screen.get_height()/32): 
+            self.pos = new_pos_x, new_pos_y
 
 class Map(object):
     def __init__(self, data):
