@@ -4,7 +4,7 @@ import time
 import sys
 import random
 
-from map import *
+from gamemap import *
 
 COW_TILE = (5, 4)
 HUNTER_TILE = (18, 16)
