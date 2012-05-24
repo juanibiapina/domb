@@ -22,34 +22,34 @@ class TileSet(object):
                             Rect(x, y, self.TILE_SIZE, self.TILE_SIZE))
 
 class Cow(object):
-    def __init__(self, tile_set, screen):
+    def __init__(self, tile_set, the_map):
         self.tile_set = tile_set
-        self.screen = screen
+        self.the_map = the_map
         self.pos = (0, 0)
 
     def draw(self, surface):
         self.tile_set.blit_tile(surface, COW_TILE, self.pos)
     
     def move(self, dx, dy):
-        screen = self.screen
         new_pos_x = self.pos[0] + dx
         new_pos_y = self.pos[1] + dy
-        if (new_pos_x >= 0 and new_pos_y >= 0 and new_pos_x < screen.get_width()/32 and new_pos_y < screen.get_height()/32): 
+        
+        if (self.the_map.walkable(new_pos_x, new_pos_y)):
             self.pos = new_pos_x, new_pos_y
 
 class Hunter(object):
-    def __init__(self, tileset, screen):
+    def __init__(self, tileset, the_map):
         self.tileset = tileset
-        self.screen = screen
+        self.the_map = the_map
         self.pos = (7, 7)
 
     def draw(self, surface):
-        self.tileset.blit_tile(self.screen, HUNTER_TILE, self.pos)
+        self.tileset.blit_tile(surface, HUNTER_TILE, self.pos)
     
     def move(self, dx, dy):
         new_pos_x = self.pos[0] + dx
         new_pos_y = self.pos[1] + dy
-        if (new_pos_x >= 0 and new_pos_y >= 0 and new_pos_x < self.screen.get_width()/32 and new_pos_y < self.screen.get_height()/32): 
+        if (self.the_map.walkable(new_pos_x, new_pos_y)): 
             self.pos = new_pos_x, new_pos_y
 
 def handle_input(cow, hunter):
@@ -73,9 +73,10 @@ def main():
 
     tile_set = TileSet()
     the_map = generate_map(tile_set)
-    cow = Cow(tile_set, screen)
-    hunter = Hunter(tile_set, screen)
 
+    cow = Cow(tile_set, the_map)
+    hunter = Hunter(tile_set, the_map)
+    
     running = True
     while running:
         handle_input(cow, hunter)
