@@ -3,7 +3,7 @@ import pygame
 import time
 import sys
 
-from map import *
+from gamemap import *
 
 COW_TILE = (5, 4)
 
