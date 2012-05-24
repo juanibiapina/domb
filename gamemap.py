@@ -21,7 +21,7 @@ class GameMap(object):
 
 
 def generate_map(tile_set):
-    return GameMap(generate_rectangle(15, 10, GROUND_TILE), generate_obstacles(15, 10), tile_set)
+    return GameMap(generate_rectangle(20, 15, GROUND_TILE), generate_obstacles(20, 15), tile_set)
 
 
 def generate_rectangle(width, height, tile):
