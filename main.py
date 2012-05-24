@@ -3,7 +3,8 @@ import pygame
 import time
 import sys
 
-GROUND_TILE = (9, 31)
+from map import *
+
 COW_TILE = (5, 4)
 
 class TileSet(object):
@@ -32,14 +33,6 @@ class Cow(object):
         if (new_pos_x >= 0 and new_pos_y >= 0 and new_pos_x < screen.get_width()/32 and new_pos_y < screen.get_height()/32): 
             self.pos = new_pos_x, new_pos_y
 
-class Map(object):
-    def __init__(self, data):
-        self._data = data
-
-    def draw(self, screen):
-        for pos, tile in self._data.iteritems():
-            tile_set.blit_tile(screen, tile, pos)
-
 def handle_input(cow):
     ev = pygame.event.poll()
     if ev.type == KEYUP:
@@ -58,8 +51,8 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((640, 480))
     pygame.display.init()
 
-    the_map = Map(dict(((i, 0), GROUND_TILE) for i in range(10)))
     tile_set = TileSet()
+    the_map = generate_map(tile_set)
     cow = Cow(tile_set)
     
     running = True
