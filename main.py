@@ -1,9 +1,11 @@
-from pygame.locals import *
+from pygame.rect import Rect
+from pygame.locals import KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE
+
 import pygame
 import sys
 import random
 
-from gamemap import *
+from gamemap import generate_map
 
 COW_TILE = (5, 4)
 HUNTER_TILE = (18, 16)
@@ -34,7 +36,6 @@ class Cow(object):
     def move(self, dx, dy):
         new_pos_x = self.pos[0] + dx
         new_pos_y = self.pos[1] + dy
-
         if (self.game_map.walkable(new_pos_x, new_pos_y)):
             self.pos = new_pos_x, new_pos_y
 
