@@ -13,10 +13,7 @@ class Entity(object):
         tile_set.blit_tile(screen, self.tile_index, pos)
 
     def get_attribute(self, attribute):
-        if attribute in self.attributes:
-            return self.attributes[attribute]
-        else:
-            return None
+        return self.attributes.get(attribute, None)
 
 
 class Spot(object):
@@ -71,5 +68,5 @@ def generate_obstacles(width, height):
     for i in xrange(width):
         for j in xrange(height):
             if(random.randint(0, 10) < 1):
-                obstacles[(i, j)] = Entity(HOLE_TILE, walkable=False)
+                obstacles[(i, j)] = Entity(HOLE_TILE)
     return obstacles
