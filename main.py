@@ -2,9 +2,11 @@ from pygame.locals import *
 import pygame
 import time
 import sys
+import random
 
 GROUND_TILE = (9, 31)
 COW_TILE = (5, 4)
+HUNTER_TILE = (18, 16)
 
 class TileSet(object):
     TILE_SIZE = 32
@@ -25,6 +27,20 @@ class Cow(object):
 
     def draw(self, surface):
         tile_set.blit_tile(screen, COW_TILE, self.pos)
+    
+    def move(self, dx, dy):
+        new_pos_x = self.pos[0] + dx
+        new_pos_y = self.pos[1] + dy
+        if (new_pos_x >= 0 and new_pos_y >= 0 and new_pos_x < screen.get_width()/32 and new_pos_y < screen.get_height()/32): 
+            self.pos = new_pos_x, new_pos_y
+
+class Hunter(object):
+    def __init__(self, tileset):
+        self.tileset = tileset
+        self.pos = (7, 7)
+
+    def draw(self, surface):
+        tile_set.blit_tile(screen, HUNTER_TILE, self.pos)
     
     def move(self, dx, dy):
         new_pos_x = self.pos[0] + dx
@@ -53,14 +69,16 @@ def handle_input(cow):
             cow.move(1, 0)
         if ev.key == K_ESCAPE:
             sys.exit(0)
+        hunter.move(random.randint(-1, 1), random.randint(-1, 1))
 
 if __name__ == '__main__':
     screen = pygame.display.set_mode((640, 480))
     pygame.display.init()
 
-    the_map = Map(dict(((i, 0), GROUND_TILE) for i in range(10)))
+    the_map = Map(dict(((i, j), GROUND_TILE) for i in range(screen.get_width()/32) for j in range(screen.get_height()/32)))
     tile_set = TileSet()
     cow = Cow(tile_set)
+    hunter = Hunter(tile_set)
     
     running = True
     while running:
@@ -69,5 +87,6 @@ if __name__ == '__main__':
         screen.fill((0,0,0))
         the_map.draw(screen)
         cow.draw(screen)
+        hunter.draw(screen)
 
         pygame.display.flip()
