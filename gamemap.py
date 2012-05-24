@@ -16,7 +16,7 @@ class GameMap(object):
             self._tile_set.blit_tile(screen, tile, pos)
 
     def walkable(self, x, y):
-        return (x, y) in self._data.keys()
+        return (x, y) in self._data.keys() and (x,y) not in self._obstacles.keys()
 
 def generate_map(tile_set):
     return GameMap(generate_rectangle(15, 10, GROUND_TILE), generate_obstacles(15, 10), tile_set)
@@ -32,7 +32,7 @@ def generate_obstacles(width, height):
     obstacles = {}
     for i in xrange(width):
         for j in xrange(height):
-            if(random.randint(0,10) < 3):
+            if(random.randint(0,10) < 2):
                 obstacles[(i,j)] = HOLE_TILE
 
     return obstacles 
