@@ -13,4 +13,11 @@ class Map(object):
         return (x, y) in self._data.keys()
 
 def generate_map(tile_set):
-    return Map(dict(((i, 0), GROUND_TILE) for i in range(10)), tile_set)
+    return Map(generate_square(10, GROUND_TILE), tile_set)
+
+def generate_square(size, tile):
+    square = {}
+    for i in xrange(size):
+      for j in xrange(size):
+        square[(i,j)] = tile
+    return square
