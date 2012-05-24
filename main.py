@@ -7,13 +7,16 @@ GROUND_TILE = (9, 31)
 COW_TILE = (5, 4)
 
 class TileSet(object):
+    TILE_SIZE = 32
+    
     def __init__(self):
         self.tiles_image = pygame.image.load('tileset.png')
 
     def blit_tile(self, target_surface, tile_index, dest):
-        x, y = map(lambda coord: coord*32, tile_index)
-        transformed_dest = map(lambda coord: coord*32, dest)
-        target_surface.blit(self.tiles_image, transformed_dest, Rect(x, y, 32, 32))
+        x, y = map(lambda coord: coord*self.TILE_SIZE, tile_index)
+        transformed_dest = map(lambda coord: coord*self.TILE_SIZE, dest)
+        target_surface.blit(self.tiles_image, transformed_dest, 
+                            Rect(x, y, self.TILE_SIZE, self.TILE_SIZE))
 
 class Cow(object):
     def __init__(self, tileset):
