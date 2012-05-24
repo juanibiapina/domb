@@ -20,19 +20,20 @@ class TileSet(object):
                             Rect(x, y, self.TILE_SIZE, self.TILE_SIZE))
 
 class Cow(object):
-    def __init__(self, tile_set, screen):
+    def __init__(self, tile_set, the_map):
         self.tile_set = tile_set
-        self.screen = screen
+        self.the_map = the_map
         self.pos = (0, 0)
 
     def draw(self, surface):
         self.tile_set.blit_tile(surface, COW_TILE, self.pos)
     
     def move(self, dx, dy):
-        screen = self.screen
+        the_map = self.the_map
         new_pos_x = self.pos[0] + dx
         new_pos_y = self.pos[1] + dy
-        if (new_pos_x >= 0 and new_pos_y >= 0 and new_pos_x < screen.get_width()/32 and new_pos_y < screen.get_height()/32): 
+        
+        if (self.the_map.walkable(new_pos_x, new_pos_y)):
             self.pos = new_pos_x, new_pos_y
 
 def handle_input(cow):
@@ -55,7 +56,7 @@ def main():
 
     tile_set = TileSet()
     the_map = generate_map(tile_set)
-    cow = Cow(tile_set, screen)
+    cow = Cow(tile_set, the_map)
     
     running = True
     while running:

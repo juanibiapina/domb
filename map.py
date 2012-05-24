@@ -9,5 +9,8 @@ class Map(object):
         for pos, tile in self._data.iteritems():
             self._tile_set.blit_tile(screen, tile, pos)
 
+    def walkable(self, x, y):
+        return (x, y) in self._data.keys()
+
 def generate_map(tile_set):
-  return Map(dict(((i, 0), GROUND_TILE) for i in range(10)), tile_set)
+    return Map(dict(((i, 0), GROUND_TILE) for i in range(10)), tile_set)
