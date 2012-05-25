@@ -16,8 +16,8 @@ class Range(object):
         return randint(self.min, self.max)
     
 class Room(object):
-    ROOM_SIZE = Range(2, 50)
-    ROOM_DISTANCE = Range(10, 50)
+    ROOM_SIZE = Range(4, 50)
+    ROOM_DISTANCE = Range(10, 20)
 
 
     def __init__(self, pos):
@@ -32,13 +32,31 @@ class Room(object):
         new_room.boundary.left = self.boundary.right + self.ROOM_DISTANCE.random()
         return new_room
 
+    def create_new_room_at_west(self):
+        new_room = Room(self.boundary.center)
+        new_room.boundary.right = self.boundary.left - self.ROOM_DISTANCE.random()
+        return new_room
+
+    def create_new_room_at_north(self):
+        new_room = Room(self.boundary.center)
+        new_room.boundary.bottom = self.boundary.top - self.ROOM_DISTANCE.random()
+        return new_room
+
+    def create_new_room_at_south(self):
+        new_room = Room(self.boundary.center)
+        new_room.boundary.top = self.boundary.bottom + self.ROOM_DISTANCE.random()
+        return new_room
+
+
 def generate_rooms():
     room_list = []
     room = Room(AREA.center)
-    new_room = room.create_new_room_at_east()
-
+    
     room_list.append(room)
-    room_list.append(new_room)
+    room_list.append(room.create_new_room_at_east())
+    room_list.append(room.create_new_room_at_west())
+    room_list.append(room.create_new_room_at_south())
+    room_list.append(room.create_new_room_at_north())
 
     return room_list
 
