@@ -5,7 +5,7 @@ import pygame
 import sys
 import random
 
-from world import generate_world
+from dungeon import generate_dungeon
 
 COW_TILE = (5, 4)
 HUNTER_TILE = (18, 16)
@@ -77,7 +77,7 @@ def main():
     pygame.display.init()
 
     tile_set = TileSet()
-    game_map = generate_world(tile_set)
+    game_map = generate_dungeon(tile_set)
 
     cow = Cow(tile_set, game_map)
     hunter = Hunter(tile_set, game_map)

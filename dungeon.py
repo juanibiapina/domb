@@ -31,7 +31,7 @@ class Spot(object):
         return reduce(lambda a, b: a and b, [entity.get_attribute('walkable') for entity in self.entities])
 
 
-class World(object):
+class Dungeon(object):
     def __init__(self, data, tile_set):
         self._data = data
         self._tile_set = tile_set
@@ -47,12 +47,12 @@ class World(object):
             return False
 
 
-def generate_world(tile_set):
+def generate_dungeon(tile_set):
     world_data = generate_rectangle(20, 15, GROUND_TILE)
     obstacles = generate_obstacles(20, 15)
     for tile_index, obstacle in obstacles.items():
         world_data[tile_index].add_entity(obstacle)
-    return World(world_data, tile_set)
+    return Dungeon(world_data, tile_set)
 
 
 def generate_rectangle(width, height, tile):
