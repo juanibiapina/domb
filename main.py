@@ -6,9 +6,7 @@ import sys
 import random
 
 from dungeon import generate_dungeon
-
-COW_TILE = (5, 4)
-HUNTER_TILE = (18, 16)
+from character import Cow, Hunter
 
 
 class TileSet(object):
@@ -22,38 +20,6 @@ class TileSet(object):
         transformed_dest = map(lambda coord: coord * self.TILE_SIZE, dest)
         target_surface.blit(self.tiles_image, transformed_dest,
                             Rect(x, y, self.TILE_SIZE, self.TILE_SIZE))
-
-
-class Cow(object):
-    def __init__(self, tile_set, dungeon):
-        self.tile_set = tile_set
-        self.dungeon = dungeon
-        self.pos = (0, 0)
-
-    def draw(self, surface):
-        self.tile_set.blit_tile(surface, COW_TILE, self.pos)
-
-    def move(self, dx, dy):
-        new_pos_x = self.pos[0] + dx
-        new_pos_y = self.pos[1] + dy
-        if (self.dungeon.walkable(new_pos_x, new_pos_y)):
-            self.pos = new_pos_x, new_pos_y
-
-
-class Hunter(object):
-    def __init__(self, tileset, dungeon):
-        self.tileset = tileset
-        self.dungeon = dungeon
-        self.pos = (7, 7)
-
-    def draw(self, surface):
-        self.tileset.blit_tile(surface, HUNTER_TILE, self.pos)
-
-    def move(self, dx, dy):
-        new_pos_x = self.pos[0] + dx
-        new_pos_y = self.pos[1] + dy
-        if (self.dungeon.walkable(new_pos_x, new_pos_y)):
-            self.pos = new_pos_x, new_pos_y
 
 
 def handle_input(cow, hunter):
@@ -79,8 +45,8 @@ def main():
     tile_set = TileSet()
     dungeon = generate_dungeon(tile_set)
 
-    cow = Cow(tile_set, dungeon)
-    hunter = Hunter(tile_set, dungeon)
+    cow = Cow(dungeon)
+    hunter = Hunter(dungeon)
 
     running = True
     while running:
@@ -88,8 +54,8 @@ def main():
 
         screen.fill((0, 0, 0))
         dungeon.draw(screen)
-        cow.draw(screen)
-        hunter.draw(screen)
+        cow.draw(screen, tile_set)
+        hunter.draw(screen, tile_set)
 
         pygame.display.flip()
 
