@@ -25,9 +25,9 @@ class TileSet(object):
 
 
 class Cow(object):
-    def __init__(self, tile_set, game_map):
+    def __init__(self, tile_set, dungeon):
         self.tile_set = tile_set
-        self.game_map = game_map
+        self.dungeon = dungeon
         self.pos = (0, 0)
 
     def draw(self, surface):
@@ -36,14 +36,14 @@ class Cow(object):
     def move(self, dx, dy):
         new_pos_x = self.pos[0] + dx
         new_pos_y = self.pos[1] + dy
-        if (self.game_map.walkable(new_pos_x, new_pos_y)):
+        if (self.dungeon.walkable(new_pos_x, new_pos_y)):
             self.pos = new_pos_x, new_pos_y
 
 
 class Hunter(object):
-    def __init__(self, tileset, game_map):
+    def __init__(self, tileset, dungeon):
         self.tileset = tileset
-        self.game_map = game_map
+        self.dungeon = dungeon
         self.pos = (7, 7)
 
     def draw(self, surface):
@@ -52,7 +52,7 @@ class Hunter(object):
     def move(self, dx, dy):
         new_pos_x = self.pos[0] + dx
         new_pos_y = self.pos[1] + dy
-        if (self.game_map.walkable(new_pos_x, new_pos_y)):
+        if (self.dungeon.walkable(new_pos_x, new_pos_y)):
             self.pos = new_pos_x, new_pos_y
 
 
@@ -77,17 +77,17 @@ def main():
     pygame.display.init()
 
     tile_set = TileSet()
-    game_map = generate_dungeon(tile_set)
+    dungeon = generate_dungeon(tile_set)
 
-    cow = Cow(tile_set, game_map)
-    hunter = Hunter(tile_set, game_map)
+    cow = Cow(tile_set, dungeon)
+    hunter = Hunter(tile_set, dungeon)
 
     running = True
     while running:
         handle_input(cow, hunter)
 
         screen.fill((0, 0, 0))
-        game_map.draw(screen)
+        dungeon.draw(screen)
         cow.draw(screen)
         hunter.draw(screen)
 
