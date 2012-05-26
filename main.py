@@ -46,7 +46,7 @@ def main():
     pygame.display.init()
 
     tile_set = TileSet()
-    dungeon = generate_dungeon(tile_set)
+    dungeon = generate_dungeon()
 
     cow = Character(COW_TILE, dungeon)
     hunter = Character(HUNTER_TILE, dungeon)
@@ -56,7 +56,7 @@ def main():
         handle_input(cow, hunter)
 
         screen.fill((0, 0, 0))
-        dungeon.draw(screen)
+        dungeon.draw(screen, tile_set)
         cow.draw(screen, tile_set)
         hunter.draw(screen, tile_set)
 

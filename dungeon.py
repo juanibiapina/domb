@@ -32,13 +32,12 @@ class Spot(object):
 
 
 class Dungeon(object):
-    def __init__(self, data, tile_set):
+    def __init__(self, data):
         self._data = data
-        self._tile_set = tile_set
 
-    def draw(self, screen):
+    def draw(self, screen, tile_set):
         for pos, spot in self._data.iteritems():
-            spot.draw(screen, self._tile_set, pos)
+            spot.draw(screen, tile_set, pos)
 
     def walkable(self, x, y):
         if (x, y) in self._data:
@@ -47,12 +46,12 @@ class Dungeon(object):
             return False
 
 
-def generate_dungeon(tile_set):
+def generate_dungeon():
     world_data = generate_rectangle(20, 15, GROUND_TILE)
     obstacles = generate_obstacles(20, 15)
     for tile_index, obstacle in obstacles.items():
         world_data[tile_index].add_entity(obstacle)
-    return Dungeon(world_data, tile_set)
+    return Dungeon(world_data)
 
 
 def generate_rectangle(width, height, tile):
