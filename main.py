@@ -6,7 +6,10 @@ import sys
 import random
 
 from dungeon import generate_dungeon
-from character import Cow, Hunter
+from character import Character
+
+COW_TILE = (5, 4)
+HUNTER_TILE = (18, 16)
 
 
 class TileSet(object):
@@ -45,8 +48,8 @@ def main():
     tile_set = TileSet()
     dungeon = generate_dungeon(tile_set)
 
-    cow = Cow(dungeon)
-    hunter = Hunter(dungeon)
+    cow = Character(COW_TILE, dungeon)
+    hunter = Character(HUNTER_TILE, dungeon)
 
     running = True
     while running:
