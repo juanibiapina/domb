@@ -1,4 +1,4 @@
-import random
+from random import randint
 
 GROUND_TILE = (9, 31)
 HOLE_TILE = (13, 32)
@@ -46,26 +46,30 @@ class Dungeon(object):
             return False
 
 
+class DungeonBuilder(object):
+    def __init__(self):
+        self.data = {}
+
+    def add_rectangle(self, posx, posy, width, height, entity):
+        for i in xrange(width):
+            for j in xrange(height):
+                coord = (posx + i, posy + j)
+                if coord in self.data:
+                    self.data[coord].add_entity(entity)
+                else:
+                    self.data[coord] = Spot(entity)
+
+    def add_obstacles(self):
+        for spot in self.data.values():
+            if randint(0, 10) < 1:
+                spot.add_entity(Entity(HOLE_TILE))
+
+    def get_dungeon(self):
+        return Dungeon(self.data)
+
+
 def generate_dungeon():
-    world_data = generate_rectangle(20, 15, GROUND_TILE)
-    obstacles = generate_obstacles(20, 15, HOLE_TILE)
-    for tile_index, obstacle in obstacles.items():
-        world_data[tile_index].add_entity(obstacle)
-    return Dungeon(world_data)
-
-
-def generate_rectangle(width, height, tile):
-    rect = {}
-    for i in xrange(width):
-        for j in xrange(height):
-            rect[(i, j)] = Spot(Entity(tile, walkable=True))
-    return rect
-
-
-def generate_obstacles(width, height, tile):
-    obstacles = {}
-    for i in xrange(width):
-        for j in xrange(height):
-            if(random.randint(0, 10) < 1):
-                obstacles[(i, j)] = Entity(tile)
-    return obstacles
+    builder = DungeonBuilder()
+    builder.add_rectangle(0, 0, 20, 15, Entity(GROUND_TILE, walkable=True))
+    builder.add_obstacles()
+    return builder.get_dungeon()
