@@ -70,6 +70,16 @@ class DungeonBuilder(object):
 
 def generate_dungeon():
     builder = DungeonBuilder()
-    builder.add_rectangle(0, 0, 20, 15, Entity(GROUND_TILE, walkable=True))
+    # random rooms!
+    builder.add_rectangle(2, 2, 4, 6, Entity(GROUND_TILE, walkable=True))
+    builder.add_rectangle(8, 2, 6, 3, Entity(GROUND_TILE, walkable=True))
+    builder.add_rectangle(7, 6, 12, 6, Entity(GROUND_TILE, walkable=True))
+
+    # obstacles
     builder.add_obstacles()
+
+    # random corridors
+    builder.add_rectangle(6, 3, 2, 1, Entity(GROUND_TILE, walkable=True))
+    builder.add_rectangle(10, 5, 1, 1, Entity(GROUND_TILE, walkable=True))
+
     return builder.get_dungeon()
