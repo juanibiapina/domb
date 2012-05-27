@@ -2,11 +2,11 @@ from pygame.locals import KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE
 
 import pygame
 import sys
-import random
 
 from area import generate_dungeon
 from character import Character
 from tileset import TileSet
+from ai import RandomAI
 
 COW_TILE = (5, 4)
 HUNTER_TILE = (18, 16)
@@ -25,7 +25,7 @@ def handle_input(cow, hunter):
             cow.move(1, 0)
         if ev.key == K_ESCAPE:
             sys.exit(0)
-        hunter.move(random.randint(-1, 1), random.randint(-1, 1))
+        hunter.update()
 
 
 def main():
@@ -37,12 +37,14 @@ def main():
 
     cow = Character(COW_TILE, dungeon)
     hunter = Character(HUNTER_TILE, dungeon)
+    hunter.set_ai(RandomAI())
 
     running = True
     while running:
         handle_input(cow, hunter)
 
         screen.fill((0, 0, 0))
+
         dungeon.draw(screen, tile_set)
         cow.draw(screen, tile_set)
         hunter.draw(screen, tile_set)
