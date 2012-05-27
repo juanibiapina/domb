@@ -10,6 +10,7 @@ from ai import RandomAI
 
 COW_TILE = (5, 4)
 HUNTER_TILE = (18, 16)
+WOLF_TILE = (6, 1)
 
 
 def handle_input(cow, hunter):
@@ -35,8 +36,12 @@ def main():
     tile_set = TileSet()
     dungeon = generate_dungeon()
 
+    # create characters
+    wolf = Character(WOLF_TILE, dungeon)
     cow = Character(COW_TILE, dungeon)
     hunter = Character(HUNTER_TILE, dungeon)
+
+    # set character AI
     hunter.set_ai(RandomAI())
 
     running = True
@@ -48,6 +53,7 @@ def main():
         dungeon.draw(screen, tile_set)
         cow.draw(screen, tile_set)
         hunter.draw(screen, tile_set)
+        wolf.draw(screen, tile_set)
 
         pygame.display.flip()
 
