@@ -6,6 +6,7 @@ class Character(object):
         self.tile_index = tile_index
         self.dungeon = dungeon
         self.pos = dungeon.get_random_position()
+        self.dungeon.add_character(self, self.pos)
         self.ai = None
         self.hp = 2  # cat hp
 
@@ -16,6 +17,7 @@ class Character(object):
         new_pos_x = self.pos[0] + dx
         new_pos_y = self.pos[1] + dy
         if (self.dungeon.walkable(new_pos_x, new_pos_y)):
+            self.dungeon.update_character_position(self.pos, (new_pos_x, new_pos_y))
             self.pos = new_pos_x, new_pos_y
 
     def set_ai(self, ai):

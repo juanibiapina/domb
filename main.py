@@ -52,15 +52,6 @@ def main():
     # set character AI
     hunter.set_ai(RandomAI())
 
-    # add characters to dungeon
-    dungeon.add_character(cat)
-    dungeon.add_character(hunter)
-    dungeon.add_character(wolf)
-    dungeon.add_character(chest)
-
-    # add player character
-    dungeon.add_character(cow)
-
     running = True
     while running:
         run_turn = handle_input(cow, hunter, cat)

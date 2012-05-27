@@ -34,7 +34,7 @@ class Spot(object):
 class Area(object):
     def __init__(self, mapdata):
         self._data = mapdata
-        self.characters = []
+        self.characters = {}
 
     def get_random_position(self):
         return choice(self._data.keys())
@@ -42,24 +42,31 @@ class Area(object):
     def draw(self, screen, tile_set):
         for pos, spot in self._data.iteritems():
             spot.draw(screen, tile_set, pos)
-        for character in self.characters:
+        for pos, character in self.characters.iteritems():
             character.draw(screen, tile_set)
 
     def walkable(self, x, y):
         if (x, y) in self._data:
-            return self._data[(x, y)].is_walkable()
+            return (x, y) not in self.characters and self._data[(x, y)].is_walkable()
         else:
             return False
 
     def run_turn(self):
-        for character in self.characters:
+        for pos, character in self.characters.iteritems():
             character.run_turn()
 
-    def add_character(self, character):
-        self.characters.append(character)
+    def add_character(self, character, pos):
+        self.characters[pos] = character
 
     def remove_character(self, character):
-        self.characters.remove(character)
+        for pos, c in self.characters.iteritems():
+            if c == character:
+                self.characters.pop(pos)
+
+    def update_character_position(self, old, new):
+        print self.characters
+        self.characters[new] = self.characters[old]
+        self.characters.pop(old)
 
 
 class DungeonBuilder(object):
