@@ -2,11 +2,11 @@ from d20 import roll
 
 
 class Character(object):
-    def __init__(self, tile_index, dungeon):
+    def __init__(self, tile_index, area):
         self.tile_index = tile_index
-        self.dungeon = dungeon
-        self.pos = dungeon.get_random_position()
-        self.dungeon.add_character(self, self.pos)
+        self.area = area
+        self.pos = area.get_random_position()
+        self.area.add_character(self, self.pos)
         self.ai = None
         self.hp = 2  # cat hp
 
@@ -16,8 +16,8 @@ class Character(object):
     def move(self, dx, dy):
         new_pos_x = self.pos[0] + dx
         new_pos_y = self.pos[1] + dy
-        if (self.dungeon.walkable(new_pos_x, new_pos_y)):
-            self.dungeon.update_character_position(self.pos, (new_pos_x, new_pos_y))
+        if (self.area.walkable(new_pos_x, new_pos_y)):
+            self.area.update_character_position(self.pos, (new_pos_x, new_pos_y))
             self.pos = new_pos_x, new_pos_y
 
     def set_ai(self, ai):
@@ -25,7 +25,7 @@ class Character(object):
 
     def run_turn(self):
         if self.is_incapacitated():
-            self.dungeon.remove_character(self)
+            self.area.remove_character(self)
         else:
             if self.ai:
                 self.ai.update(self)
