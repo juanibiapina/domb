@@ -4,6 +4,7 @@ class Character(object):
         self.dungeon = dungeon
         self.pos = dungeon.get_random_position()
         self.ai = None
+        self.hp = 2
 
     def draw(self, surface, tile_set):
         tile_set.blit_tile(surface, self.tile_index, self.pos)

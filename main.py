@@ -1,4 +1,4 @@
-from pygame.locals import KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE
+from pygame.locals import KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE, K_a
 
 import pygame
 import sys
@@ -7,6 +7,7 @@ from area import generate_dungeon
 from character import Character
 from tileset import TileSet
 from ai import RandomAI
+from d20 import resolve_attack
 
 COW_TILE = (5, 4)
 HUNTER_TILE = (18, 16)
@@ -15,7 +16,7 @@ CAT_TILE = (28, 1)
 CHEST_TILE = (30, 16)
 
 
-def handle_input(cow, hunter):
+def handle_input(cow, hunter, cat):
     ev = pygame.event.poll()
     if ev.type == KEYUP:
         if ev.key == K_DOWN:
@@ -28,6 +29,8 @@ def handle_input(cow, hunter):
             cow.move(1, 0)
         if ev.key == K_ESCAPE:
             sys.exit(0)
+        if ev.key == K_a:
+            resolve_attack(cow, cat)
         hunter.update()
 
 
@@ -50,7 +53,7 @@ def main():
 
     running = True
     while running:
-        handle_input(cow, hunter)
+        handle_input(cow, hunter, cat)
 
         screen.fill((0, 0, 0))
 
