@@ -31,7 +31,7 @@ class Spot(object):
         return reduce(lambda a, b: a and b, [entity.get_attribute('walkable') for entity in self.entities])
 
 
-class Dungeon(object):
+class Area(object):
     def __init__(self, data):
         self._data = data
 
@@ -65,7 +65,7 @@ class DungeonBuilder(object):
                 spot.add_entity(Entity(HOLE_TILE))
 
     def get_dungeon(self):
-        return Dungeon(self.data)
+        return Area(self.data)
 
 
 def generate_dungeon():

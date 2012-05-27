@@ -4,7 +4,7 @@ import pygame
 import sys
 import random
 
-from dungeon import generate_dungeon
+from area import generate_dungeon
 from character import Character
 from tileset import TileSet
 
