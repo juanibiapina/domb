@@ -1,4 +1,3 @@
-from pygame.rect import Rect
 from pygame.locals import KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE
 
 import pygame
@@ -7,22 +6,10 @@ import random
 
 from dungeon import generate_dungeon
 from character import Character
+from tileset import TileSet
 
 COW_TILE = (5, 4)
 HUNTER_TILE = (18, 16)
-
-
-class TileSet(object):
-    TILE_SIZE = 32
-
-    def __init__(self):
-        self.tiles_image = pygame.image.load('tileset.png')
-
-    def blit_tile(self, target_surface, tile_index, dest):
-        x, y = map(lambda coord: coord * self.TILE_SIZE, tile_index)
-        transformed_dest = map(lambda coord: coord * self.TILE_SIZE, dest)
-        target_surface.blit(self.tiles_image, transformed_dest,
-                            Rect(x, y, self.TILE_SIZE, self.TILE_SIZE))
 
 
 def handle_input(cow, hunter):
