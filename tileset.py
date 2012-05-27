@@ -5,8 +5,8 @@ from pygame.rect import Rect
 class TileSet(object):
     TILE_SIZE = 32
 
-    def __init__(self):
-        self.tiles_image = pygame.image.load('tileset.png')
+    def __init__(self, file):
+        self.tiles_image = pygame.image.load(file)
 
     def blit_tile(self, target_surface, tile_index, dest):
         x, y = map(lambda coord: coord * self.TILE_SIZE, tile_index)

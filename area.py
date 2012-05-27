@@ -63,8 +63,10 @@ class Area(object):
             if c == character:
                 self.characters.pop(pos)
 
+    def get_character_at(self, pos):
+        return self.characters.get(pos, None)
+
     def update_character_position(self, old, new):
-        print self.characters
         self.characters[new] = self.characters[old]
         self.characters.pop(old)
 

@@ -1,4 +1,7 @@
-from d20 import roll
+from d20 import roll, resolve_attack
+from tileset import TileSet
+
+BLOOD_TILE_INDEX = (1, 1)
 
 
 class Character(object):
@@ -9,9 +12,13 @@ class Character(object):
         self.area.add_character(self, self.pos)
         self.ai = None
         self.hp = 2  # cat hp
+        self.blood_tile_set = TileSet("blood.png")
 
     def draw(self, surface, tile_set):
         tile_set.blit_tile(surface, self.tile_index, self.pos)
+        if self.is_incapacitated():
+            self.blood_tile_set.blit_tile(surface, BLOOD_TILE_INDEX, self.pos)
+            pass
 
     def move(self, dx, dy):
         new_pos_x = self.pos[0] + dx
@@ -24,9 +31,7 @@ class Character(object):
         self.ai = ai
 
     def run_turn(self):
-        if self.is_incapacitated():
-            self.area.remove_character(self)
-        else:
+        if not self.is_incapacitated():
             if self.ai:
                 self.ai.update(self)
 
@@ -44,3 +49,8 @@ class Character(object):
 
     def damage(self, damage):
         self.hp -= damage
+
+    def attack(self, direction):
+        target = self.area.get_character_at((self.pos[0] + direction[0], self.pos[1] + direction[1]))
+        if target:
+            resolve_attack(self, target)

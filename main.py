@@ -7,7 +7,6 @@ from area import generate_dungeon
 from character import Character
 from tileset import TileSet
 from ai import RandomAI
-from d20 import resolve_attack
 
 COW_TILE = (5, 4)
 HUNTER_TILE = (18, 16)
@@ -15,8 +14,10 @@ WOLF_TILE = (6, 1)
 CAT_TILE = (28, 1)
 CHEST_TILE = (30, 16)
 
+LEFT = (-1, 0)
 
-def handle_input(cow, hunter, cat):
+
+def handle_input(cow):
     ev = pygame.event.poll()
     if ev.type == KEYUP:
         if ev.key == K_DOWN:
@@ -30,7 +31,7 @@ def handle_input(cow, hunter, cat):
         if ev.key == K_ESCAPE:
             sys.exit(0)
         if ev.key == K_a:
-            resolve_attack(cow, cat)
+            cow.attack(LEFT)
         return True
     return False
 
@@ -39,22 +40,22 @@ def main():
     screen = pygame.display.set_mode((640, 480))
     pygame.display.init()
 
-    tile_set = TileSet()
+    tile_set = TileSet("tileset.png")
     dungeon = generate_dungeon()
 
     # create characters
-    wolf = Character(WOLF_TILE, dungeon)
+    Character(WOLF_TILE, dungeon)
     cow = Character(COW_TILE, dungeon)
     hunter = Character(HUNTER_TILE, dungeon)
-    cat = Character(CAT_TILE, dungeon)
-    chest = Character(CHEST_TILE, dungeon)
+    Character(CAT_TILE, dungeon)
+    Character(CHEST_TILE, dungeon)
 
     # set character AI
     hunter.set_ai(RandomAI())
 
     running = True
     while running:
-        run_turn = handle_input(cow, hunter, cat)
+        run_turn = handle_input(cow)
 
         if run_turn:
             dungeon.run_turn()
