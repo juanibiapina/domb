@@ -32,8 +32,9 @@ class Spot(object):
 
 
 class Area(object):
-    def __init__(self, data):
-        self._data = data
+    def __init__(self, mapdata):
+        self._data = mapdata
+        self.characters = []
 
     def get_random_position(self):
         return choice(self._data.keys())
@@ -41,12 +42,24 @@ class Area(object):
     def draw(self, screen, tile_set):
         for pos, spot in self._data.iteritems():
             spot.draw(screen, tile_set, pos)
+        for character in self.characters:
+            character.draw(screen, tile_set)
 
     def walkable(self, x, y):
         if (x, y) in self._data:
             return self._data[(x, y)].is_walkable()
         else:
             return False
+
+    def run_turn(self):
+        for character in self.characters:
+            character.run_turn()
+
+    def add_character(self, character):
+        self.characters.append(character)
+
+    def remove_character(self, character):
+        self.characters.remove(character)
 
 
 class DungeonBuilder(object):

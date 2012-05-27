@@ -21,9 +21,12 @@ class Character(object):
     def set_ai(self, ai):
         self.ai = ai
 
-    def update(self):
-        if self.ai:
-            self.ai.update(self)
+    def run_turn(self):
+        if self.is_incapacitated():
+            self.dungeon.remove_character(self)
+        else:
+            if self.ai:
+                self.ai.update(self)
 
     def calculate_damage(self):
         return roll(3)  # unarmed strike
@@ -34,7 +37,8 @@ class Character(object):
     def calculate_ac(self):
         return 10  # base ac, no modifiers
 
+    def is_incapacitated(self):
+        return self.hp <= 0
+
     def damage(self, damage):
         self.hp -= damage
-        if self.hp <= 0:
-            print "incapacitated"

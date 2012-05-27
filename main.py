@@ -31,7 +31,8 @@ def handle_input(cow, hunter, cat):
             sys.exit(0)
         if ev.key == K_a:
             resolve_attack(cow, cat)
-        hunter.update()
+        return True
+    return False
 
 
 def main():
@@ -51,18 +52,24 @@ def main():
     # set character AI
     hunter.set_ai(RandomAI())
 
+    # add characters to dungeon
+    dungeon.add_character(cat)
+    dungeon.add_character(hunter)
+    dungeon.add_character(wolf)
+    dungeon.add_character(chest)
+
+    # add player character
+    dungeon.add_character(cow)
+
     running = True
     while running:
-        handle_input(cow, hunter, cat)
+        run_turn = handle_input(cow, hunter, cat)
+
+        if run_turn:
+            dungeon.run_turn()
 
         screen.fill((0, 0, 0))
-
         dungeon.draw(screen, tile_set)
-        cow.draw(screen, tile_set)
-        hunter.draw(screen, tile_set)
-        wolf.draw(screen, tile_set)
-        chest.draw(screen, tile_set)
-        cat.draw(screen, tile_set)
 
         pygame.display.flip()
 
