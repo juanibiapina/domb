@@ -2,7 +2,7 @@ class Character(object):
     def __init__(self, tile_index, dungeon):
         self.tile_index = tile_index
         self.dungeon = dungeon
-        self.pos = (0, 0)
+        self.pos = dungeon.get_random_position()
 
     def draw(self, surface, tile_set):
         tile_set.blit_tile(surface, self.tile_index, self.pos)
