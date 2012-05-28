@@ -22,10 +22,12 @@ class Character(object):
         if (self.area.walkable(new_pos_x, new_pos_y)):
             self.area.update_character_position(self.pos, (new_pos_x, new_pos_y))
             self.pos = new_pos_x, new_pos_y
-            print self.area.get_room_name(self.pos)
 
     def set_ai(self, ai):
         self.ai = ai
+
+    def get_room(self):
+        return self.area.get_room_name(self.pos)
 
     def run_turn(self):
         if not self.is_incapacitated():
