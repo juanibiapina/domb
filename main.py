@@ -6,7 +6,7 @@ import sys
 from area import generate_dungeon
 from character import Character
 from tileset import TileSetManager
-from ai import RandomAI
+from ai import ChaseAI, RandomAI
 
 COW_TILE = (5, 4)
 HUNTER_TILE = (18, 16)
@@ -60,11 +60,12 @@ def main():
     Character(tiles.get("WOLF"), blood_tile, dungeon)
     cow = Character(tiles.get("COW"), blood_tile, dungeon)
     hunter = Character(tiles.get("HUNTER"), blood_tile, dungeon)
-    Character(tiles.get("CAT"), blood_tile, dungeon)
+    cat = Character(tiles.get("CAT"), blood_tile, dungeon)
     Character(tiles.get("CHEST"), blood_tile, dungeon)
 
     # set character AI
-    hunter.set_ai(RandomAI())
+    hunter.set_ai(ChaseAI(cow))
+    cat.set_ai(RandomAI())
 
     running = True
     while running:
