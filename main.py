@@ -1,4 +1,4 @@
-from pygame.locals import KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE, K_a
+from pygame.locals import KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE, K_a, K_s, K_w, K_d
 
 import pygame
 import sys
@@ -15,6 +15,9 @@ CAT_TILE = (28, 1)
 CHEST_TILE = (30, 16)
 
 LEFT = (-1, 0)
+RIGHT = (1, 0)
+TOP = (0, -1)
+DOWN = (0, 1)
 
 
 def handle_input(cow):
@@ -32,6 +35,12 @@ def handle_input(cow):
             sys.exit(0)
         if ev.key == K_a:
             cow.attack(LEFT)
+        if ev.key == K_s:
+            cow.attack(DOWN)
+        if ev.key == K_d:
+            cow.attack(RIGHT)
+        if ev.key == K_w:
+            cow.attack(TOP)
         return True
     return False
 
