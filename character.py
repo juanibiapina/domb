@@ -1,24 +1,20 @@
 from d20 import roll, resolve_attack
-from tileset import TileSet
-
-BLOOD_TILE_INDEX = (1, 1)
 
 
 class Character(object):
-    def __init__(self, tile_index, area):
-        self.tile_index = tile_index
+    def __init__(self, tile, blood_tile, area):
+        self.tile = tile
+        self.blood_tile = blood_tile
         self.area = area
         self.pos = area.get_random_position()
         self.area.add_character(self, self.pos)
         self.ai = None
         self.hp = 2  # cat hp
-        self.blood_tile_set = TileSet("blood.png")
 
-    def draw(self, surface, tile_set):
-        tile_set.blit_tile(surface, self.tile_index, self.pos)
+    def draw(self, surface):
+        self.tile.draw(surface, self.pos)
         if self.is_incapacitated():
-            self.blood_tile_set.blit_tile(surface, BLOOD_TILE_INDEX, self.pos)
-            pass
+            self.blood_tile.draw(surface, self.pos)
 
     def move(self, dx, dy):
         new_pos_x = self.pos[0] + dx

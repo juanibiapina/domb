@@ -1,16 +1,13 @@
 from random import randint, choice
 
-GROUND_TILE = (9, 31)
-HOLE_TILE = (13, 32)
-
 
 class Entity(object):
-    def __init__(self, tile_index, **attributes):
-        self.tile_index = tile_index
+    def __init__(self, tile, **attributes):
+        self.tile = tile
         self.attributes = attributes
 
-    def draw(self, screen, tile_set, pos):
-        tile_set.blit_tile(screen, self.tile_index, pos)
+    def draw(self, screen, pos):
+        self.tile.draw(screen, pos)
 
     def get_attribute(self, attribute):
         return self.attributes.get(attribute, None)
@@ -20,9 +17,9 @@ class Spot(object):
     def __init__(self, *entities):
         self.entities = list(entities)
 
-    def draw(self, screen, tile_set, pos):
+    def draw(self, screen, pos):
         for entity in self.entities:
-            entity.draw(screen, tile_set, pos)
+            entity.draw(screen, pos)
 
     def add_entity(self, entity):
         self.entities.append(entity)
@@ -39,11 +36,11 @@ class Area(object):
     def get_random_position(self):
         return choice(self._data.keys())
 
-    def draw(self, screen, tile_set):
+    def draw(self, screen):
         for pos, spot in self._data.iteritems():
-            spot.draw(screen, tile_set, pos)
+            spot.draw(screen, pos)
         for pos, character in self.characters.iteritems():
-            character.draw(screen, tile_set)
+            character.draw(screen)
 
     def walkable(self, x, y):
         if (x, y) in self._data:
@@ -84,27 +81,30 @@ class DungeonBuilder(object):
                 else:
                     self.data[coord] = Spot(entity)
 
-    def add_obstacles(self):
+    def add_obstacles(self, entity):
         for spot in self.data.values():
             if randint(0, 10) < 1:
-                spot.add_entity(Entity(HOLE_TILE))
+                spot.add_entity(entity)
 
     def get_dungeon(self):
         return Area(self.data)
 
 
-def generate_dungeon():
+def generate_dungeon(tiles):
+    ground_tile = tiles.get("GROUND")
+    hole_tile = tiles.get("HOLE")
+
     builder = DungeonBuilder()
     # random rooms!
-    builder.add_rectangle(2, 2, 4, 6, Entity(GROUND_TILE, walkable=True))
-    builder.add_rectangle(8, 2, 6, 3, Entity(GROUND_TILE, walkable=True))
-    builder.add_rectangle(7, 6, 12, 6, Entity(GROUND_TILE, walkable=True))
+    builder.add_rectangle(2, 2, 4, 6, Entity(ground_tile, walkable=True))
+    builder.add_rectangle(8, 2, 6, 3, Entity(ground_tile, walkable=True))
+    builder.add_rectangle(7, 6, 12, 6, Entity(ground_tile, walkable=True))
 
     # obstacles
-    builder.add_obstacles()
+    builder.add_obstacles(Entity(hole_tile))
 
     # random corridors
-    builder.add_rectangle(6, 3, 2, 1, Entity(GROUND_TILE, walkable=True))
-    builder.add_rectangle(10, 5, 1, 1, Entity(GROUND_TILE, walkable=True))
+    builder.add_rectangle(6, 3, 2, 1, Entity(ground_tile, walkable=True))
+    builder.add_rectangle(10, 5, 1, 1, Entity(ground_tile, walkable=True))
 
     return builder.get_dungeon()

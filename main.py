@@ -5,7 +5,7 @@ import sys
 
 from area import generate_dungeon
 from character import Character
-from tileset import TileSet
+from tileset import TileSetManager
 from ai import RandomAI
 
 COW_TILE = (5, 4)
@@ -40,15 +40,19 @@ def main():
     screen = pygame.display.set_mode((640, 480))
     pygame.display.init()
 
-    tile_set = TileSet("tileset.png")
-    dungeon = generate_dungeon()
+    # tiles
+    tiles = TileSetManager("resources/tiles.yaml")
+    blood_tile = tiles.get("BLOOD")
+
+    # dungeon
+    dungeon = generate_dungeon(tiles)
 
     # create characters
-    Character(WOLF_TILE, dungeon)
-    cow = Character(COW_TILE, dungeon)
-    hunter = Character(HUNTER_TILE, dungeon)
-    Character(CAT_TILE, dungeon)
-    Character(CHEST_TILE, dungeon)
+    Character(tiles.get("WOLF"), blood_tile, dungeon)
+    cow = Character(tiles.get("COW"), blood_tile, dungeon)
+    hunter = Character(tiles.get("HUNTER"), blood_tile, dungeon)
+    Character(tiles.get("CAT"), blood_tile, dungeon)
+    Character(tiles.get("CHEST"), blood_tile, dungeon)
 
     # set character AI
     hunter.set_ai(RandomAI())
@@ -61,7 +65,7 @@ def main():
             dungeon.run_turn()
 
         screen.fill((0, 0, 0))
-        dungeon.draw(screen, tile_set)
+        dungeon.draw(screen)
 
         pygame.display.flip()
 

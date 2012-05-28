@@ -1,0 +1,37 @@
+---
+files:
+  - tileset.png
+  - blood.png
+tiles:
+  WOLF:
+    x: 6
+    y: 1
+    file: tileset.png
+  GROUND:
+    x: 9
+    y: 31
+    file: tileset.png
+  HOLE:
+    x: 13
+    y: 32
+    file: tileset.png
+  COW:
+    x: 5
+    y: 4
+    file: tileset.png
+  HUNTER:
+    x: 18
+    y: 16
+    file: tileset.png
+  CAT:
+    x: 28
+    y: 1
+    file: tileset.png
+  CHEST:
+    x: 30
+    y: 16
+    file: tileset.png
+  BLOOD:
+    x: 1
+    y: 1
+    file: blood.png

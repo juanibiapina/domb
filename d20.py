@@ -15,5 +15,3 @@ def resolve_attack(origin, target):
     ac = target.calculate_ac()
     if attack >= ac:
         resolve_damage(origin, target)
-    else:
-        print "miss"
