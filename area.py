@@ -14,8 +14,12 @@ class Entity(object):
 
 
 class Spot(object):
-    def __init__(self, *entities):
+    def __init__(self, *entities, **data):
         self.entities = list(entities)
+        self.data = data
+
+    def get_room_name(self):
+        return self.data.get("room", None)
 
     def draw(self, screen, pos):
         for entity in self.entities:
@@ -60,6 +64,12 @@ class Area(object):
             if c == character:
                 self.characters.pop(pos)
 
+    def get_room_name(self, pos):
+        if pos in self._data:
+            return self._data[pos].get_room_name()
+        else:
+            return None
+
     def get_character_at(self, pos):
         return self.characters.get(pos, None)
 
@@ -72,14 +82,14 @@ class DungeonBuilder(object):
     def __init__(self):
         self.data = {}
 
-    def add_rectangle(self, posx, posy, width, height, entity):
+    def add_rectangle(self, posx, posy, width, height, entity, **data):
         for i in xrange(width):
             for j in xrange(height):
                 coord = (posx + i, posy + j)
                 if coord in self.data:
                     self.data[coord].add_entity(entity)
                 else:
-                    self.data[coord] = Spot(entity)
+                    self.data[coord] = Spot(entity, **data)
 
     def add_obstacles(self, entity):
         for spot in self.data.values():
@@ -96,9 +106,9 @@ def generate_dungeon(tiles):
 
     builder = DungeonBuilder()
     # random rooms!
-    builder.add_rectangle(2, 2, 4, 6, Entity(ground_tile, walkable=True))
-    builder.add_rectangle(8, 2, 6, 3, Entity(ground_tile, walkable=True))
-    builder.add_rectangle(7, 6, 12, 6, Entity(ground_tile, walkable=True))
+    builder.add_rectangle(2, 2, 4, 6, Entity(ground_tile, walkable=True), room="room 1")
+    builder.add_rectangle(8, 2, 6, 3, Entity(ground_tile, walkable=True), room="room 2")
+    builder.add_rectangle(7, 6, 12, 6, Entity(ground_tile, walkable=True), room="room 3")
 
     # obstacles
     builder.add_obstacles(Entity(hole_tile))
