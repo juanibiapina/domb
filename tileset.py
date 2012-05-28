@@ -1,4 +1,5 @@
 import pygame
+from os.path import join
 from yaml import load
 from pygame.rect import Rect
 
@@ -30,8 +31,9 @@ class TileSetManager(object):
         self.files = {}
         self.tiles = {}
         specs = load(open(spec_file, 'r'))
+        image_path = specs["image-path"]
         for file in specs["files"]:
-            self.files[file] = TileSet(file)
+            self.files[file] = TileSet(join(image_path, file))
         for name, tile_def in specs["tiles"].iteritems():
             self.tiles[name] = Tile(self.files[tile_def["file"]], (tile_def["x"], tile_def["y"]))
 

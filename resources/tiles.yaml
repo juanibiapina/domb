@@ -1,4 +1,5 @@
 ---
+image-path: resources
 files:
   - tileset.png
   - blood.png
