@@ -397,7 +397,7 @@ if __name__ == "__main__":
             self.assertEqual(v.length, v2.length)
             self.assertEquals(v2.angle, 0)
             self.assertEqual(v2, [3, 0])
-            self.assert_((v - v2).length &lt; .00001)
+            self.assert_((v - v2).length < .00001)
             self.assertEqual(v.length, v2.length)
             v2.rotate(300)
             self.assertAlmostEquals(v.get_angle_between(v2), -60)
