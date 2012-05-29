@@ -49,6 +49,11 @@ class Character(object):
     def damage(self, damage):
         self.hp -= damage
 
+    def attack_pos(self, pos):
+        target = self.area.get_character_at(pos)
+        if target:
+            resolve_attack(self, target)
+
     def attack(self, direction):
         target = self.area.get_character_at((self.pos[0] + direction[0], self.pos[1] + direction[1]))
         if target:
