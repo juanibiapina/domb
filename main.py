@@ -3,22 +3,16 @@ from pygame.locals import KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE, K_a, K
 import pygame
 import sys
 
+import monsters
 from area import generate_dungeon
 from character import Character
 from tileset import TileSetManager
 from ai import ChaseAI, RandomAI
 
-COW_TILE = (5, 4)
-HUNTER_TILE = (18, 16)
-WOLF_TILE = (6, 1)
-CAT_TILE = (28, 1)
-CHEST_TILE = (30, 16)
-
 LEFT = (-1, 0)
 RIGHT = (1, 0)
 TOP = (0, -1)
 DOWN = (0, 1)
-
 
 def handle_input(cow):
     ev = pygame.event.poll()
@@ -57,11 +51,10 @@ def main():
     dungeon = generate_dungeon(tiles)
 
     # create characters
-    Character(tiles.get("WOLF"), blood_tile, dungeon)
-    cow = Character(tiles.get("COW"), blood_tile, dungeon)
-    hunter = Character(tiles.get("HUNTER"), blood_tile, dungeon)
-    cat = Character(tiles.get("CAT"), blood_tile, dungeon)
-    Character(tiles.get("CHEST"), blood_tile, dungeon)
+    monsters.Wolf(dungeon)
+    cow = monsters.Cow(dungeon)
+    hunter = monsters.Hunter(dungeon)
+    cat = monsters.Cat(dungeon)
 
     # set character AI
     hunter.set_ai(ChaseAI(cow))

@@ -2,14 +2,15 @@ from d20 import roll, resolve_attack
 
 
 class Character(object):
-    def __init__(self, tile, blood_tile, area):
-        self.tile = tile
-        self.blood_tile = blood_tile
+    blood_tile = None
+    tile = None
+    ai = None
+    hp = 2  # cat hp
+
+    def __init__(self, area):
         self.area = area
         self.pos = area.get_random_position()
         self.area.add_character(self, self.pos)
-        self.ai = None
-        self.hp = 2  # cat hp
 
     def draw(self, surface):
         self.tile.draw(surface, self.pos)
