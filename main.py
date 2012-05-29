@@ -1,5 +1,6 @@
 from pygame.locals import KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE, K_a, K_s, K_w, K_d
-
+from pygame.font import SysFont
+from pygame import Surface, Color, SRCALPHA
 import pygame
 import sys
 
@@ -42,6 +43,7 @@ def handle_input(cow):
 def main():
     screen = pygame.display.set_mode((640, 480))
     pygame.display.init()
+    pygame.font.init()
 
     # tiles
     tiles = TileSetManager("resources/tiles.yaml")
@@ -49,6 +51,11 @@ def main():
 
     # dungeon
     dungeon = generate_dungeon(tiles)
+
+    # console
+    console = Surface((600, 85), SRCALPHA, 32)
+    console.fill(Color(255, 255, 255, 50))
+    console_font = SysFont('Arial', 14)
 
     # create characters
     monsters.Wolf(dungeon)
@@ -69,6 +76,9 @@ def main():
 
         screen.fill((0, 0, 0))
         dungeon.draw(screen)
+        screen.blit(console, (20, 390))
+        welcome_text = console_font.render('Welcome to Dungeons of my Benga', False, Color(255, 255, 255))
+        console.blit(welcome_text, (10, 5))
 
         pygame.display.flip()
 
