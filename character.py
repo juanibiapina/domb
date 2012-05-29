@@ -17,11 +17,12 @@ class Character(object):
             self.blood_tile.draw(surface, self.pos)
 
     def move(self, dx, dy):
-        new_pos_x = self.pos[0] + dx
-        new_pos_y = self.pos[1] + dy
-        if (self.area.walkable(new_pos_x, new_pos_y)):
-            self.area.update_character_position(self.pos, (new_pos_x, new_pos_y))
-            self.pos = new_pos_x, new_pos_y
+        if not self.is_incapacitated():
+            new_pos_x = self.pos[0] + dx
+            new_pos_y = self.pos[1] + dy
+            if (self.area.walkable(new_pos_x, new_pos_y)):
+                self.area.update_character_position(self.pos, (new_pos_x, new_pos_y))
+                self.pos = new_pos_x, new_pos_y
 
     def set_ai(self, ai):
         self.ai = ai
