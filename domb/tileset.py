@@ -1,7 +1,6 @@
 import pygame
 from os.path import join
 from yaml import load
-from pygame.rect import Rect
 
 
 class TileSet(object):
@@ -14,7 +13,7 @@ class TileSet(object):
         x, y = map(lambda coord: coord * self.TILE_SIZE, tile_index)
         transformed_dest = map(lambda coord: coord * self.TILE_SIZE, dest)
         target_surface.blit(self.tiles_image, transformed_dest,
-                            Rect(x, y, self.TILE_SIZE, self.TILE_SIZE))
+                            (x, y, self.TILE_SIZE, self.TILE_SIZE))
 
 
 class Tile(object):
