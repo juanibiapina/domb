@@ -74,7 +74,7 @@ def main():
 
         screen.fill((0, 0, 0))
         dungeon.draw(screen)
-        console.render(screen)
+        console.draw(screen)
 
         pygame.display.flip()
 

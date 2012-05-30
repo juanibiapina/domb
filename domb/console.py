@@ -20,7 +20,7 @@ class Console(object):
             self.console.blit(text_surface, (10, i))
             i += 20
 
-    def render(self, screen):
+    def draw(self, screen):
         screen.blit(self.console, (20, 390))
 
     def _clear_log(self):
