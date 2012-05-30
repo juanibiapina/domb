@@ -1,6 +1,6 @@
 from random import randint
 from vec2d import Vec2d
-
+import directions
 
 class RandomAI(object):
     def update(self, character):
@@ -8,16 +8,6 @@ class RandomAI(object):
 
 
 class ChaseAI(object):
-    N = Vec2d(0, -1)
-    S = Vec2d(0, 1)
-    W = Vec2d(-1, 0)
-    E = Vec2d(1, 0)
-    NE = N + E
-    SE = S + E
-    NW = N + W
-    SW = S + W
-    DIRECTIONS = [N, S, E, W, NE, NW, SE, SW]
-
     def __init__(self, chase_target):
         self.chase_target = chase_target
 
@@ -37,4 +27,4 @@ class ChaseAI(object):
     def _get_dir_to_move(self, our_vec):
         def dot_to_dir(dir_vec):
             return our_vec.normalized().dot(dir_vec.normalized())
-        return max(self.DIRECTIONS, key=dot_to_dir)
+        return max(directions.all, key=dot_to_dir)

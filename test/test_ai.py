@@ -1,5 +1,6 @@
 from mock import Mock
 from domb.ai import ChaseAI
+from domb import directions
 
 room = Mock(name="room")
 target = Mock(name="target")
@@ -15,7 +16,7 @@ def test_chase_north():
     chase_ai = ChaseAI(target)
     chase_ai.update(chaser)
 
-    chaser.move.assert_called_with(ChaseAI.N.x, ChaseAI.N.y)
+    chaser.move.assert_called_with(directions.N.x, directions.N.y)
 
 def test_chase_south():
     target.pos = (0, 4)
@@ -24,7 +25,7 @@ def test_chase_south():
     chase_ai = ChaseAI(target)
     chase_ai.update(chaser)
 
-    chaser.move.assert_called_with(ChaseAI.S.x, ChaseAI.S.y)
+    chaser.move.assert_called_with(directions.S.x, directions.S.y)
 
 def test_chase_west():
     target.pos = (0, 0)
@@ -33,7 +34,7 @@ def test_chase_west():
     chase_ai = ChaseAI(target)
     chase_ai.update(chaser)
 
-    chaser.move.assert_called_with(ChaseAI.W.x, ChaseAI.W.y)
+    chaser.move.assert_called_with(directions.W.x, directions.W.y)
 
 def test_chase_east():
     target.pos = (4, 0)
@@ -42,7 +43,7 @@ def test_chase_east():
     chase_ai = ChaseAI(target)
     chase_ai.update(chaser)
 
-    chaser.move.assert_called_with(ChaseAI.E.x, ChaseAI.E.y)
+    chaser.move.assert_called_with(directions.E.x, directions.E.y)
 
 
 def test_chase_northwest():
@@ -52,7 +53,7 @@ def test_chase_northwest():
     chase_ai = ChaseAI(target)
     chase_ai.update(chaser)
 
-    chaser.move.assert_called_with(ChaseAI.NW.x, ChaseAI.NW.y)
+    chaser.move.assert_called_with(directions.NW.x, directions.NW.y)
 
 def test_chase_northeast():
     target.pos = (4, 0)
@@ -61,7 +62,7 @@ def test_chase_northeast():
     chase_ai = ChaseAI(target)
     chase_ai.update(chaser)
 
-    chaser.move.assert_called_with(ChaseAI.NE.x, ChaseAI.NE.y)
+    chaser.move.assert_called_with(directions.NE.x, directions.NE.y)
     
 def test_chase_southwest():
     target.pos = (0, 4)
@@ -70,7 +71,7 @@ def test_chase_southwest():
     chase_ai = ChaseAI(target)
     chase_ai.update(chaser)
 
-    chaser.move.assert_called_with(ChaseAI.SW.x, ChaseAI.SW.y)
+    chaser.move.assert_called_with(directions.SW.x, directions.SW.y)
 
 def test_chase_southeast():
     target.pos = (4, 4)
@@ -79,5 +80,5 @@ def test_chase_southeast():
     chase_ai = ChaseAI(target)
     chase_ai.update(chaser)
 
-    chaser.move.assert_called_with(ChaseAI.SE.x, ChaseAI.SE.y)
+    chaser.move.assert_called_with(directions.SE.x, directions.SE.y)
 
