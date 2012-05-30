@@ -8,6 +8,7 @@ class Character(object):
     tile = None
     ai = None
     hp = 1
+    name = "Monster"
 
     def __init__(self, area):
         if self.hit_dice:
@@ -16,6 +17,9 @@ class Character(object):
         self.pos = area.get_random_position()
         self.area.add_character(self, self.pos)
         self.logger = logging.getLogger('console')
+
+    def get_name(self):
+        return self.name
 
     def draw(self, surface):
         self.tile.draw(surface, self.pos)

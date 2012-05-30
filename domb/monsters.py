@@ -8,23 +8,27 @@ blood_tile = tiles.get("BLOOD")
 
 class Cat(Character):
     hit_dice = Dice("1/2d8+2")
+    name = "Cat"
     tile = tiles.get("CAT")
     blood_tile = blood_tile
 
 
 class Dog(Character):
     hit_dice = Dice("1d8+2")
+    name = "Dog"
     tile = tiles.get("DOG")
     blood_tile = blood_tile
 
 
 class Wolf(Character):
     hit_dice = Dice("2d8+4")
+    name = "Wolf"
     tile = tiles.get("WOLF")
     blood_tile = blood_tile
 
 
 class Cow(Character):
     hp = 50
+    name = "Cow"
     tile = tiles.get("COW")
     blood_tile = blood_tile
