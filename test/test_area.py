@@ -1,6 +1,6 @@
 from mock import Mock
 from domb.area import DungeonBuilder, Entity
-from vec2d import Vec2d
+from domb.vec2d import Vec2d
 
 screen = Mock(name="screen")
 fake_tile = Mock(name="tile")
