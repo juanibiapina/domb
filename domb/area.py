@@ -1,4 +1,4 @@
-from random import randint, choice
+from random import random, choice
 
 
 class Entity(object):
@@ -91,9 +91,9 @@ class DungeonBuilder(object):
                 else:
                     self.data[coord] = Spot(entity, **data)
 
-    def add_obstacles(self, entity):
+    def add_obstacles(self, entity, density):
         for spot in self.data.values():
-            if randint(0, 10) < 1:
+            if random() < density:
                 spot.add_entity(entity)
 
     def get_dungeon(self):
@@ -111,7 +111,7 @@ def generate_dungeon(tiles):
     builder.add_rectangle(7, 6, 12, 6, Entity(ground_tile, walkable=True), room="room 3")
 
     # obstacles
-    builder.add_obstacles(Entity(hole_tile))
+    builder.add_obstacles(Entity(hole_tile), 0.05)
 
     # random corridors
     builder.add_rectangle(6, 3, 2, 1, Entity(ground_tile, walkable=True))
