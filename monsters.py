@@ -22,3 +22,4 @@ class Wolf(Character):
 class Cow(Character):
     hp = 50
     tile = tiles.get("COW")
+    blood_tile = blood_tile
