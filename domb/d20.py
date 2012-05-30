@@ -18,6 +18,8 @@ def resolve_damage(origin, target):
 def resolve_attack(origin, target):
     attack = origin.calculate_attack()
     ac = target.calculate_ac()
-    if attack >= ac:
+    if attack >= ac:  # hit!
         damage = resolve_damage(origin, target)
-    logger.info('%s attacked %s - attack roll: %d / damage roll: %d', origin.get_name(), target.get_name(), attack, damage)
+        logger.info('%s attacked %s - attack roll: %d / ac: %d / damage roll: %d', origin.get_name(), target.get_name(), attack, ac, damage)
+    else:  # no hit
+        logger.info('%s attacked %s - attack roll: %d / ac: %d', origin.get_name(), target.get_name(), attack, ac)
