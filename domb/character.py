@@ -7,7 +7,7 @@ class Character(object):
     blood_tile = None
     tile = None
     ai = None
-    hp = 2  # cat hp
+    hp = 1
 
     def __init__(self, area):
         if self.hit_dice:
