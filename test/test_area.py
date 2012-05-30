@@ -1,5 +1,4 @@
-from domb.area import Area, DungeonBuilder, Entity
-from domb.monsters import Wolf
+from domb.area import DungeonBuilder, Entity
 
 from mock import Mock
 
