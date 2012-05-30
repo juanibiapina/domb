@@ -3,12 +3,15 @@ import logging
 
 
 class Character(object):
+    hit_dice = None
     blood_tile = None
     tile = None
     ai = None
     hp = 2  # cat hp
 
     def __init__(self, area):
+        if self.hit_dice:
+            self.hp = self.hit_dice.roll()
         self.area = area
         self.pos = area.get_random_position()
         self.area.add_character(self, self.pos)

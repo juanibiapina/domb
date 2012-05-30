@@ -14,6 +14,7 @@ RIGHT = (1, 0)
 TOP = (0, -1)
 DOWN = (0, 1)
 
+
 def handle_input(cow):
     ev = pygame.event.poll()
     if ev.type == KEYUP:
@@ -60,11 +61,11 @@ def main():
     # create characters
     monsters.Wolf(dungeon)
     cow = monsters.Cow(dungeon)
-    hunter = monsters.Hunter(dungeon)
+    dog = monsters.Dog(dungeon)
     cat = monsters.Cat(dungeon)
 
     # set character AI
-    hunter.set_ai(ChaseAI(cow))
+    dog.set_ai(ChaseAI(cow))
     cat.set_ai(RandomAI())
 
     running = True

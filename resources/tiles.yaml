@@ -28,6 +28,10 @@ tiles:
     x: 28
     y: 1
     file: tileset.png
+  DOG:
+    x: 1
+    y: 1
+    file: tileset.png
   CHEST:
     x: 30
     y: 16

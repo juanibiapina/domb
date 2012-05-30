@@ -1,23 +1,28 @@
 from character import Character
 from tileset import TileSetManager
+from dice import Dice
 
 tiles = TileSetManager("resources/tiles.yaml")
 blood_tile = tiles.get("BLOOD")
 
+
 class Cat(Character):
-    hp = 2
+    hit_dice = Dice("1/2d8+2")
     tile = tiles.get("CAT")
     blood_tile = blood_tile
 
-class Hunter(Character):
-    hp = 6
-    tile = tiles.get("HUNTER")
+
+class Dog(Character):
+    hit_dice = Dice("1d8+2")
+    tile = tiles.get("DOG")
     blood_tile = blood_tile
 
+
 class Wolf(Character):
-    hp = 13
+    hit_dice = Dice("2d8+4")
     tile = tiles.get("WOLF")
     blood_tile = blood_tile
+
 
 class Cow(Character):
     hp = 50
