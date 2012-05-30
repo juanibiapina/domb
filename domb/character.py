@@ -1,4 +1,5 @@
 from d20 import roll, resolve_attack
+import logging
 
 
 class Character(object):
@@ -11,6 +12,7 @@ class Character(object):
         self.area = area
         self.pos = area.get_random_position()
         self.area.add_character(self, self.pos)
+        self.logger = logging.getLogger('console')
 
     def draw(self, surface):
         self.tile.draw(surface, self.pos)
