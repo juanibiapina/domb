@@ -3,15 +3,18 @@ from domb.dice import Dice
 
 
 def fake_randint(a, b):
-    return fake_randint.return_value
-
+    return a + (b / 2)
 domb.dice.randint = fake_randint
 
-
 def test_a_d8_throw():
-    fake_randint.return_value = 5
     dice = Dice("1d8")
     assert dice.roll() == 5
 
-    fake_randint.return_value = 3
-    assert dice.roll() == 3
+def test_two_d8():
+    dice = Dice("2d8")
+    assert dice.roll() == 10
+
+
+def test_two_d8_plus_3():
+    dice = Dice("2d8+3")
+    assert dice.roll() == 13
