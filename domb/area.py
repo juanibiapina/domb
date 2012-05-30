@@ -1,5 +1,5 @@
 from random import random, choice
-
+from vec2d import Vec2d
 
 class Entity(object):
     def __init__(self, tile, **attributes):
@@ -38,7 +38,7 @@ class Area(object):
         self.characters = []
 
     def get_random_position(self):
-        return choice(self._data.keys())
+        return Vec2d(choice(self._data.keys()))
 
     def draw(self, screen):
         for pos, spot in self._data.iteritems():
@@ -46,10 +46,10 @@ class Area(object):
         for character in self.characters:
             character.draw(screen)
 
-    def walkable(self, x, y):
+    def walkable(self, pos):
         alive_characters = (ch.pos for ch in self.characters if not ch.is_incapacitated())
-        if (x, y) in self._data:
-            return (x, y) not in alive_characters and self._data[(x, y)].is_walkable()
+        if tuple(pos) in self._data:
+            return tuple(pos) not in alive_characters and self._data[tuple(pos)].is_walkable()
         else:
             return False
 

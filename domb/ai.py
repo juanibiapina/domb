@@ -4,7 +4,8 @@ import directions
 
 class RandomAI(object):
     def update(self, character):
-        character.move(randint(-1, 1), randint(-1, 1))
+        rand_dir = Vec2d(randint(-1, 1), randint(-1, 1))
+        character.move(rand_dir)
 
 
 class ChaseAI(object):
@@ -19,7 +20,7 @@ class ChaseAI(object):
         actual_dir_to_chase = self._get_dir_to_move(intended_dir_to_chase)
 
         if self.chase_target.get_room() == chaser.get_room():
-            chaser.move(actual_dir_to_chase.x, actual_dir_to_chase.y)
+            chaser.move(actual_dir_to_chase)
             close = (chase_target_pos - Vec2d(chaser.pos)).get_length()
             if close <= 1.0:
                 chaser.attack_pos(self.chase_target.pos)

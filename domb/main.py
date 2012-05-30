@@ -8,24 +8,25 @@ import monsters
 from area import generate_dungeon
 from tileset import tiles
 from ai import ChaseAI, RandomAI
+import directions
 
-LEFT = (-1, 0)
-RIGHT = (1, 0)
-TOP = (0, -1)
-DOWN = (0, 1)
+LEFT = directions.W
+RIGHT = directions.E
+TOP = directions.N
+DOWN = directions.S
 
 
 def handle_input(cow):
     ev = pygame.event.poll()
     if ev.type == KEYUP:
         if ev.key == K_DOWN:
-            cow.move(0, 1)
+            cow.move(DOWN)
         if ev.key == K_UP:
-            cow.move(0, -1)
+            cow.move(TOP)
         if ev.key == K_LEFT:
-            cow.move(-1, 0)
+            cow.move(LEFT)
         if ev.key == K_RIGHT:
-            cow.move(1, 0)
+            cow.move(RIGHT)
         if ev.key == K_ESCAPE:
             sys.exit(0)
         if ev.key == K_a:

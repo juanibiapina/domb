@@ -16,7 +16,7 @@ def test_chase_north():
     chase_ai = ChaseAI(target)
     chase_ai.update(chaser)
 
-    chaser.move.assert_called_with(directions.N.x, directions.N.y)
+    chaser.move.assert_called_with(directions.N)
 
 def test_chase_south():
     target.pos = (0, 4)
@@ -25,7 +25,7 @@ def test_chase_south():
     chase_ai = ChaseAI(target)
     chase_ai.update(chaser)
 
-    chaser.move.assert_called_with(directions.S.x, directions.S.y)
+    chaser.move.assert_called_with(directions.S)
 
 def test_chase_west():
     target.pos = (0, 0)
@@ -34,7 +34,7 @@ def test_chase_west():
     chase_ai = ChaseAI(target)
     chase_ai.update(chaser)
 
-    chaser.move.assert_called_with(directions.W.x, directions.W.y)
+    chaser.move.assert_called_with(directions.W)
 
 def test_chase_east():
     target.pos = (4, 0)
@@ -43,7 +43,7 @@ def test_chase_east():
     chase_ai = ChaseAI(target)
     chase_ai.update(chaser)
 
-    chaser.move.assert_called_with(directions.E.x, directions.E.y)
+    chaser.move.assert_called_with(directions.E)
 
 
 def test_chase_northwest():
@@ -53,7 +53,7 @@ def test_chase_northwest():
     chase_ai = ChaseAI(target)
     chase_ai.update(chaser)
 
-    chaser.move.assert_called_with(directions.NW.x, directions.NW.y)
+    chaser.move.assert_called_with(directions.NW)
 
 def test_chase_northeast():
     target.pos = (4, 0)
@@ -62,7 +62,7 @@ def test_chase_northeast():
     chase_ai = ChaseAI(target)
     chase_ai.update(chaser)
 
-    chaser.move.assert_called_with(directions.NE.x, directions.NE.y)
+    chaser.move.assert_called_with(directions.NE)
     
 def test_chase_southwest():
     target.pos = (0, 4)
@@ -71,7 +71,7 @@ def test_chase_southwest():
     chase_ai = ChaseAI(target)
     chase_ai.update(chaser)
 
-    chaser.move.assert_called_with(directions.SW.x, directions.SW.y)
+    chaser.move.assert_called_with(directions.SW)
 
 def test_chase_southeast():
     target.pos = (4, 4)
@@ -80,5 +80,5 @@ def test_chase_southeast():
     chase_ai = ChaseAI(target)
     chase_ai.update(chaser)
 
-    chaser.move.assert_called_with(directions.SE.x, directions.SE.y)
+    chaser.move.assert_called_with(directions.SE)
 
