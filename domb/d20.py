@@ -27,6 +27,6 @@ def resolve_attack(origin, target):
             logger.info('%s attacked %s - attack: %d (critical: %d) / ac: %d / damage (x%d): %d', origin.get_name(), target.get_name(), attack, critical_confirmation, ac, critical, damage)
         else:
             damage = resolve_damage(origin, target)
-            logger.info('%s attacked %s - attack roll: %d / ac: %d / damage roll: %d', origin.get_name(), target.get_name(), attack, ac, damage)
+            logger.info('%s attacked %s - attack: %d / ac: %d / damage: %d', origin.get_name(), target.get_name(), attack, ac, damage)
     else:  # no hit
         logger.info('%s attacked %s - attack: %d / ac: %d', origin.get_name(), target.get_name(), attack, ac)
