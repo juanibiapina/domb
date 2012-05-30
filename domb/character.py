@@ -14,7 +14,7 @@ class Character(object):
             self.hp = self.hit_dice.roll()
         self.area = area
         self.pos = area.get_random_position()
-        self.area.add_character(self, self.pos)
+        self.area.add_character(self)
 
     def get_name(self):
         return self.name
@@ -29,7 +29,6 @@ class Character(object):
             new_pos_x = self.pos[0] + dx
             new_pos_y = self.pos[1] + dy
             if (self.area.walkable(new_pos_x, new_pos_y)):
-                self.area.update_character_position(self.pos, (new_pos_x, new_pos_y))
                 self.pos = new_pos_x, new_pos_y
 
     def set_ai(self, ai):

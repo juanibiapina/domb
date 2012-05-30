@@ -35,7 +35,7 @@ class Spot(object):
 class Area(object):
     def __init__(self, mapdata):
         self._data = mapdata
-        self.characters = {}
+        self.characters = []
 
     def get_random_position(self):
         return choice(self._data.keys())
@@ -43,23 +43,22 @@ class Area(object):
     def draw(self, screen):
         for pos, spot in self._data.iteritems():
             spot.draw(screen, pos)
-        for character in self.characters.itervalues():
+        for character in self.characters:
             character.draw(screen)
 
     def walkable(self, x, y):
-        alive_characters = (pos for pos, ch in self.characters.iteritems() 
-                            if not ch.is_incapacitated())
+        alive_characters = (ch.pos for ch in self.characters if not ch.is_incapacitated())
         if (x, y) in self._data:
             return (x, y) not in alive_characters and self._data[(x, y)].is_walkable()
         else:
             return False
 
     def run_turn(self):
-        for character in self.characters.itervalues():
+        for character in self.characters:
             character.run_turn()
 
-    def add_character(self, character, pos):
-        self.characters[pos] = character
+    def add_character(self, character):
+        self.characters.append(character)
 
     def get_room_name(self, pos):
         if pos in self._data:
@@ -68,11 +67,8 @@ class Area(object):
             return None
 
     def get_character_at(self, pos):
-        return self.characters.get(pos, None)
-
-    def update_character_position(self, old, new):
-        self.characters[new] = self.characters[old]
-        self.characters.pop(old)
+        for character in self.characters:
+            if character.pos == pos: return character
 
 
 class DungeonBuilder(object):

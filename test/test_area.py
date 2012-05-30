@@ -7,12 +7,13 @@ fake_tile = Mock(name="tile")
 
 wolf = Mock(name="wolf")
 wolf.is_incapacitated.return_value = False
+wolf.pos = (2, 2)
 
 builder = DungeonBuilder()
 builder.add_rectangle(1,1,4,4, Entity(fake_tile, walkable=True))
 
 area = builder.get_dungeon()
-area.add_character(wolf, (2,2))
+area.add_character(wolf)
 
 def test_not_walkable_where_theres_a_character():
     assert not area.walkable(2,2)
