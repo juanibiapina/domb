@@ -13,14 +13,16 @@ class Console(object):
 
     def log(self, message):
         self.messages.append(message)
-        self._clear_log()
-        i = 5
-        for msg in reversed(self.messages):
-            text_surface = self.font.render(msg, False, Color(255, 255, 255))
-            self.console.blit(text_surface, (10, i))
-            i += 20
 
     def draw(self, screen):
+        msgs = self.messages[-4:len(self.messages)]
+        msgs.reverse()
+        self._clear_log()
+        i = 65
+        for msg in msgs:
+            text_surface = self.font.render(msg, False, Color(255, 255, 255))
+            self.console.blit(text_surface, (10, i))
+            i -= 20
         screen.blit(self.console, (20, 390))
 
     def _clear_log(self):
