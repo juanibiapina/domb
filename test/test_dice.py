@@ -14,7 +14,10 @@ def test_two_d8():
     dice = Dice("2d8")
     assert dice.roll() == 10
 
-
 def test_two_d8_plus_3():
     dice = Dice("2d8+3")
     assert dice.roll() == 13
+
+def test_half_d8():
+    dice = Dice("1/2d8")
+    assert dice.roll() == 2

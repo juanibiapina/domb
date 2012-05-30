@@ -2,7 +2,7 @@ from random import randint
 import re
 
 class Dice(object):
-    DICE_REGEXP = re.compile("([0-9]+)d([0-9]+)")
+    DICE_REGEXP = re.compile("([0-9]+|1/2)d([0-9]+)")
     
     def __init__(self, description):
         base_dice, modifiers = self._split_description(description)
@@ -11,7 +11,7 @@ class Dice(object):
         
     def roll(self):
         dice_roll = sum(randint(1, self.sides) for i in range(self.num_dices))
-        return dice_roll + self.modifier
+        return int(dice_roll * self.multiplier) + self.modifier
 
     def _split_description(self, description):
         description_components = description.split("+")
@@ -19,7 +19,15 @@ class Dice(object):
 
     def _parse_dice(self, dice_description):
         m = self.DICE_REGEXP.search(dice_description)
-        self.num_dices = int(m.group(1))
+
+        num_dices = m.group(1)
+        if num_dices == "1/2":
+            self.num_dices = 1
+            self.multiplier = 0.5
+        else:
+            self.num_dices = int(num_dices)
+            self.multiplier = 1
+            
         self.sides = int(m.group(2))
 
     def _calculate_modifiers(self, modifiers):
