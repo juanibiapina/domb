@@ -43,26 +43,23 @@ class Area(object):
     def draw(self, screen):
         for pos, spot in self._data.iteritems():
             spot.draw(screen, pos)
-        for pos, character in self.characters.iteritems():
+        for character in self.characters.itervalues():
             character.draw(screen)
 
     def walkable(self, x, y):
+        alive_characters = (pos for pos, ch in self.characters.iteritems() 
+                            if not ch.is_incapacitated())
         if (x, y) in self._data:
-            return (x, y) not in self.characters and self._data[(x, y)].is_walkable()
+            return (x, y) not in alive_characters and self._data[(x, y)].is_walkable()
         else:
             return False
 
     def run_turn(self):
-        for pos, character in self.characters.iteritems():
+        for character in self.characters.itervalues():
             character.run_turn()
 
     def add_character(self, character, pos):
         self.characters[pos] = character
-
-    def remove_character(self, character):
-        for pos, c in self.characters.iteritems():
-            if c == character:
-                self.characters.pop(pos)
 
     def get_room_name(self, pos):
         if pos in self._data:
