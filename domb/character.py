@@ -1,5 +1,4 @@
 from d20 import roll, resolve_attack
-import logging
 
 
 class Character(object):
@@ -16,7 +15,6 @@ class Character(object):
         self.area = area
         self.pos = area.get_random_position()
         self.area.add_character(self, self.pos)
-        self.logger = logging.getLogger('console')
 
     def get_name(self):
         return self.name
@@ -46,14 +44,10 @@ class Character(object):
                 self.ai.update(self)
 
     def calculate_damage(self):
-        damage = roll(3)
-        self.logger.info('Damage: %d', damage)
-        return damage  # unarmed strike
+        return roll(3)  # unarmed strike
 
     def calculate_attack(self):
-        attack = roll(20)
-        self.logger.info('Attack: %d', attack)
-        return attack  # base attack, no modifiers
+        return roll(20)  # base attack, no modifiers
 
     def calculate_ac(self):
         return 10  # base ac, no modifiers
