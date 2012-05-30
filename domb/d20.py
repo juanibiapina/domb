@@ -29,4 +29,4 @@ def resolve_attack(origin, target):
             damage = resolve_damage(origin, target)
             logger.info('%s attacked %s - attack: %d / ac: %d / damage: %d', origin.get_name(), target.get_name(), attack, ac, damage)
     else:  # no hit
-        logger.info('%s attacked %s - attack: %d / ac: %d', origin.get_name(), target.get_name(), attack, ac)
+        logger.info('%s attacked %s - attack: %d / ac: %d / miss', origin.get_name(), target.get_name(), attack, ac)
