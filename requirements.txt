@@ -1,3 +1,4 @@
 PyYAML==3.10
 pytest==2.2.1
 mock==0.8.0
+-e hg+http://bitbucket.org/pygame/pygame#egg=pygame
