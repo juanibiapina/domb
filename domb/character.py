@@ -42,10 +42,14 @@ class Character(object):
                 self.ai.update(self)
 
     def calculate_damage(self):
-        return roll(3)  # unarmed strike
+        damage = roll(3)
+        self.logger.info('Damage: %d', damage)
+        return damage  # unarmed strike
 
     def calculate_attack(self):
-        return roll(20)  # base attack, no modifiers
+        attack = roll(20)
+        self.logger.info('Attack: %d', attack)
+        return attack  # base attack, no modifiers
 
     def calculate_ac(self):
         return 10  # base ac, no modifiers
