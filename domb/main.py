@@ -6,7 +6,7 @@ import logging
 
 import monsters
 from area import generate_dungeon
-from tileset import TileSetManager
+from tileset import tiles
 from ai import ChaseAI, RandomAI
 
 LEFT = (-1, 0)
@@ -44,9 +44,6 @@ def main():
     screen = pygame.display.set_mode((640, 480))
     pygame.display.init()
     pygame.font.init()
-
-    # tiles
-    tiles = TileSetManager("resources/tiles.yaml")
 
     # dungeon
     dungeon = generate_dungeon(tiles)

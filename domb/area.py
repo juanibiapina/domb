@@ -101,8 +101,8 @@ class DungeonBuilder(object):
 
 
 def generate_dungeon(tiles):
-    ground_tile = tiles.get("GROUND")
-    hole_tile = tiles.get("HOLE")
+    ground_tile = tiles["GROUND"]
+    hole_tile = tiles["HOLE"]
 
     builder = DungeonBuilder()
     # random rooms!

@@ -37,5 +37,8 @@ class TileSetManager(object):
         for name, tile_def in specs["tiles"].iteritems():
             self.tiles[name] = Tile(self.files[tile_def["file"]], (tile_def["x"], tile_def["y"]))
 
-    def get(self, name):
+    def __getitem__(self, name):
         return self.tiles[name]
+
+
+tiles = TileSetManager("resources/tiles.yaml")
