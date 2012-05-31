@@ -6,7 +6,7 @@ import logging
 
 import monsters
 from area import generate_dungeon
-from tileset import tiles
+import tiles
 from ai import ChaseAI, RandomAI
 import directions
 

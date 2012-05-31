@@ -1,6 +1,7 @@
 from random import random, choice
 from vec2d import Vec2d
 
+
 class Entity(object):
     def __init__(self, tile, **attributes):
         self.tile = tile
@@ -68,7 +69,8 @@ class Area(object):
 
     def get_character_at(self, pos):
         for character in self.characters:
-            if character.pos == pos: return character
+            if character.pos == pos:
+                return character
 
 
 class DungeonBuilder(object):
@@ -94,8 +96,8 @@ class DungeonBuilder(object):
 
 
 def generate_dungeon(tiles):
-    ground_tile = tiles["GROUND"]
-    hole_tile = tiles["HOLE"]
+    ground_tile = tiles.GROUND
+    hole_tile = tiles.HOLE
 
     builder = DungeonBuilder()
     # random rooms!

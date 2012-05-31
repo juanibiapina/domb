@@ -1,6 +1,4 @@
 import pygame
-from os.path import join
-from yaml import load
 
 
 class TileSet(object):
@@ -17,27 +15,9 @@ class TileSet(object):
 
 
 class Tile(object):
-    def __init__(self, tile_set, index):
+    def __init__(self, x, y, tile_set):
         self.tile_set = tile_set
-        self.index = index
+        self.index = (x, y)
 
     def draw(self, surface, pos):
         self.tile_set.blit_tile(surface, self.index, pos)
-
-
-class TileSetManager(object):
-    def __init__(self, spec_file):
-        self.files = {}
-        self.tiles = {}
-        specs = load(open(spec_file, 'r'))
-        image_path = specs["image-path"]
-        for file in specs["files"]:
-            self.files[file] = TileSet(join(image_path, file))
-        for name, tile_def in specs["tiles"].iteritems():
-            self.tiles[name] = Tile(self.files[tile_def["file"]], (tile_def["x"], tile_def["y"]))
-
-    def __getitem__(self, name):
-        return self.tiles[name]
-
-
-tiles = TileSetManager("resources/tiles.yaml")
