@@ -56,8 +56,8 @@ class Area(object):
 
     def walkable(self, pos):
         alive_characters = (ch.pos for ch in self.characters if not ch.is_incapacitated())
-        if tuple(pos) in self._data:
-            return tuple(pos) not in alive_characters and self._data[tuple(pos)].is_walkable()
+        if pos in self._data:
+            return pos not in alive_characters and self._data[pos].is_walkable()
         else:
             return False
 
@@ -97,7 +97,7 @@ class DungeonBuilder(object):
     def add_rectangle(self, posx, posy, width, height, entity, **data):
         for i in xrange(width):
             for j in xrange(height):
-                coord = (posx + i, posy + j)
+                coord = Vec2d(posx + i, posy + j)
                 if coord in self.data:
                     self.data[coord].add_entity(entity)
                 else:
