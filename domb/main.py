@@ -3,6 +3,7 @@ from pygame.locals import (KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE,
 import pygame
 import sys
 from console import Console, ConsoleLogHandler
+from hud import Hud
 import logging
 
 import monsters
@@ -56,6 +57,9 @@ def main():
     # dungeon
     dungeon = generate_dungeon(tiles)
 
+    # hud
+    hud = Hud()
+
     # console
     console = Console()
     logger = logging.getLogger('console')
@@ -91,6 +95,7 @@ def main():
         dungeon.draw(screen)
         console.draw(screen)
         inventory_view.draw(screen)
+        hud.draw(cow, screen)
 
         pygame.display.flip()
 
