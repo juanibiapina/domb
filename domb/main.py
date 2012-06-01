@@ -1,4 +1,4 @@
-from pygame.locals import KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE, K_a, K_s, K_w, K_d
+from pygame.locals import KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE, K_a, K_s, K_w, K_d, K_e
 import pygame
 import sys
 from console import Console, ConsoleLogHandler
@@ -37,6 +37,8 @@ def handle_input(cow):
             cow.attack(RIGHT)
         if ev.key == K_w:
             cow.attack(TOP)
+        if ev.key == K_e:
+            cow.pick_up_item()
         return True
     return False
 

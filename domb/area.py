@@ -18,6 +18,7 @@ class Spot(object):
     def __init__(self, *entities, **data):
         self.entities = list(entities)
         self.data = data
+        self.item = None
 
     def get_room_name(self):
         return self.data.get("room", None)
@@ -31,6 +32,12 @@ class Spot(object):
 
     def is_walkable(self):
         return reduce(lambda a, b: a and b, [entity.get_attribute('walkable') for entity in self.entities])
+
+    def add_item(self, item):
+        self.item = item
+
+    def get_item(self):
+        return self.item
 
 
 class Area(object):
@@ -71,6 +78,16 @@ class Area(object):
         for character in self.characters:
             if character.pos == pos:
                 return character
+
+    def add_item(self, item, pos):
+        if pos in self._data:
+            self._data[pos].add_item(item)
+
+    def get_item(self, pos):
+        if pos in self._data:
+            return self._data[pos].get_item()
+        else:
+            return None
 
 
 class DungeonBuilder(object):
