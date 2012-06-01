@@ -1,5 +1,4 @@
-from pygame.locals import (KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE,
-                           K_a, K_s, K_w, K_d, K_i, K_e)
+from pygame.locals import KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE, K_a, K_s, K_w, K_d, K_e
 import pygame
 import sys
 from console import Console, ConsoleLogHandler
@@ -40,9 +39,6 @@ def handle_input(cow):
             cow.attack(TOP)
         if ev.key == K_e:
             cow.pick_up_item()
-        if ev.key == K_i:
-            cow.inventory.toggle()
-            return False
         return True
     return False
 
@@ -72,11 +68,6 @@ def main():
     dog.set_ai(ChaseAI(cow))
     cat.set_ai(RandomAI())
 
-    # add some itens to see inventory
-    cow.inventory.add_item("foo")
-    cow.inventory.add_item("bar")
-    cow.inventory.add_item("baz")
-
     running = True
     while running:
         run_turn = handle_input(cow)
@@ -87,7 +78,6 @@ def main():
         screen.fill((0, 0, 0))
         dungeon.draw(screen)
         console.draw(screen)
-        cow.inventory.draw(screen)
 
         pygame.display.flip()
 
