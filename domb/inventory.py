@@ -1,4 +1,5 @@
-class Inventory():
+class Inventory(object):
+
     def __init__(self):
         self.items = []
 
