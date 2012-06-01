@@ -1,5 +1,6 @@
 from d20 import roll, resolve_attack
-from vec2d import Vec2d
+from inventory import Inventory
+
 
 class Character(object):
     hit_dice = None
@@ -15,6 +16,7 @@ class Character(object):
         self.area = area
         self.pos = area.get_random_position()
         self.area.add_character(self)
+        self.inventory = Inventory()
 
     def get_name(self):
         return self.name
@@ -67,3 +69,11 @@ class Character(object):
             target = self.area.get_character_at(self.pos + direction)
             if target:
                 resolve_attack(self, target)
+
+    def pick_up_item(self):
+        item = self.area.get_item(self.pos)
+        if item:
+            self.inventory.add_item(item)
+
+    def get_items(self):
+        return self.inventory
