@@ -20,6 +20,10 @@ class InputHandler(object):
         ev = pygame.event.poll()
         if ev.type == KEYUP:
 
+            # exit game
+            if ev.key == K_ESCAPE:
+                sys.exit(0)
+
             # toggle inventory
             if ev.key == K_i:
                 self.inventory_view.toggle()
@@ -36,8 +40,6 @@ class InputHandler(object):
                     self.player_character.move(LEFT)
                 if ev.key == K_RIGHT:
                     self.player_character.move(RIGHT)
-                if ev.key == K_ESCAPE:
-                    sys.exit(0)
                 if ev.key == K_a:
                     self.player_character.attack(LEFT)
                 if ev.key == K_s:
