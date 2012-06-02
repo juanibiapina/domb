@@ -42,4 +42,4 @@ def test_get_character_at():
 def test_can_hold_items():
     pos = (1, 1)
     area.add_item("item", pos)
-    assert area.get_item(pos) == "item"
+    assert area.pick_up_item(pos) == "item"

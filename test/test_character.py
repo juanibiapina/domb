@@ -18,14 +18,14 @@ def test_character_move():
 
 
 def test_character_fail_to_pick_up_item():
-    area.get_item.return_value = None
+    area.pick_up_item.return_value = None
     char = Character(area)
     char.pick_up_item()
     assert len(char.get_items()) == 0
 
 
 def test_character_ACTUALLY_pick_up_item():
-    area.get_item.return_value = "item"
+    area.pick_up_item.return_value = "item"
     char = Character(area)
     char.pick_up_item()
     assert len(char.get_items()) == 1

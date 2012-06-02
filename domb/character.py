@@ -71,7 +71,7 @@ class Character(object):
                 resolve_attack(self, target)
 
     def pick_up_item(self):
-        item = self.area.get_item(self.pos)
+        item = self.area.pick_up_item(self.pos)
         if item:
             self.inventory.add_item(item)
 

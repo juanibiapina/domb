@@ -36,7 +36,7 @@ class Spot(object):
     def add_item(self, item):
         self.item = item
 
-    def get_item(self):
+    def pick_up_item(self):
         return self.item
 
 
@@ -83,9 +83,9 @@ class Area(object):
         if pos in self._data:
             self._data[pos].add_item(item)
 
-    def get_item(self, pos):
+    def pick_up_item(self, pos):
         if pos in self._data:
-            return self._data[pos].get_item()
+            return self._data[pos].pick_up_item()
         else:
             return None
 
