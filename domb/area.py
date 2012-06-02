@@ -1,17 +1,7 @@
 from random import random, choice
 from vec2d import Vec2d
-
-
-class Entity(object):
-    def __init__(self, tile, **attributes):
-        self.tile = tile
-        self.attributes = attributes
-
-    def draw(self, screen, pos):
-        self.tile.draw(screen, pos)
-
-    def get_attribute(self, attribute):
-        return self.attributes.get(attribute, None)
+from entity import Entity
+from items import Potion
 
 
 class Spot(object):
@@ -26,6 +16,8 @@ class Spot(object):
     def draw(self, screen, pos):
         for entity in self.entities:
             entity.draw(screen, pos)
+        if self.item:
+            self.item.draw(screen, pos)
 
     def add_entity(self, entity):
         self.entities.append(entity)
@@ -133,6 +125,6 @@ def generate_dungeon(tiles):
 
     area = builder.get_dungeon()
 
-    area.add_item("potion", Vec2d(3, 3))
+    area.add_item(Potion(), Vec2d(3, 3))
 
     return area

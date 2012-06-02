@@ -5,6 +5,9 @@ from domb.vec2d import Vec2d
 area = Mock(name="area")
 area.get_random_position.return_value = Vec2d(2, 2)
 
+potion = Mock(name="potion")
+potion.get_name.return_value = "potion"
+
 
 def test_create_character_in_area():
     char = Character(area)
@@ -25,7 +28,7 @@ def test_character_fail_to_pick_up_item():
 
 
 def test_character_ACTUALLY_pick_up_item():
-    area.pick_up_item.return_value = "item"
+    area.pick_up_item.return_value = potion
     char = Character(area)
     char.pick_up_item()
     assert len(char.get_items()) == 1

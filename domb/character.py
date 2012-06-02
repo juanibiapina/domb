@@ -76,7 +76,7 @@ class Character(object):
     def pick_up_item(self):
         item = self.area.pick_up_item(self.pos)
         if item:
-            logger.info(self.get_name() + " picked up a " + item)
+            logger.info(self.get_name() + " picked up a " + item.get_name())
             self.inventory.add_item(item)
 
     def get_items(self):
