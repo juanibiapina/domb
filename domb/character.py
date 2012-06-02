@@ -1,5 +1,8 @@
 from d20 import roll, resolve_attack
 from inventory import Inventory
+import logging
+
+logger = logging.getLogger('console')
 
 
 class Character(object):
@@ -73,6 +76,7 @@ class Character(object):
     def pick_up_item(self):
         item = self.area.pick_up_item(self.pos)
         if item:
+            logger.info(self.get_name() + " picked up a " + item)
             self.inventory.add_item(item)
 
     def get_items(self):

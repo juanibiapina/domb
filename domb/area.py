@@ -131,4 +131,8 @@ def generate_dungeon(tiles):
     builder.add_rectangle(6, 3, 2, 1, Entity(ground_tile, walkable=True))
     builder.add_rectangle(10, 5, 1, 1, Entity(ground_tile, walkable=True))
 
-    return builder.get_dungeon()
+    area = builder.get_dungeon()
+
+    area.add_item("potion", Vec2d(3, 3))
+
+    return area
