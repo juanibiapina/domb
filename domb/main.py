@@ -83,9 +83,7 @@ def main():
     cat.set_ai(RandomAI())
 
     # add some itens to see inventory
-    cow.inventory.add_item("foo")
-    cow.inventory.add_item("bar")
-    cow.inventory.add_item("baz")
+    cow.inventory.add_item(Potion())
 
     inventory_view = InventoryView(cow.inventory)
 
