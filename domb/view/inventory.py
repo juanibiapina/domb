@@ -26,15 +26,11 @@ class InventoryView(object):
             if item:
                 item.draw(screen, self.pos + Vec2d(slot, 0))
 
-    def previous_item(self):
-        self.current_item -= 1
-        if self._slot_is_selected(1):
-            self.current_item = self.inventory.capacity - 1
-
     def next_item(self):
-        self.current_item += 1
-        if self._slot_is_selected(self.inventory.capacity):
-            self.current_item = 0
+        self.current_item = (self.current_item + 1) % self.inventory.capacity
+
+    def previous_item(self):
+        self.current_item = (self.current_item - 1) % self.inventory.capacity
 
     def toggle(self):
         self.display = not self.display
