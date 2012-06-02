@@ -1,7 +1,6 @@
 from pygame import draw
 from pygame.locals import Color
 from vec2d import Vec2d
-from itertools import izip_longest
 
 
 class InventoryView(object):
@@ -21,16 +20,16 @@ class InventoryView(object):
         if not self.display:
             return
 
-        for slot, item in self._slots_and_items():
+        for slot, item in self.inventory.slots_and_items():
             self._draw_slot(screen, slot)
             if item:
                 item.draw(screen, self.pos + Vec2d(slot, 0))
 
     def next_item(self):
-        self.current_item = (self.current_item + 1) % self.inventory.capacity
+        self.inventory.next_slot()
 
     def previous_item(self):
-        self.current_item = (self.current_item - 1) % self.inventory.capacity
+        self.inventory.previous_slot()
 
     def toggle(self):
         self.display = not self.display
@@ -41,13 +40,10 @@ class InventoryView(object):
 
     def _draw_slot(self, screen, slot):
         self._draw_slot_background(screen, slot)
-        if self._slot_is_selected(slot):
+        if self.inventory.is_selected(slot):
             self._draw_selection_cursor(screen, slot)
         else:
             self._draw_slot_border(screen, slot)
-
-    def _slot_is_selected(self, i):
-        return self.current_item == i
 
     def _draw_slot_border(self, screen, slot):
         draw.rect(screen, self.SLOT_BORDER_COLOR, self._slot_rect(slot), 1)
@@ -61,10 +57,3 @@ class InventoryView(object):
     def _slot_rect(self, slot):
         pos = (self.pos * self.SLOT_SIZE) + Vec2d(slot * self.SLOT_SIZE, 0)
         return (pos.x, pos.y, self.SLOT_SIZE, self.SLOT_SIZE)
-
-    def _slots_and_items(self):
-        slots = self.inventory.capacity
-        return izip_longest(range(slots), self.inventory)
-
-    def __len__(self):
-        return len(self.items)
