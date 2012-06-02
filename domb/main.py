@@ -12,6 +12,8 @@ import tiles
 from ai import ChaseAI, RandomAI
 from view.inventory import InventoryView
 import directions
+from items import Potion
+from vec2d import Vec2d
 
 LEFT = directions.W
 RIGHT = directions.E
@@ -72,6 +74,9 @@ def main():
     cow = monsters.Cow(dungeon)
     dog = monsters.Dog(dungeon)
     cat = monsters.Cat(dungeon)
+
+    # create items
+    dungeon.add_item(Potion(), Vec2d(3, 3))
 
     # set character AI
     dog.set_ai(ChaseAI(cow))

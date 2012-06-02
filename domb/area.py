@@ -1,7 +1,6 @@
 from random import random, choice
 from vec2d import Vec2d
 from entity import Entity
-from items import Potion
 
 
 class Spot(object):
@@ -123,8 +122,4 @@ def generate_dungeon(tiles):
     builder.add_rectangle(6, 3, 2, 1, Entity(ground_tile, walkable=True))
     builder.add_rectangle(10, 5, 1, 1, Entity(ground_tile, walkable=True))
 
-    area = builder.get_dungeon()
-
-    area.add_item(Potion(), Vec2d(3, 3))
-
-    return area
+    return builder.get_dungeon()
