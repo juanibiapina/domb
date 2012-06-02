@@ -6,7 +6,6 @@ from itertools import izip_longest
 
 class InventoryView(object):
     SLOT_SIZE = 32
-    SLOTS = 5
 
     def __init__(self, inventory):
         self.pos = Vec2d(1, 1)
@@ -49,3 +48,13 @@ class InventoryView(object):
 
     def is_active(self):
         return self.active
+
+    def previous_item(self):
+        self.current_item -= 1
+        if self.current_item == -1:
+            self.current_item = self.inventory.capacity - 1
+
+    def next_item(self):
+        self.current_item += 1
+        if self.current_item == self.inventory.capacity:
+            self.current_item = 0

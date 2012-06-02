@@ -30,6 +30,10 @@ class InputHandler(object):
                 return False
 
             if self.inventory_view.is_active():  # inventory controls
+                if ev.key == K_LEFT:
+                    self.inventory_view.previous_item()
+                if ev.key == K_RIGHT:
+                    self.inventory_view.next_item()
                 return False
             else:
                 if ev.key == K_DOWN:
