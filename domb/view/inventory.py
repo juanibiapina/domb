@@ -13,6 +13,7 @@ class InventoryView(object):
         self.display = False
         self.inventory = inventory
         self.active = False
+        self.current_item = 0
 
     def draw(self, screen):
         if not self.display:
@@ -28,11 +29,16 @@ class InventoryView(object):
         self.active = not self.active
 
     def _draw_slot(self, i, screen):
+        if self.current_item == i:
+            color = Color("white")
+        else:
+            color = Color("#4D2C12")
+
         slot_pos = (self.pos * self.SLOT_SIZE) + Vec2d(i * self.SLOT_SIZE, 0)
         draw.rect(screen, Color("#AE5E21"),
-                  (slot_pos.x, slot_pos.y, self.SLOT_SIZE, self.SLOT_SIZE))
-        draw.rect(screen, Color("#4D2C12"),
-                  (slot_pos.x, slot_pos.y, self.SLOT_SIZE, self.SLOT_SIZE), 1)
+                (slot_pos.x, slot_pos.y, self.SLOT_SIZE, self.SLOT_SIZE))
+        draw.rect(screen, color,
+                (slot_pos.x, slot_pos.y, self.SLOT_SIZE, self.SLOT_SIZE), 1)
 
     def _slots_and_items(self):
         slots = self.inventory.capacity
