@@ -43,3 +43,4 @@ def test_can_hold_items():
     pos = (1, 1)
     area.add_item("item", pos)
     assert area.pick_up_item(pos) == "item"
+    assert area.pick_up_item(pos) == None

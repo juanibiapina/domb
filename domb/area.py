@@ -37,7 +37,9 @@ class Spot(object):
         self.item = item
 
     def pick_up_item(self):
-        return self.item
+        item = self.item
+        self.item = None
+        return item
 
 
 class Area(object):
