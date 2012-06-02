@@ -10,6 +10,7 @@ class InventoryView(object):
         self.pos = Vec2d(1, 1)
         self.display = False
         self.inventory = inventory
+        self.active = False
 
     def draw(self, screen):
         if not self.display:
@@ -23,6 +24,7 @@ class InventoryView(object):
 
     def toggle(self):
         self.display = not self.display
+        self.active = not self.active
 
     def _draw_slot(self, i, screen):
         slot_pos = (self.pos * self.SLOT_SIZE) + Vec2d(i * self.SLOT_SIZE, 0)
@@ -33,3 +35,6 @@ class InventoryView(object):
 
     def __len__(self):
         return len(self.items)
+
+    def is_active(self):
+        return self.active

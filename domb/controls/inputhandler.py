@@ -19,28 +19,34 @@ class InputHandler(object):
     def handle_input(self):
         ev = pygame.event.poll()
         if ev.type == KEYUP:
-            if ev.key == K_DOWN:
-                self.player_character.move(DOWN)
-            if ev.key == K_UP:
-                self.player_character.move(TOP)
-            if ev.key == K_LEFT:
-                self.player_character.move(LEFT)
-            if ev.key == K_RIGHT:
-                self.player_character.move(RIGHT)
-            if ev.key == K_ESCAPE:
-                sys.exit(0)
-            if ev.key == K_a:
-                self.player_character.attack(LEFT)
-            if ev.key == K_s:
-                self.player_character.attack(DOWN)
-            if ev.key == K_d:
-                self.player_character.attack(RIGHT)
-            if ev.key == K_w:
-                self.player_character.attack(TOP)
-            if ev.key == K_e:
-                self.player_character.pick_up_item()
+
+            # toggle inventory
             if ev.key == K_i:
                 self.inventory_view.toggle()
                 return False
-            return True
+
+            if self.inventory_view.is_active():  # inventory controls
+                return False
+            else:
+                if ev.key == K_DOWN:
+                    self.player_character.move(DOWN)
+                if ev.key == K_UP:
+                    self.player_character.move(TOP)
+                if ev.key == K_LEFT:
+                    self.player_character.move(LEFT)
+                if ev.key == K_RIGHT:
+                    self.player_character.move(RIGHT)
+                if ev.key == K_ESCAPE:
+                    sys.exit(0)
+                if ev.key == K_a:
+                    self.player_character.attack(LEFT)
+                if ev.key == K_s:
+                    self.player_character.attack(DOWN)
+                if ev.key == K_d:
+                    self.player_character.attack(RIGHT)
+                if ev.key == K_w:
+                    self.player_character.attack(TOP)
+                if ev.key == K_e:
+                    self.player_character.pick_up_item()
+                return True
         return False
