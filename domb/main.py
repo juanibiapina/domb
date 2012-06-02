@@ -1,7 +1,4 @@
-from pygame.locals import (KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE,
-                           K_a, K_s, K_w, K_d, K_i, K_e)
 import pygame
-import sys
 from console import Console, ConsoleLogHandler
 from hud import Hud
 import logging
@@ -11,44 +8,9 @@ from area import generate_dungeon
 import tiles
 from ai import ChaseAI, RandomAI
 from view.inventory import InventoryView
-import directions
 from items import Potion
 from vec2d import Vec2d
-
-LEFT = directions.W
-RIGHT = directions.E
-TOP = directions.N
-DOWN = directions.S
-
-
-def handle_input(cow, inventory_view):
-    ev = pygame.event.poll()
-    if ev.type == KEYUP:
-        if ev.key == K_DOWN:
-            cow.move(DOWN)
-        if ev.key == K_UP:
-            cow.move(TOP)
-        if ev.key == K_LEFT:
-            cow.move(LEFT)
-        if ev.key == K_RIGHT:
-            cow.move(RIGHT)
-        if ev.key == K_ESCAPE:
-            sys.exit(0)
-        if ev.key == K_a:
-            cow.attack(LEFT)
-        if ev.key == K_s:
-            cow.attack(DOWN)
-        if ev.key == K_d:
-            cow.attack(RIGHT)
-        if ev.key == K_w:
-            cow.attack(TOP)
-        if ev.key == K_e:
-            cow.pick_up_item()
-        if ev.key == K_i:
-            inventory_view.toggle()
-            return False
-        return True
-    return False
+from controls.inputhandler import InputHandler
 
 
 def main():
@@ -85,11 +47,16 @@ def main():
     # add some itens to see inventory
     cow.inventory.add_item(Potion())
 
+    # create views
     inventory_view = InventoryView(cow.inventory)
 
+    # create input handler
+    input_handler = InputHandler(cow, inventory_view)
+
+    # run game loop
     running = True
     while running:
-        run_turn = handle_input(cow, inventory_view)
+        run_turn = input_handler.handle_input()
 
         if run_turn:
             dungeon.run_turn()
