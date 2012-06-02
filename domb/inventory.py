@@ -1,7 +1,8 @@
 class Inventory(object):
 
-    def __init__(self):
+    def __init__(self, capacity=10):
         self.items = []
+        self.capacity = capacity
 
     def add_item(self, item):
         self.items.append(item)
@@ -11,3 +12,6 @@ class Inventory(object):
 
     def __getitem__(self, key):
         return self.items[key]
+
+    def __iter__(self):
+        return iter(self.items)
