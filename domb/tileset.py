@@ -9,7 +9,7 @@ class TileSet(object):
 
     def blit_tile(self, target_surface, tile_index, dest):
         x, y = map(lambda coord: coord * self.TILE_SIZE, tile_index)
-        transformed_dest = map(lambda coord: coord * self.TILE_SIZE, dest)
+        transformed_dest = dest * self.TILE_SIZE
         target_surface.blit(self.tiles_image, transformed_dest,
                             (x, y, self.TILE_SIZE, self.TILE_SIZE))
 

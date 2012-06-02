@@ -8,3 +8,6 @@ class Inventory(object):
 
     def __len__(self):
         return len(self.items)
+
+    def __getitem__(self, key):
+        return self.items[key]
