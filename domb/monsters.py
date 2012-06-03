@@ -43,5 +43,6 @@ class Cow(Character):
     hit_dice = 3
     type = Animal()
     attributes = "Str 13, Dex 15, Con 15, Int 2, Wis 12, Cha 6"
+    size = Medium()
     tile = tiles.COW
     blood_tile = blood_tile
