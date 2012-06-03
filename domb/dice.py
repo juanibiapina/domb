@@ -36,4 +36,8 @@ class Dice(object):
 
 
 def roll(number, sides, modifier_per_dice):
-    return sum(randint(1, sides) + modifier_per_dice for i in range(number))
+    divisor = 1
+    if number == 0.5:
+        number = 1
+        divisor = 2
+    return sum((randint(1, sides) / divisor) + modifier_per_dice for i in range(number))

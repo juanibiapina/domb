@@ -38,3 +38,11 @@ def test_roll_2d8():
 
 def test_roll_3d8_plus_2():
     assert roll(3, 8, 2) == 21
+
+
+def test_roll_half_d8():
+    assert roll(0.5, 8, 0) == 2
+
+
+def test_roll_half_d8_plus_3():
+    assert roll(0.5, 8, 3) == 5

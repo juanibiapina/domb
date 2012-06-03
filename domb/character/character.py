@@ -1,37 +1,41 @@
 import logging
 
-from domb.d20 import roll, resolve_attack
+from domb.d20 import resolve_attack
 from domb.inventory import Inventory
 from domb.character.attribute import Attribute
+from domb.dice import roll
 
 
 logger = logging.getLogger('console')
 
 
 class Character(object):
-    hit_dice = None
+    hit_dice_number = 1
+    hit_dice_value = 4
     blood_tile = None
     tile = None
     ai = None
     hp = 1
     name = "Monster"
     attributes = None
-    str = None
-    dex = None
-    con = None
-    int = None
-    wis = None
-    cha = None
+    str = Attribute(10)
+    dex = Attribute(10)
+    con = Attribute(10)
+    int = Attribute(10)
+    wis = Attribute(10)
+    cha = Attribute(10)
 
     def __init__(self, area):
-        if self.hit_dice:
-            self.hp = self.hit_dice.roll()
         self.area = area
         self.pos = area.get_random_position()
         self.area.add_character(self)
         self.inventory = Inventory()
         if self.attributes:
             self.set_attributes(self.attributes)
+        self.calculate_hp()
+
+    def calculate_hp(self):
+        self.hp = roll(self.hit_dice_number, self.hit_dice_value, self.con.get_modifier())
 
     def set_attributes(self, attributes):
         broken_attrs = attributes.split(",")
@@ -73,10 +77,10 @@ class Character(object):
                 self.ai.update(self)
 
     def calculate_damage(self):
-        return roll(3)  # unarmed strike
+        return roll(1, 3, 0)  # unarmed strike
 
     def calculate_attack(self):
-        return roll(20)  # base attack, no modifiers
+        return roll(1, 20, 0)  # base attack, no modifiers
 
     def calculate_ac(self):
         return 10  # base ac, no modifiers
