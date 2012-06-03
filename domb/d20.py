@@ -16,17 +16,25 @@ def resolve_damage(origin, target, critical=1):
 
 
 def resolve_attack(origin, target):
-    attack = origin.calculate_attack()
-    ac = target.calculate_ac()
+    # initialize values
+    critical, attack = origin.get_attack().roll()
+    ac = target.get_ac().get_value()
+    confirm_critical = False  # no critical by default
 
-    if attack >= ac:  # hit!
-        if attack == 20:
-            critical_confirmation = origin.calculate_attack()
-            critical = 2 if (critical_confirmation >= ac) else 1
-            damage = resolve_damage(origin, target, critical)
-            logger.info('%s attacked %s - attack: %d (critical: %d) / ac: %d / damage (x%d): %d', origin.get_name(), target.get_name(), attack, critical_confirmation, ac, critical, damage)
+    # do critical calculations
+    multiplier = 1
+    if critical:
+        confirm_critical, new_attack = origin.get_attack().roll()
+        if confirm_critical or new_attack >= ac:
+            confirm_critical = True
+            multiplier = 2
+
+    # check for hit
+    if critical or attack >= ac:
+        damage = resolve_damage(origin, target, multiplier)
+        if confirm_critical:
+            logger.info('%s attacked %s - attack: %d / ac: %d / critical: %d / damage (x%d): %d', origin.get_name(), target.get_name(), attack, ac, new_attack, multiplier, damage)
         else:
-            damage = resolve_damage(origin, target)
             logger.info('%s attacked %s - attack: %d / ac: %d / damage: %d', origin.get_name(), target.get_name(), attack, ac, damage)
     else:  # no hit
         logger.info('%s attacked %s - attack: %d / ac: %d / miss', origin.get_name(), target.get_name(), attack, ac)

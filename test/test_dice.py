@@ -1,6 +1,6 @@
 import domb
 from domb.dice import Dice
-from domb.dice import roll
+from domb.dice import roll, attack_roll
 
 
 def fake_randint(a, b):
@@ -50,3 +50,7 @@ def test_roll_half_d8_plus_3():
 
 def test_roll_doesnt_round_to_zero():
     assert roll(0.5, 1, 0, 1) == 1
+
+
+def test_attack_roll():
+    assert attack_roll() == 11

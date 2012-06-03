@@ -85,11 +85,11 @@ class Character(object):
     def calculate_damage(self):
         return roll(1, 3, 0)  # unarmed strike
 
-    def calculate_attack(self):
-        return self.attack.roll()
+    def get_attack(self):
+        return self.attack
 
-    def calculate_ac(self):
-        return self.ac.get_value()
+    def get_ac(self):
+        return self.ac
 
     def is_incapacitated(self):
         return self.hp.current_value <= 0

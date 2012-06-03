@@ -41,3 +41,7 @@ def roll(number, sides, modifier_per_dice, minimum=0):
         number = 1
         divisor = 2
     return max(sum((randint(1, sides) / divisor) + modifier_per_dice for i in range(number)), minimum)
+
+
+def attack_roll():
+    return randint(1, 20)
