@@ -1,6 +1,7 @@
 from mock import Mock
 from domb.character.character import Character
 from domb.vec2d import Vec2d
+from domb.character.attribute import Attribute
 
 area = Mock(name="area")
 area.get_random_position.return_value = Vec2d(2, 2)
@@ -32,3 +33,14 @@ def test_character_ACTUALLY_pick_up_item():
     char = Character(area)
     char.pick_up_item()
     assert len(char.get_items()) == 1
+
+
+def test_set_attributes():
+    char = Character(area)
+    char.set_attributes("Str 3, Dex 15, Con 10, Int 2, Wis 12, Cha 7")
+    assert char.str == Attribute(3)
+    assert char.dex == Attribute(15)
+    assert char.con == Attribute(10)
+    assert char.int == Attribute(2)
+    assert char.wis == Attribute(12)
+    assert char.cha == Attribute(7)

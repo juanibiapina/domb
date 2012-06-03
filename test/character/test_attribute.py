@@ -9,6 +9,14 @@ attr = Attribute()
 attr.dice = dice
 
 
+def test_equality():
+    assert Attribute(4) == Attribute(4)
+
+
+def test_value():
+    assert Attribute(4).get_value() == 4
+
+
 def test_roll():
     attr.roll()
     assert attr.get_value() == 10

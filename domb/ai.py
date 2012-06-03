@@ -2,6 +2,7 @@ from random import randint
 from vec2d import Vec2d
 import directions
 
+
 class RandomAI(object):
     def update(self, character):
         rand_dir = Vec2d(randint(-1, 1), randint(-1, 1))

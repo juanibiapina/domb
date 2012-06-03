@@ -1,6 +1,9 @@
+import logging
+
 from domb.d20 import roll, resolve_attack
 from domb.inventory import Inventory
-import logging
+from domb.character.attribute import Attribute
+
 
 logger = logging.getLogger('console')
 
@@ -12,6 +15,13 @@ class Character(object):
     ai = None
     hp = 1
     name = "Monster"
+    attributes = None
+    str = None
+    dex = None
+    con = None
+    int = None
+    wis = None
+    cha = None
 
     def __init__(self, area):
         if self.hit_dice:
@@ -20,6 +30,22 @@ class Character(object):
         self.pos = area.get_random_position()
         self.area.add_character(self)
         self.inventory = Inventory()
+        if self.attributes:
+            self.set_attributes(self.attributes)
+
+    def set_attributes(self, attributes):
+        broken_attrs = attributes.split(",")
+        attrs = {}
+        for attr in broken_attrs:
+            name = attr.strip().split(" ")[0].lower()
+            value = Attribute(int(attr.strip().split(" ")[1]))
+            attrs[name] = value
+        self.str = attrs["str"]
+        self.dex = attrs["dex"]
+        self.con = attrs["con"]
+        self.int = attrs["int"]
+        self.wis = attrs["wis"]
+        self.cha = attrs["cha"]
 
     def get_name(self):
         return self.name
