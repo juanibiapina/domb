@@ -1,6 +1,6 @@
 import pygame
 from console import Console, ConsoleLogHandler
-from hud import Hud
+from domb.view.hud import Hud
 import logging
 
 import monsters
