@@ -46,3 +46,7 @@ def test_roll_half_d8():
 
 def test_roll_half_d8_plus_3():
     assert roll(0.5, 8, 3) == 5
+
+
+def test_roll_doesnt_round_to_zero():
+    assert roll(0.5, 1, 0, 1) == 1

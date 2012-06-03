@@ -45,13 +45,13 @@ class InputHandler(object):
                 if ev.key == K_RIGHT:
                     self.player_character.move(RIGHT)
                 if ev.key == K_a:
-                    self.player_character.attack(LEFT)
+                    self.player_character.do_attack(LEFT)
                 if ev.key == K_s:
-                    self.player_character.attack(DOWN)
+                    self.player_character.do_attack(DOWN)
                 if ev.key == K_d:
-                    self.player_character.attack(RIGHT)
+                    self.player_character.do_attack(RIGHT)
                 if ev.key == K_w:
-                    self.player_character.attack(TOP)
+                    self.player_character.do_attack(TOP)
                 if ev.key == K_e:
                     self.player_character.pick_up_item()
                 return True

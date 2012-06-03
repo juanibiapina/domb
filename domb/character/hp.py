@@ -11,7 +11,7 @@ class HP(object):
         self.current_value = self.max
 
     def roll(self):
-        self.max += roll(self.hit_dice, self.sides, self.con.get_modifier())
+        self.max += roll(self.hit_dice, self.sides, self.con.get_modifier(), 1)
 
     def damage(self, damage):
         self.current_value -= damage

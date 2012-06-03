@@ -35,9 +35,9 @@ class Dice(object):
         self.modifier = sum(int(i) for i in modifiers)
 
 
-def roll(number, sides, modifier_per_dice):
+def roll(number, sides, modifier_per_dice, minimum=0):
     divisor = 1
     if number == 0.5:
         number = 1
         divisor = 2
-    return sum((randint(1, sides) / divisor) + modifier_per_dice for i in range(number))
+    return max(sum((randint(1, sides) / divisor) + modifier_per_dice for i in range(number)), minimum)

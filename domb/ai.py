@@ -24,7 +24,7 @@ class ChaseAI(object):
             chaser.move(actual_dir_to_chase)
             close = (chase_target_pos - Vec2d(chaser.pos)).get_length()
             if close <= 1.0:
-                chaser.attack_pos(self.chase_target.pos)
+                chaser.do_attack_pos(self.chase_target.pos)
 
     def _get_dir_to_move(self, our_vec):
         def dot_to_dir(dir_vec):

@@ -5,6 +5,7 @@ from domb.inventory import Inventory
 from domb.character.attribute import Attribute
 from domb.character.hp import HP
 from domb.character.ac import AC
+from domb.character.attack import Attack
 from domb.character.size import Medium
 from domb.character.type import Type
 from domb.dice import roll
@@ -38,14 +39,9 @@ class Character(object):
         self.area.add_character(self)
         self.inventory = Inventory()
         self.set_attributes(self.attributes)
-        self.initialize_hp()
-        self.initialize_ac()
-
-    def initialize_hp(self):
         self.hp = HP(self)
-
-    def initialize_ac(self):
         self.ac = AC(self)
+        self.attack = Attack(self)
 
     def set_attributes(self, attributes):
         broken_attrs = attributes.split(",")
@@ -90,7 +86,7 @@ class Character(object):
         return roll(1, 3, 0)  # unarmed strike
 
     def calculate_attack(self):
-        return roll(1, 20, 0)  # base attack, no modifiers
+        return self.attack.roll()
 
     def calculate_ac(self):
         return self.ac.get_value()
@@ -101,13 +97,13 @@ class Character(object):
     def damage(self, damage):
         self.hp.damage(damage)
 
-    def attack_pos(self, pos):
+    def do_attack_pos(self, pos):
         if not self.is_incapacitated():
             target = self.area.get_character_at(pos)
             if target:
                 resolve_attack(self, target)
 
-    def attack(self, direction):
+    def do_attack(self, direction):
         if not self.is_incapacitated():
             target = self.area.get_character_at(self.pos + direction)
             if target:
