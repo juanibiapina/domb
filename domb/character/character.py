@@ -1,5 +1,5 @@
-from d20 import roll, resolve_attack
-from inventory import Inventory
+from domb.d20 import roll, resolve_attack
+from domb.inventory import Inventory
 import logging
 
 logger = logging.getLogger('console')

@@ -1,5 +1,5 @@
 from mock import Mock
-from domb.character import Character
+from domb.character.character import Character
 from domb.vec2d import Vec2d
 
 area = Mock(name="area")
