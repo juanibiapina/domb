@@ -6,6 +6,7 @@ from domb.character.attribute import Attribute
 from domb.character.hp import HP
 from domb.character.ac import AC
 from domb.character.size import Medium
+from domb.character.type import Type
 from domb.dice import roll
 
 
@@ -13,8 +14,7 @@ logger = logging.getLogger('console')
 
 
 class Character(object):
-    hit_dice_number = 1
-    hit_dice_value = 4
+    hit_dice = 1
     blood_tile = None
     tile = None
     ai = None
@@ -30,6 +30,7 @@ class Character(object):
     cha = Attribute(10)
     natural_armor = 0
     size = Medium()
+    type = Type()
 
     def __init__(self, area):
         self.area = area

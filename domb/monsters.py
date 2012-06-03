@@ -1,13 +1,15 @@
 from character.character import Character
 from character.size import Tiny, Small, Medium
+from domb.character.type import Animal
 import tiles
+
 blood_tile = tiles.BLOOD
 
 
 class Cat(Character):
     name = "Cat"
-    hit_dice_number = 0.5
-    hit_dice_value = 8
+    hit_dice = 0.5
+    type = Animal()
     attributes = "Str 3, Dex 15, Con 10, Int 2, Wis 12, Cha 7"
     size = Tiny()
     tile = tiles.CAT
@@ -16,8 +18,8 @@ class Cat(Character):
 
 class Dog(Character):
     name = "Dog"
-    hit_dice_number = 1
-    hit_dice_value = 8
+    hit_dice = 1
+    type = Animal()
     attributes = "Str 13, Dex 17, Con 15, Int 3, Wis 12, Cha 6"
     natural_armor = 1
     size = Small()
@@ -27,8 +29,8 @@ class Dog(Character):
 
 class Wolf(Character):
     name = "Wolf"
-    hit_dice_number = 2
-    hit_dice_value = 8
+    hit_dice = 2
+    type = Animal()
     attributes = "Str 13, Dex 15, Con 15, Int 2, Wis 12, Cha 6"
     natural_armor = 2
     size = Medium()
@@ -38,8 +40,8 @@ class Wolf(Character):
 
 class Cow(Character):
     name = "Cow"
-    hit_dice_number = 3
-    hit_dice_value = 8
+    hit_dice = 3
+    type = Animal()
     attributes = "Str 13, Dex 15, Con 15, Int 2, Wis 12, Cha 6"
     tile = tiles.COW
     blood_tile = blood_tile
