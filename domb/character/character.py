@@ -42,7 +42,7 @@ class Character(object):
         self.hp = HP(self.hit_dice_number, self.hit_dice_value, self.con)
 
     def initialize_ac(self):
-        self.ac = AC(self.dex, self.natural_armor)
+        self.ac = AC(self)
 
     def set_attributes(self, attributes):
         broken_attrs = attributes.split(",")
