@@ -3,6 +3,7 @@ import logging
 from domb.d20 import resolve_attack
 from domb.inventory import Inventory
 from domb.character.attribute import Attribute
+from domb.character.hp import HP
 from domb.dice import roll
 
 
@@ -15,9 +16,9 @@ class Character(object):
     blood_tile = None
     tile = None
     ai = None
-    hp = 1
+    hp = None
     name = "Monster"
-    attributes = None
+    attributes = "Str 10, Dex 10, Con 10, Int 10, Wis 10, Cha 10"
     str = Attribute(10)
     dex = Attribute(10)
     con = Attribute(10)
@@ -30,12 +31,11 @@ class Character(object):
         self.pos = area.get_random_position()
         self.area.add_character(self)
         self.inventory = Inventory()
-        if self.attributes:
-            self.set_attributes(self.attributes)
+        self.set_attributes(self.attributes)
         self.calculate_hp()
 
     def calculate_hp(self):
-        self.hp = roll(self.hit_dice_number, self.hit_dice_value, self.con.get_modifier())
+        self.hp = HP(self.hit_dice_number, self.hit_dice_value, self.con)
 
     def set_attributes(self, attributes):
         broken_attrs = attributes.split(",")
@@ -86,10 +86,10 @@ class Character(object):
         return 10  # base ac, no modifiers
 
     def is_incapacitated(self):
-        return self.hp <= 0
+        return self.hp.current_value <= 0
 
     def damage(self, damage):
-        self.hp -= damage
+        self.hp.damage(damage)
 
     def attack_pos(self, pos):
         if not self.is_incapacitated():
