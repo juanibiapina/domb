@@ -4,6 +4,7 @@ from domb.d20 import resolve_attack
 from domb.inventory import Inventory
 from domb.character.attribute import Attribute
 from domb.character.hp import HP
+from domb.character.ac import AC
 from domb.dice import roll
 
 
@@ -17,6 +18,7 @@ class Character(object):
     tile = None
     ai = None
     hp = None
+    ac = None
     name = "Monster"
     attributes = "Str 10, Dex 10, Con 10, Int 10, Wis 10, Cha 10"
     str = Attribute(10)
@@ -25,6 +27,7 @@ class Character(object):
     int = Attribute(10)
     wis = Attribute(10)
     cha = Attribute(10)
+    natural_armor = 0
 
     def __init__(self, area):
         self.area = area
@@ -32,10 +35,14 @@ class Character(object):
         self.area.add_character(self)
         self.inventory = Inventory()
         self.set_attributes(self.attributes)
-        self.calculate_hp()
+        self.initialize_hp()
+        self.initialize_ac()
 
-    def calculate_hp(self):
+    def initialize_hp(self):
         self.hp = HP(self.hit_dice_number, self.hit_dice_value, self.con)
+
+    def initialize_ac(self):
+        self.ac = AC(self.dex, self.natural_armor)
 
     def set_attributes(self, attributes):
         broken_attrs = attributes.split(",")
@@ -83,7 +90,7 @@ class Character(object):
         return roll(1, 20, 0)  # base attack, no modifiers
 
     def calculate_ac(self):
-        return 10  # base ac, no modifiers
+        return self.ac.get_value()
 
     def is_incapacitated(self):
         return self.hp.current_value <= 0

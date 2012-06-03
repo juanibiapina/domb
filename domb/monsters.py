@@ -17,6 +17,7 @@ class Dog(Character):
     hit_dice_number = 1
     hit_dice_value = 8
     attributes = "Str 13, Dex 17, Con 15, Int 3, Wis 12, Cha 6"
+    natural_armor = 1
     tile = tiles.DOG
     blood_tile = blood_tile
 
@@ -26,6 +27,7 @@ class Wolf(Character):
     hit_dice_number = 2
     hit_dice_value = 8
     attributes = "Str 13, Dex 15, Con 15, Int 2, Wis 12, Cha 6"
+    natural_armor = 2
     tile = tiles.WOLF
     blood_tile = blood_tile
 
