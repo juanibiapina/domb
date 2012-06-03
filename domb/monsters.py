@@ -12,6 +12,7 @@ class Cat(Character):
     type = Animal()
     attributes = "Str 3, Dex 15, Con 10, Int 2, Wis 12, Cha 7"
     size = Tiny()
+    feats = ["Weapon Finesse"]
     tile = tiles.CAT
     blood_tile = blood_tile
 
