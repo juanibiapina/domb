@@ -5,6 +5,7 @@ from domb.inventory import Inventory
 from domb.character.attribute import Attribute
 from domb.character.hp import HP
 from domb.character.ac import AC
+from domb.character.size import Medium
 from domb.dice import roll
 
 
@@ -28,6 +29,7 @@ class Character(object):
     wis = Attribute(10)
     cha = Attribute(10)
     natural_armor = 0
+    size = Medium()
 
     def __init__(self, area):
         self.area = area
