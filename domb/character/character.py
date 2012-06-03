@@ -39,7 +39,7 @@ class Character(object):
         self.initialize_ac()
 
     def initialize_hp(self):
-        self.hp = HP(self.hit_dice_number, self.hit_dice_value, self.con)
+        self.hp = HP(self)
 
     def initialize_ac(self):
         self.ac = AC(self)
