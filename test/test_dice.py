@@ -1,5 +1,6 @@
 import domb
 from domb.dice import Dice
+from domb.dice import roll
 
 
 def fake_randint(a, b):
@@ -25,3 +26,15 @@ def test_two_d8_plus_3():
 def test_half_d8():
     dice = Dice("1/2d8")
     assert dice.roll() == 2
+
+
+def test_roll_1d8():
+    assert roll(1, 8, 0) == 5
+
+
+def test_roll_2d8():
+    assert roll(2, 8, 0) == 10
+
+
+def test_roll_3d8_plus_2():
+    assert roll(3, 8, 2) == 21

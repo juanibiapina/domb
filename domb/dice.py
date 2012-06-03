@@ -33,3 +33,7 @@ class Dice(object):
 
     def _calculate_modifiers(self, modifiers):
         self.modifier = sum(int(i) for i in modifiers)
+
+
+def roll(number, sides, modifier_per_dice):
+    return sum(randint(1, sides) + modifier_per_dice for i in range(number))
