@@ -38,6 +38,17 @@ class Wolf(Character):
     blood_tile = blood_tile
 
 
+class ConstrictorSnake(Character):
+    name = "Constrictor Snake"
+    hit_dice = 3
+    type = Animal()
+    attributes = "Str 17, Dex 17, Con 13, Int 1, Wis 12, Cha 2"
+    natural_armor = 2
+    size = Medium()
+    tile = tiles.SNAKE
+    blood_tile = blood_tile
+
+
 class Cow(Character):
     name = "Cow"
     hit_dice = 3

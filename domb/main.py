@@ -36,6 +36,7 @@ def main():
     cow = monsters.Cow(dungeon)
     dog = monsters.Dog(dungeon)
     cat = monsters.Cat(dungeon)
+    monsters.ConstrictorSnake(dungeon)
 
     # create items
     dungeon.add_item(Potion(), Vec2d(3, 3))
