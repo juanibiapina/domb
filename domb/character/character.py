@@ -32,6 +32,7 @@ class Character(object):
     natural_armor = 0
     size = Medium()
     type = Type()
+    feats = []
 
     def __init__(self, area):
         self.area = area
@@ -117,3 +118,6 @@ class Character(object):
 
     def get_items(self):
         return self.inventory
+
+    def has_feat(self, feat):
+        return feat in self.feats

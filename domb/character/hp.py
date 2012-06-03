@@ -8,6 +8,8 @@ class HP(object):
         self.con = character.con
         self.max = 0
         self.roll()
+        if character.has_feat("Toughness"):
+            self.max += 3
         self.current_value = self.max
 
     def roll(self):

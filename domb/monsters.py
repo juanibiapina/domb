@@ -45,6 +45,7 @@ class ConstrictorSnake(Character):
     attributes = "Str 17, Dex 17, Con 13, Int 1, Wis 12, Cha 2"
     natural_armor = 2
     size = Medium()
+    feats = ['Toughness']
     tile = tiles.SNAKE
     blood_tile = blood_tile
 
