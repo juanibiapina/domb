@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="11" height="12" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="indoor22x" tilewidth="32" tileheight="32">
+  <image source="../../images/indoor22x.png" width="352" height="384"/>
+ </tileset>
+ <tileset firstgid="133" name="indoor1-offset2x" tilewidth="32" tileheight="32">
+  <image source="../../images/indoor1-offset2x.png" width="224" height="384"/>
+ </tileset>
+ <layer name="Floor" width="11" height="12">
+  <data encoding="base64" compression="zlib">
+   eJy10DkKgDAQhWGPF7fKtXQpXc6hNuqN/QMJDIOojcKHMrw8JgbBP49B6N5PbCZDLr69CDESpCor2XmBEhVqlTXqXIMWHXqxp9zXn9e9vm/Bis1lw5ve3HXsOHC6nJ0PGDFhVnvKXY2Yy3u8/Vd9jy9s7wX8UiQ2
+  </data>
+ </layer>
+ <layer name="Walls" width="11" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgYAFiLiiNC3MDMQ8Q8wOxI5TGhcWAWJyBOKAIxEpEqtUZNRdurj4QG+PAJkBsCsRmQGwOxFZAbIcD2wOxAwMkTp2AGADv0AgR
+  </data>
+ </layer>
+ <layer name="Furniture" width="11" height="12">
+  <data encoding="base64" compression="zlib">
+   eJzFzzkKgEAMQFEPLbbiIbTSS2jlhitauIHbefxFijDVdAYeIcmQmXEc+6glN2iNWYpM1aPkCTM6NctRqHrBig07DulH6kwo+cSFGw9e6Sdw4SG2+IuPwOJcpPaGxqxEpepE7TXf0GOwuO/v+AD1vBvk
+  </data>
+ </layer>
+ <layer name="Objects" width="11" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYGBgkGOAgK1QWgGNjww0gXg/EB+A8rWBeAmSfAUQV0LZR4H4GBAfR5JfjcRuBuIWIF4AxGew2IUOZkLpyWg0DBQBcS2a2Cw0mlgQhcSuAuICJP4CKJ0PxDV4zIC5t5wEe5tIUEsLAACvkhLE
+  </data>
+ </layer>
+</map>
