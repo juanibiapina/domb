@@ -5,9 +5,9 @@ from pygame import font, Surface, Color, SRCALPHA
 
 class Console(object):
     def __init__(self):
-        font.init()
         self.console = Surface((600, 85), SRCALPHA, 32)
         self._clear_log()
+        font.init()
         self.font = SysFont('Arial', 14)
         self.messages = []
 

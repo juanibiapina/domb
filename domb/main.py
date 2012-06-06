@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import KEYUP
 from console import Console, ConsoleLogHandler
 from domb.view.hud import Hud
 import logging
@@ -18,6 +19,26 @@ def main():
     pygame.display.init()
     pygame.font.init()
 
+    show_title_screen(screen)
+    play_game(screen)
+
+
+def show_title_screen(screen):
+    def display_title():
+        font = pygame.font.SysFont('Arial', 46)
+        text_surface = font.render('Dungeons of my Benga', False, (255, 255, 255))
+        screen.blit(text_surface, (screen.get_width() / 2 - text_surface.get_width() / 2, 50))
+        pygame.display.flip()
+
+    def wait_for_key():
+        while pygame.event.poll().type != KEYUP:
+            pass
+
+    display_title()
+    wait_for_key()
+
+
+def play_game(screen):
     # dungeon
     dungeon = generate_dungeon(tiles)
 
