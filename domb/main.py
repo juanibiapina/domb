@@ -5,6 +5,7 @@ from domb.view.hud import Hud
 import logging
 
 import monsters
+from hero import Hero
 from area import generate_dungeon
 import tiles
 from ai import ChaseAI, RandomAI
@@ -54,7 +55,7 @@ def play_game(screen):
 
     # create characters
     monsters.Wolf(dungeon)
-    cow = monsters.Cow(dungeon)
+    hero = Hero(dungeon)
     dog = monsters.Dog(dungeon)
     cat = monsters.Cat(dungeon)
     monsters.ConstrictorSnake(dungeon)
@@ -63,17 +64,17 @@ def play_game(screen):
     dungeon.add_item(Potion(), Vec2d(3, 3))
 
     # set character AI
-    dog.set_ai(ChaseAI(cow))
+    dog.set_ai(ChaseAI(hero))
     cat.set_ai(RandomAI())
 
     # add some itens to see inventory
-    cow.inventory.add_item(Potion())
+    hero.inventory.add_item(Potion())
 
-    # create views
-    inventory_view = InventoryView(cow.inventory)
+    # create view
+    inventory_view = InventoryView(hero.inventory)
 
     # create input handler
-    input_handler = InputHandler(cow, inventory_view)
+    input_handler = InputHandler(hero, inventory_view)
 
     # run game loop
     running = True
@@ -87,7 +88,7 @@ def play_game(screen):
         dungeon.draw(screen)
         console.draw(screen)
         inventory_view.draw(screen)
-        hud.draw(cow, screen)
+        hud.draw(hero, screen)
 
         pygame.display.flip()
 
