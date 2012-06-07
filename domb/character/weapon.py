@@ -1,17 +1,20 @@
+import logging
+
 from domb.dice import Dice
-from domb.entity import Entity
+from domb.item import Item
 
 
-class Weapon(Entity):
+logger = logging.getLogger('console')
+
+
+class Weapon(Item):
     damage_dice = Dice("1d2")
     name = "Unarmed"
     tile = None
 
-    def __init__(self):
-        super(Weapon, self).__init__(self.tile, walkable=True)
-
     def get_damage(self):
         return self.damage_dice.roll()
 
-    def get_name(self):
-        return self.name
+    def use(self, character):
+        character.weapon = self
+        logger.info("%s equiped %s", character.get_name(), self.name)

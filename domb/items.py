@@ -1,12 +1,7 @@
-from entity import Entity
+from domb.item import Item
 import tiles
 
 
-class Potion(Entity):
+class Potion(Item):
     name = "Potion"
-
-    def __init__(self):
-        super(Potion, self).__init__(tiles.POTION, walkable=True)
-
-    def get_name(self):
-        return self.name
+    tile = tiles.POTION
