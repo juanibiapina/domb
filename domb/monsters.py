@@ -1,7 +1,7 @@
 from character.character import Character
 from character.size import Tiny, Small, Medium
 from domb.character.type import Animal
-from domb.character.naturalattacks import Claw, Bite
+from domb.character.naturalweapons import Claw, Bite
 import tiles
 
 blood_tile = tiles.BLOOD
