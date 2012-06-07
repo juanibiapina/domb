@@ -6,8 +6,7 @@ class HP(object):
         self.hit_dice = character.hit_dice
         self.sides = character.type.hit_dice_sides
         self.con = character.con
-        self.max = 0
-        self.roll()
+        self.max = self.sides + self.con.get_modifier()
         if character.has_feat("Toughness"):
             self.max += 3
         self.current_value = self.max
