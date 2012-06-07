@@ -127,3 +127,7 @@ class Character(object):
 
     def has_feat(self, feat):
         return feat in self.feats
+
+    def use_current_item(self):
+        self.weapon = self.inventory.current_item()
+        logger.info("%s equiped %s", self.name, self.weapon.get_name())

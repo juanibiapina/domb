@@ -34,6 +34,8 @@ class InputHandler(object):
                     self.inventory_view.previous_item()
                 if ev.key == K_RIGHT:
                     self.inventory_view.next_item()
+                if ev.key == K_e:
+                    self.player_character.use_current_item()
                 return False
             else:
                 if ev.key == K_DOWN:

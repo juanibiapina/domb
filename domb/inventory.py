@@ -24,6 +24,9 @@ class Inventory(object):
     def is_selected(self, slot):
         return self.current_slot == slot
 
+    def current_item(self):
+        return self.items[self.current_slot][0]
+
     def slots_and_items(self):
         slots = self.capacity
         return izip_longest(range(slots), self.items)
