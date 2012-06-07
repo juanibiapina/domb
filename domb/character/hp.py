@@ -16,3 +16,12 @@ class HP(object):
 
     def damage(self, damage):
         self.current_value -= damage
+
+    def restore(self, value):
+        if self.max - self.current_value < value:
+            restored = self.max - self.current_value
+            self.current_value = self.max
+        else:
+            restored = value
+            self.current_value += value
+        return restored

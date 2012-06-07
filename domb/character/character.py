@@ -98,6 +98,9 @@ class Character(object):
     def get_weapon(self):
         return self.weapon
 
+    def get_hp(self):
+        return self.hp
+
     def is_incapacitated(self):
         return self.hp.current_value <= 0
 
