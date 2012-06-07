@@ -1,6 +1,6 @@
 import logging
 
-from domb.item import Item
+from domb.item.item import Item
 import tiles
 
 

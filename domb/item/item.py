@@ -1,6 +1,6 @@
 import logging
 
-from entity import Entity
+from domb.entity import Entity
 
 
 logger = logging.getLogger('console')

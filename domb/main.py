@@ -10,8 +10,8 @@ from area import generate_dungeon
 import tiles
 from ai import ChaseAI, RandomAI
 from view.inventory import InventoryView
-from items import Potion
-from domb.character.weapons import Longsword
+from domb.item.items import Potion
+from domb.item.weapons import Longsword
 from vec2d import Vec2d
 from controls.inputhandler import InputHandler
 

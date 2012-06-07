@@ -1,4 +1,4 @@
-from domb.character.weapon import Weapon
+from domb.item.weapon import Weapon
 from domb.dice import Dice
 import domb.tiles as tiles
 

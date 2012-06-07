@@ -2,6 +2,7 @@ import logging
 
 from domb.d20 import resolve_attack
 from domb.inventory import Inventory
+
 from domb.character.attribute import Attribute
 from domb.character.hp import HP
 from domb.character.ac import AC
@@ -9,7 +10,8 @@ from domb.character.attack import Attack
 from domb.character.damage import Damage
 from domb.character.size import Medium
 from domb.character.type import Type
-from domb.character.naturalweapons import Unarmed
+
+from domb.item.naturalweapons import Unarmed
 
 
 logger = logging.getLogger('console')

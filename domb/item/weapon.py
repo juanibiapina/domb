@@ -1,7 +1,7 @@
 import logging
 
 from domb.dice import Dice
-from domb.item import Item
+from domb.item.item import Item
 
 
 logger = logging.getLogger('console')
