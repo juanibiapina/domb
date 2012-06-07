@@ -17,5 +17,5 @@ class Weapon(Item):
 
     def use(self, character):
         character.weapon = self
-        logger.info("%s equiped %s", character.get_name(), self.name)
+        logger.info("%s equiped %s", character.name, self.name)
         return False

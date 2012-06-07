@@ -64,9 +64,6 @@ class Character(object):
         self.wis = attrs["wis"]
         self.cha = attrs["cha"]
 
-    def get_name(self):
-        return self.name
-
     def draw(self, surface):
         self.tile.draw(surface, self.pos)
         if self.is_incapacitated():
@@ -89,24 +86,6 @@ class Character(object):
             if self.ai:
                 self.ai.update(self)
 
-    def get_attack(self):
-        return self.attack
-
-    def get_ac(self):
-        return self.ac
-
-    def get_cr(self):
-        return self.cr
-
-    def get_damage(self):
-        return self.damage
-
-    def get_weapon(self):
-        return self.weapon
-
-    def get_hp(self):
-        return self.hp
-
     def is_incapacitated(self):
         return self.hp.current_value <= 0
 
@@ -126,7 +105,7 @@ class Character(object):
     def pick_up_item(self):
         item = self.area.pick_up_item(self.pos)
         if item:
-            logger.info(self.get_name() + " picked up a " + item.get_name())
+            logger.info(self.name + " picked up a " + item.get_name())
             self.inventory.add_item(item)
 
     def get_items(self):

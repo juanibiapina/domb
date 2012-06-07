@@ -10,7 +10,7 @@ class Hud(object):
     def draw(self, character, screen):
         self._clear()
         hp = character.hp.current_value
-        ac = character.get_ac().get_value()
+        ac = character.ac.get_value()
         xp = character.get_xp()
         hp_surface = self.font.render('HP: ' + str(hp), False, Color(255, 255, 255))
         ac_surface = self.font.render('AC: ' + str(ac), False, Color(255, 255, 255))

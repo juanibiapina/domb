@@ -31,7 +31,7 @@ class Hero(Character):
 
     def resolve_xp(self, target):
         if target.is_incapacitated():
-            self.xp.increase(target.get_cr())
+            self.xp.increase(target.cr)
 
     def get_xp(self):
         return self.xp.xp

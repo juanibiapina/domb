@@ -3,7 +3,7 @@ class Damage(object):
         self.character = character
 
     def get_value(self):
-        return self.character.get_weapon().get_damage()
+        return self.character.weapon.get_damage()
 
     def get_weapon(self):
-        return self.character.get_weapon()
+        return self.character.weapon
