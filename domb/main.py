@@ -11,6 +11,7 @@ import tiles
 from ai import ChaseAI, RandomAI
 from view.inventory import InventoryView
 from items import Potion
+from domb.character.weapons import Longsword
 from vec2d import Vec2d
 from controls.inputhandler import InputHandler
 
@@ -79,6 +80,7 @@ def play_game(screen):
 
     # create items
     dungeon.add_item(Potion(), Vec2d(3, 3))
+    dungeon.add_item(Longsword(), Vec2d(3, 4))
 
     # set character AI
     dog.set_ai(ChaseAI(hero))
