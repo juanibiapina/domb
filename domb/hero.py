@@ -1,5 +1,6 @@
 from character.character import Character
 from character.size import Medium
+from character.xp import XP
 from domb.character.type import Fighter
 import tiles
 
@@ -21,12 +22,16 @@ class Hero(Character):
 
     def __init__(self, area):
         super(Hero, self).__init__(area)
-        self.xp = 0
-
-    def add_xp(self, extra_xp):
-        self.xp += extra_xp
+        self.xp = XP(self.hit_dice)
 
     def resolve_damage(self, damage):
         super(Hero, self).resolve_damage(damage)
         if self.is_incapacitated():
             raise HeroIsDead()
+
+    def resolve_xp(self, target):
+        if target.is_incapacitated():
+            self.xp.increase(target.get_cr())
+
+    def get_xp(self):
+        return self.xp.xp

@@ -22,6 +22,7 @@ class Character(object):
     ai = None
     hp = None
     ac = None
+    cr = None
     name = "Monster"
     attributes = "Str 10, Dex 10, Con 10, Int 10, Wis 10, Cha 10"
     str = Attribute(10)
@@ -92,6 +93,9 @@ class Character(object):
     def get_ac(self):
         return self.ac
 
+    def get_cr(self):
+        return self.cr
+
     def get_damage(self):
         return self.damage
 
@@ -112,12 +116,10 @@ class Character(object):
             target = self.area.get_character_at(pos)
             if target:
                 resolve_attack(self, target)
+                self.resolve_xp(target)
 
     def do_attack(self, direction):
-        if not self.is_incapacitated():
-            target = self.area.get_character_at(self.pos + direction)
-            if target:
-                resolve_attack(self, target)
+        self.do_attack_pos(self.pos + direction)
 
     def pick_up_item(self):
         item = self.area.pick_up_item(self.pos)
@@ -135,3 +137,6 @@ class Character(object):
         item = self.inventory.current_item()
         if item.use(self):
             self.inventory.remove_current()
+
+    def resolve_xp(self, target):
+        pass

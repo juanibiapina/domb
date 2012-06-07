@@ -10,6 +10,7 @@ blood_tile = tiles.BLOOD
 class Cat(Character):
     name = "Cat"
     hit_dice = 0.5
+    cr = 1 / 4
     type = Animal()
     attributes = "Str 3, Dex 15, Con 10, Int 2, Wis 12, Cha 7"
     size = Tiny()
@@ -22,6 +23,7 @@ class Cat(Character):
 class Dog(Character):
     name = "Dog"
     hit_dice = 1
+    cr = 1 / 3
     type = Animal()
     attributes = "Str 13, Dex 17, Con 15, Int 3, Wis 12, Cha 6"
     natural_armor = 1
@@ -34,6 +36,7 @@ class Dog(Character):
 class Wolf(Character):
     name = "Wolf"
     hit_dice = 2
+    cr = 1
     type = Animal()
     attributes = "Str 13, Dex 15, Con 15, Int 2, Wis 12, Cha 6"
     natural_armor = 2
@@ -46,6 +49,7 @@ class Wolf(Character):
 class ConstrictorSnake(Character):
     name = "Constrictor Snake"
     hit_dice = 3
+    cr = 2
     type = Animal()
     attributes = "Str 17, Dex 17, Con 13, Int 1, Wis 12, Cha 2"
     natural_armor = 2
@@ -59,6 +63,7 @@ class ConstrictorSnake(Character):
 class Cow(Character):
     name = "Cow"
     hit_dice = 3
+    cr = 1 / 3
     type = Animal()
     attributes = "Str 13, Dex 15, Con 15, Int 2, Wis 12, Cha 6"
     size = Medium()
