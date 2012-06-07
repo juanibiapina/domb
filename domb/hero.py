@@ -26,7 +26,7 @@ class Hero(Character):
     def add_xp(self, extra_xp):
         self.xp += extra_xp
 
-    def damage(self, damage):
-        super(Hero, self).damage(damage)
+    def resolve_damage(self, damage):
+        super(Hero, self).resolve_damage(damage)
         if self.is_incapacitated():
             raise HeroIsDead()
