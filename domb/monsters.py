@@ -1,6 +1,7 @@
 from character.character import Character
 from character.size import Tiny, Small, Medium
 from domb.character.type import Animal
+from domb.character.naturalattacks import Claw, Bite
 import tiles
 
 blood_tile = tiles.BLOOD
@@ -13,6 +14,7 @@ class Cat(Character):
     attributes = "Str 3, Dex 15, Con 10, Int 2, Wis 12, Cha 7"
     size = Tiny()
     feats = ["Weapon Finesse"]
+    weapon = Claw()
     tile = tiles.CAT
     blood_tile = blood_tile
 
@@ -24,6 +26,7 @@ class Dog(Character):
     attributes = "Str 13, Dex 17, Con 15, Int 3, Wis 12, Cha 6"
     natural_armor = 1
     size = Small()
+    weapon = Bite()
     tile = tiles.DOG
     blood_tile = blood_tile
 
@@ -35,6 +38,7 @@ class Wolf(Character):
     attributes = "Str 13, Dex 15, Con 15, Int 2, Wis 12, Cha 6"
     natural_armor = 2
     size = Medium()
+    weapon = Bite()
     tile = tiles.WOLF
     blood_tile = blood_tile
 
@@ -47,6 +51,7 @@ class ConstrictorSnake(Character):
     natural_armor = 2
     size = Medium()
     feats = ['Toughness']
+    weapon = Bite()
     tile = tiles.SNAKE
     blood_tile = blood_tile
 

@@ -10,9 +10,10 @@ def roll(sides):
 
 
 def resolve_damage(origin, target, critical=1):
-    damage = origin.calculate_damage() * critical
-    target.damage(damage)
-    return damage
+    damage = origin.get_damage()
+    value = damage.get_value() * critical
+    target.resolve_damage(value)
+    return damage.get_weapon(), value
 
 
 def resolve_attack(origin, target):
@@ -31,10 +32,10 @@ def resolve_attack(origin, target):
 
     # check for hit
     if critical or attack >= ac:
-        damage = resolve_damage(origin, target, multiplier)
+        weapon, damage = resolve_damage(origin, target, multiplier)
         if confirm_critical:
-            logger.info('%s attacked %s - attack: %d / ac: %d / critical: %d / damage (x%d): %d', origin.get_name(), target.get_name(), attack, ac, new_attack, multiplier, damage)
+            logger.info('%s attacked %s with %s - attack: %d / ac: %d / critical: %d / damage (x%d): %d', origin.get_name(), target.get_name(), weapon.get_name(), attack, ac, new_attack, multiplier, damage)
         else:
-            logger.info('%s attacked %s - attack: %d / ac: %d / damage: %d', origin.get_name(), target.get_name(), attack, ac, damage)
+            logger.info('%s attacked %s with %s - attack: %d / ac: %d / damage: %d', origin.get_name(), target.get_name(), weapon.get_name(), attack, ac, damage)
     else:  # no hit
         logger.info('%s attacked %s - attack: %d / ac: %d / miss', origin.get_name(), target.get_name(), attack, ac)

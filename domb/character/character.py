@@ -6,9 +6,10 @@ from domb.character.attribute import Attribute
 from domb.character.hp import HP
 from domb.character.ac import AC
 from domb.character.attack import Attack
+from domb.character.damage import Damage
 from domb.character.size import Medium
 from domb.character.type import Type
-from domb.dice import roll
+from domb.character.naturalattacks import Unarmed
 
 
 logger = logging.getLogger('console')
@@ -33,6 +34,7 @@ class Character(object):
     size = Medium()
     type = Type()
     feats = []
+    weapon = Unarmed()
 
     def __init__(self, area):
         self.area = area
@@ -43,6 +45,7 @@ class Character(object):
         self.hp = HP(self)
         self.ac = AC(self)
         self.attack = Attack(self)
+        self.damage = Damage(self)
 
     def set_attributes(self, attributes):
         broken_attrs = attributes.split(",")
@@ -83,19 +86,22 @@ class Character(object):
             if self.ai:
                 self.ai.update(self)
 
-    def calculate_damage(self):
-        return roll(1, 3, 0)  # unarmed strike
-
     def get_attack(self):
         return self.attack
 
     def get_ac(self):
         return self.ac
 
+    def get_damage(self):
+        return self.damage
+
+    def get_weapon(self):
+        return self.weapon
+
     def is_incapacitated(self):
         return self.hp.current_value <= 0
 
-    def damage(self, damage):
+    def resolve_damage(self, damage):
         self.hp.damage(damage)
 
     def do_attack_pos(self, pos):
