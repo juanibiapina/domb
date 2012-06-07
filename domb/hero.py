@@ -6,6 +6,10 @@ import tiles
 blood_tile = tiles.BLOOD
 
 
+class HeroIsDead(Exception):
+    pass
+
+
 class Hero(Character):
     name = "The Dude"
     hit_dice = 1
@@ -21,3 +25,8 @@ class Hero(Character):
 
     def add_xp(self, extra_xp):
         self.xp += extra_xp
+
+    def damage(self, damage):
+        super(Hero, self).damage(damage)
+        if self.is_incapacitated():
+            raise HeroIsDead()
