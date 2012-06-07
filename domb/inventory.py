@@ -17,7 +17,7 @@ class Inventory(object):
 
     def remove_current(self):
         item, quantity = self.items[self.current_slot]
-        if quantity == 0:
+        if quantity == 1:
             del self.items[self.current_slot]
         else:
             self.items[self.current_slot] = item, quantity - 1
