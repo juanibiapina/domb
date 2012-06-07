@@ -15,6 +15,13 @@ class Inventory(object):
         else:
             self.items.append((item, 1))
 
+    def remove_current(self):
+        item, quantity = self.items[self.current_slot]
+        if quantity == 0:
+            del self.items[self.current_slot]
+        else:
+            self.items[self.current_slot] = item, quantity - 1
+
     def next_slot(self):
         self.current_slot = (self.current_slot + 1) % self.capacity
 

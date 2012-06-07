@@ -21,3 +21,4 @@ class Item(Entity):
 
     def use(self, character):
         logger.info("%s used %s... nothing happens", character.get_name(), self.name)
+        return False

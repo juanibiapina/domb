@@ -133,4 +133,5 @@ class Character(object):
 
     def use_current_item(self):
         item = self.inventory.current_item()
-        item.use(self)
+        if item.use(self):
+            self.inventory.remove_current()
