@@ -106,7 +106,7 @@ def play_game(screen):
             run_turn = input_handler.handle_input()
             if run_turn:
                 dungeon.run_turn()
-                draw()
+            draw()
     except HeroIsDead:
         draw()
 

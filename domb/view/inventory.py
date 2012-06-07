@@ -13,13 +13,12 @@ class InventoryView(object):
 
     def __init__(self, inventory):
         self.pos = Vec2d(1, 1)
-        self.display = False
         self.inventory = inventory
         self.active = False
         self.current_item = 0
 
     def draw(self, screen):
-        if not self.display:
+        if not self.active:
             return
 
         for slot, item in self.inventory.slots_and_items():
@@ -34,7 +33,6 @@ class InventoryView(object):
         self.inventory.previous_slot()
 
     def toggle(self):
-        self.display = not self.display
         self.active = not self.active
 
     def is_active(self):
