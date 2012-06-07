@@ -1,11 +1,11 @@
 import sys
 from random import randint
 
-import pygame
 from pygame.locals import *
 from pygame import draw
 
 AREA = Rect(0, 0, 500, 500)
+
 
 class Range(object):
     def __init__(self, min, max):
@@ -14,51 +14,67 @@ class Range(object):
 
     def random(self):
         return randint(self.min, self.max)
-    
-class Room(object):
-    ROOM_SIZE = Range(4, 50)
-    ROOM_DISTANCE = Range(10, 20)
 
+
+class Room(object):
+    SIZE = Range(4, 50)
+    DISTANCE = Range(10, 20)
+    OFFSET = Range(-10, 10)
+
+    SIDES_TO_ALIGN = {
+        "east": ("left", "right", 1),
+        "west": ("right", "left", -1),
+        "north": ("bottom", "top", -1),
+        "south": ("top", "bottom", 1),
+    }
+
+    SIDE_TO_OFFSET = {
+        "east": "top",
+        "west": "top",
+        "north": "right",
+        "south": "right",
+    }
 
     def __init__(self, pos):
-        self.boundary = Rect(0, 0, self.ROOM_SIZE.random(), self.ROOM_SIZE.random())
+        self.boundary = Rect(0, 0, self.SIZE.random(), self.SIZE.random())
         self.boundary.center = pos
 
     def draw(self, surface):
         draw.rect(surface, Color("green"), self.boundary)
 
-    def create_new_room_at_east(self):
+    def create_new_room_at(self, side):
         new_room = Room(self.boundary.center)
-        new_room.boundary.left = self.boundary.right + self.ROOM_DISTANCE.random()
-        return new_room
 
-    def create_new_room_at_west(self):
-        new_room = Room(self.boundary.center)
-        new_room.boundary.right = self.boundary.left - self.ROOM_DISTANCE.random()
-        return new_room
+        new_room_side, room_side, sign = self.SIDES_TO_ALIGN[side]
+        new_side_pos = (getattr(self.boundary, room_side)
+                        + sign * self.DISTANCE.random())
+        setattr(new_room.boundary, new_room_side, new_side_pos)
 
-    def create_new_room_at_north(self):
-        new_room = Room(self.boundary.center)
-        new_room.boundary.bottom = self.boundary.top - self.ROOM_DISTANCE.random()
-        return new_room
-
-    def create_new_room_at_south(self):
-        new_room = Room(self.boundary.center)
-        new_room.boundary.top = self.boundary.bottom + self.ROOM_DISTANCE.random()
+        side_to_offset = self.SIDE_TO_OFFSET[side]
+        offset_side_pos = getattr(new_room.boundary, side_to_offset) + self.OFFSET.random()
+        setattr(new_room.boundary, side_to_offset, offset_side_pos)
         return new_room
 
 
 def generate_rooms():
     room_list = []
     room = Room(AREA.center)
-    
-    room_list.append(room)
-    room_list.append(room.create_new_room_at_east())
-    room_list.append(room.create_new_room_at_west())
-    room_list.append(room.create_new_room_at_south())
-    room_list.append(room.create_new_room_at_north())
 
+    def gen(room, i):
+        if i <= 0:
+            return
+        else:
+            for direction in ["east", "west", "north", "south"]:
+                new_room = room.create_new_room_at(direction)
+                if new_room.boundary.collidelist([room.boundary for room
+                                                  in room_list]) == -1:
+                    room_list.append(new_room)
+                    gen(new_room, i - 1)
+
+    room_list.append(room)
+    gen(room, 5)
     return room_list
+
 
 def preview():
     import pygame
