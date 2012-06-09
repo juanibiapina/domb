@@ -9,19 +9,19 @@ class HP(object):
         self.max = self.sides + self.con.get_modifier()
         if character.has_feat("Toughness"):
             self.max += 3
-        self.current_value = self.max
+        self.value = self.max
 
     def roll(self):
         self.max += roll(self.hit_dice, self.sides, self.con.get_modifier(), 1)
 
     def damage(self, damage):
-        self.current_value -= damage
+        self.value -= damage
 
     def restore(self, value):
-        if self.max - self.current_value < value:
-            restored = self.max - self.current_value
-            self.current_value = self.max
+        if self.max - self.value < value:
+            restored = self.max - self.value
+            self.value = self.max
         else:
             restored = value
-            self.current_value += value
+            self.value += value
         return restored

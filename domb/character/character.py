@@ -87,7 +87,7 @@ class Character(object):
                 self.ai.update(self)
 
     def is_incapacitated(self):
-        return self.hp.current_value <= 0
+        return self.hp.value <= 0
 
     def resolve_damage(self, damage):
         self.hp.damage(damage)
