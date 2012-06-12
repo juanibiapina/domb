@@ -12,10 +12,11 @@ class AreaGenerator(object):
 
     def build(self):
         self.create_initial_room()
-        pos = self.random_wall()
-        dir = self.valid_dir(pos)
-        if dir:
-            self.create_corridor(pos, dir, 5)
+
+        # sprout corridor
+        #pos, dir = self.random_wall()
+        #if dir:
+            #self.create_space(pos, dir, 1, 5)
 
     def valid_dir(self, pos):
         dirs = [dir for dir in [N, S, E, W] if (pos + dir) not in self.data]
@@ -25,42 +26,52 @@ class AreaGenerator(object):
             return choice(dirs)
 
     def random_wall(self):
-        return choice([pos for pos, name in self.data.iteritems() if name == "wall"])
+        pos = choice([pos for pos, name in self.data.iteritems() if name == "wall"])
+        dir = self.valid_dir(pos)
+        return pos, dir
 
-    def create_corridor(self, pos, dir, length):
+    def create_space(self, pos, dir, width, length):
         data = {}
         dir1, dir2 = self.cross(dir)
+
+        # First wall
+        data[pos] = "wall"
+        for w in range(1, width + 2):
+            data[(pos + (dir1 * w))] = "wall"
+            data[(pos + (dir2 * w))] = "wall"
+
+        # contents of room + border walls
         for i in range(1, length + 1):
+            # border
+            data[(pos + (dir1 * (width + 1))) + (i * dir)] = "wall"
+
+            # floor
             data[pos + (i * dir)] = "floor"
-            data[(pos + dir1) + (i * dir)] = "wall"
-            data[(pos + dir2) + (i * dir)] = "wall"
+            for w in range(1, width + 1):
+                data[pos + (i * dir) + (dir1 * w)] = "floor"
+                data[pos + (i * dir) + (dir2 * w)] = "floor"
 
+            # other border
+            data[(pos + (dir2 * (width + 1))) + (i * dir)] = "wall"
+
+        # last wall
         data[pos + ((length + 1) * dir)] = "wall"
-        data[(pos + dir1) + ((length + 1) * dir)] = "wall"
-        data[(pos + dir2) + ((length + 1) * dir)] = "wall"
+        for w in range(1,  width + 2):
+            data[(pos + (dir1 * w)) + ((length + 1) * dir)] = "wall"
+            data[(pos + (dir2 * w)) + ((length + 1) * dir)] = "wall"
 
-        self.data.update(data)
-
-        self.data[pos] = "door"
+        return data
 
     def cross(self, dir):
         x = dir.x
         y = dir.y
-        dir1 = (1 if x == 0 else 0, 1 if y == 0 else 0)
-        dir2 = (-1 if x == 0 else 0, -1 if y == 0 else 0)
+        dir1 = Vec2d(1 if x == 0 else 0, 1 if y == 0 else 0)
+        dir2 = Vec2d(-1 if x == 0 else 0, -1 if y == 0 else 0)
         return dir1, dir2
 
     def create_initial_room(self):
-        self.create_room(10, 10)
-
-    def create_room(self, width, height):
-        for i in xrange(width):
-            for j in xrange(height):
-                coord = Vec2d(i, j)
-                if i == 0 or i == (width - 1) or j == 0 or j == (height - 1):
-                    self.data[coord] = "wall"
-                else:
-                    self.data[coord] = "floor"
+        space = self.create_space(Vec2d(10, 10), E, 3, 6)
+        self.data.update(space)
 
     def get_area(self):
         result = {}
