@@ -35,11 +35,18 @@ class AreaGenerator(object):
         return True
 
     def valid_dir(self, pos):
-        dirs = [dir for dir in [N, S, E, W] if (pos + dir) not in self.data]
-        if len(dirs) == 0:
+        valid_dirs = []
+        for dir in [N, S, E, W]:
+            if (pos + dir) not in self.data:  # direction has nothing
+                dir1, dir2 = self.cross(dir)
+                if (pos + dir1) in self.data and self.data[pos + dir1] == "wall":  # has wall on one side
+                    if (pos + dir2) in self.data and self.data[pos + dir2] == "wall":  # has wall on the other side
+                        valid_dirs.append(dir)
+
+        if len(valid_dirs) == 0:
             return None
         else:
-            return choice(dirs)
+            return choice(valid_dirs)
 
     def random_wall(self):
         pos = choice([pos for pos, name in self.data.iteritems() if name == "wall"])
