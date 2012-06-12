@@ -11,22 +11,27 @@ class AreaGenerator(object):
     data = {}
 
     def build(self):
-        self.create_initial_room()
-        for i in range(10):
-            self.sprout_space(0)
-            self.sprout_space(randint(2, 6))
+        # initial room
+        space = self.create_space(Vec2d(10, 10), E, 3, 6)
+        self.data.update(space)
 
-    def sprout_space(self, width):
+        for i in range(20):
+            self.sprout_space(randint(2, 6), randint(2, 6))
+
+    def sprout_space(self, width, height):
         pos, dir = self.random_wall()
         if dir:
-            space = self.create_space(pos, dir, width, 5)
+            space = self.create_space(pos, dir, width, height)
             return self.merge_space(pos, space)
         else:
             return False
 
-    def merge_space(self, pos, space):
+    def merge_space(self, apos, space):
+        for pos, name in space.iteritems():
+            if pos in self.data and self.data[pos] != "wall":
+                return False
         self.data.update(space)
-        self.data[pos] = "door"
+        self.data[apos] = "door"
         return True
 
     def valid_dir(self, pos):
@@ -79,10 +84,6 @@ class AreaGenerator(object):
         dir1 = Vec2d(1 if x == 0 else 0, 1 if y == 0 else 0)
         dir2 = Vec2d(-1 if x == 0 else 0, -1 if y == 0 else 0)
         return dir1, dir2
-
-    def create_initial_room(self):
-        space = self.create_space(Vec2d(10, 10), E, 3, 6)
-        self.data.update(space)
 
     def get_area(self):
         result = {}
