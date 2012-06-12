@@ -1,4 +1,4 @@
-from random import choice
+from random import choice, randint
 from domb.directions import N, S, E, W
 from vec2d import Vec2d
 from entity import Entity
@@ -12,10 +12,9 @@ class AreaGenerator(object):
 
     def build(self):
         self.create_initial_room()
-        self.sprout_space(0)
-        self.sprout_space(3)
-        self.sprout_space(0)
-        self.sprout_space(2)
+        for i in range(10):
+            self.sprout_space(0)
+            self.sprout_space(randint(2, 6))
 
     def sprout_space(self, width):
         pos, dir = self.random_wall()
