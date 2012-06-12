@@ -12,11 +12,23 @@ class AreaGenerator(object):
 
     def build(self):
         self.create_initial_room()
+        self.sprout_space(0)
+        self.sprout_space(3)
+        self.sprout_space(0)
+        self.sprout_space(2)
 
-        # sprout corridor
-        #pos, dir = self.random_wall()
-        #if dir:
-            #self.create_space(pos, dir, 1, 5)
+    def sprout_space(self, width):
+        pos, dir = self.random_wall()
+        if dir:
+            space = self.create_space(pos, dir, width, 5)
+            return self.merge_space(pos, space)
+        else:
+            return False
+
+    def merge_space(self, pos, space):
+        self.data.update(space)
+        self.data[pos] = "door"
+        return True
 
     def valid_dir(self, pos):
         dirs = [dir for dir in [N, S, E, W] if (pos + dir) not in self.data]
