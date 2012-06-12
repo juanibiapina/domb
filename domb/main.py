@@ -6,7 +6,7 @@ import logging
 
 import monsters
 from hero import Hero, HeroIsDead
-from area import generate_dungeon
+from domb.generation.area import generate_dungeon
 import tiles
 from ai import ChaseAI, RandomAI
 from view.inventory import InventoryView
@@ -17,7 +17,7 @@ from controls.inputhandler import InputHandler
 
 
 def main():
-    screen = pygame.display.set_mode((640, 480))
+    screen = pygame.display.set_mode((1024, 768))
     pygame.display.init()
     pygame.font.init()
 
