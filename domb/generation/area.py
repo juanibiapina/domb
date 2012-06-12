@@ -1,4 +1,5 @@
-from random import choice, randint
+from random import choice, randint, random
+
 from domb.directions import N, S, E, W
 from vec2d import Vec2d
 from entity import Entity
@@ -8,15 +9,28 @@ from domb.area import Area
 
 
 class AreaGenerator(object):
-    data = {}
+    def __init__(self, parameters):
+        self.parameters = parameters
+        self.data = {}
 
     def build(self):
+        p = self.parameters
+
         # initial room
-        space = self.create_space(Vec2d(10, 10), E, 3, 6)
+        space = self.create_space(Vec2d(10, 10), E, p.initial_room_width, p.initial_room_height)
         self.data.update(space)
 
-        for i in range(20):
-            self.sprout_space(randint(2, 6), randint(2, 6))
+        # other rooms
+        i = 0
+        while i < p.number_of_rooms - 1:
+            created = self.sprout_space(p.room_width, p.room_height)
+            if p.force_number:
+                if created:
+                    i += 1
+            else:
+                i += 1
+
+        return self.get_area()
 
     def sprout_space(self, width, height):
         pos, dir = self.random_wall()
@@ -31,17 +45,21 @@ class AreaGenerator(object):
             if pos in self.data and self.data[pos] != "wall":
                 return False
         self.data.update(space)
-        self.data[apos] = "door"
+        if random() <= self.parameters.door_probability:
+            self.data[apos] = "door"
+        else:
+            self.data[apos] = "floor"
         return True
 
     def valid_dir(self, pos):
         valid_dirs = []
-        for dir in [N, S, E, W]:
+        for dir in self.parameters.directions:
             if (pos + dir) not in self.data:  # direction has nothing
                 dir1, dir2 = self.cross(dir)
                 if (pos + dir1) in self.data and self.data[pos + dir1] == "wall":  # has wall on one side
                     if (pos + dir2) in self.data and self.data[pos + dir2] == "wall":  # has wall on the other side
-                        valid_dirs.append(dir)
+                        if (pos - dir) not in self.data or self.data[pos - dir] != "wall":
+                            valid_dirs.append(dir)
 
         if len(valid_dirs) == 0:
             return None
@@ -107,7 +125,58 @@ class AreaGenerator(object):
             return Spot(Entity(tiles.DOOR, walkable=True))
 
 
+class Parameters(object):
+    initial_room_width = 0
+    initial_room_height = 1
+    door_probability = 1
+    number_of_rooms = 1
+    force_number = True
+    room_width = 0
+    room_height = 1
+    directions = [N, S, E, W]
+
+
+class Corridors(Parameters):
+    initial_room_width = 0
+    initial_room_height = 1
+    door_probability = 0
+    number_of_rooms = 100
+
+
+class SquareRooms(Parameters):
+    initial_room_width = 3
+    initial_room_height = 7
+    number_of_rooms = 5
+    room_width = 3
+    room_height = 7
+
+
+class KindaRandom(Parameters):
+    number_of_rooms = 10
+    door_probability = 0.8
+
+    @property
+    def room_width(self):
+        return randint(1, 3)
+
+    @property
+    def room_height(self):
+        return randint(2, 6)
+
+
+class Horizontal(Parameters):
+    number_of_rooms = 10
+    room_height = 3
+    directions = [N]
+
+    @property
+    def room_width(self):
+        return randint(3, 6)
+
+
 def generate_dungeon(tiles):
-    b = AreaGenerator()
-    b.build()
-    return b.get_area()
+    corridors = AreaGenerator(Corridors()).build()
+    square_rooms = AreaGenerator(SquareRooms()).build()
+    kinda_random = AreaGenerator(KindaRandom()).build()
+    horizontal = AreaGenerator(Horizontal()).build()
+    return kinda_random
