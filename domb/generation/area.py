@@ -17,13 +17,13 @@ class AreaGenerator(object):
         p = self.parameters
 
         # initial room
-        space = self.create_space(Vec2d(10, 10), E, p.initial_room_width, p.initial_room_height)
+        space = self.create_space(Vec2d(10, 10), E, p.initial_room_width, p.initial_room_height, "initial room")
         self.data.update(space)
 
         # other rooms
         i = 0
         while i < p.number_of_rooms - 1:
-            created = self.sprout_space(p.room_width, p.room_height)
+            created = self.sprout_space(p.room_width, p.room_height, "room " + str(i))
             if p.force_number:
                 if created:
                     i += 1
@@ -32,10 +32,10 @@ class AreaGenerator(object):
 
         return self.get_area()
 
-    def sprout_space(self, width, height):
+    def sprout_space(self, width, height, name):
         pos, dir = self.random_wall()
         if dir:
-            space = self.create_space(pos, dir, width, height)
+            space = self.create_space(pos, dir, width, height, name)
             return self.merge_space(pos, space)
         else:
             return False
@@ -46,9 +46,9 @@ class AreaGenerator(object):
                 return False
         self.data.update(space)
         if random() <= self.parameters.door_probability:
-            self.data[apos] = "door"
+            self.data[apos] = Spot(Entity(tiles.DOOR, walkable=True))
         else:
-            self.data[apos] = "floor"
+            self.data[apos] = Spot(Entity(tiles.GROUND, walkable=True), room=name)
         return True
 
     def valid_dir(self, pos):
@@ -71,7 +71,7 @@ class AreaGenerator(object):
         dir = self.valid_dir(pos)
         return pos, dir
 
-    def create_space(self, pos, dir, width, length):
+    def create_space(self, pos, dir, width, length, name):
         data = {}
         dir1, dir2 = self.cross(dir)
 
@@ -88,7 +88,7 @@ class AreaGenerator(object):
 
             # floor
             for w in range(1, width + 1):
-                data[pos + (i * dir) + (dir1 * (w - offset))] = "floor"
+                data[pos + (i * dir) + (dir1 * (w - offset))] = Spot(Entity(tiles.GROUND, walkable=True), room=name)
 
             # other border
             data[(pos + (dir1 * (width + 1 - offset))) + (i * dir)] = "wall"
@@ -113,12 +113,9 @@ class AreaGenerator(object):
         return Area(result)
 
     def tile_for(self, name):
-        if name == "floor":
-            return Spot(Entity(tiles.GROUND, walkable=True))
         if name == "wall":
             return Spot(Entity(tiles.WALL, walkable=False))
-        if name == "door":
-            return Spot(Entity(tiles.DOOR, walkable=True))
+        return name
 
 
 class Parameters(object):
