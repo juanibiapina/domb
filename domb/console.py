@@ -23,7 +23,7 @@ class Console(object):
             text_surface = self.font.render(msg, False, Color(255, 255, 255))
             self.console.blit(text_surface, (10, i))
             i -= 20
-        screen.blit(self.console, (20, 390))
+        screen.blit(self.console, (20, 670))
 
     def _clear_log(self):
         self.console.fill(Color(255, 255, 255, 50))

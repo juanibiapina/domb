@@ -18,7 +18,7 @@ class Hud(object):
         self.hud.blit(hp_surface, (10, 5))
         self.hud.blit(ac_surface, (10, 25))
         self.hud.blit(xp_surface, (10, 45))
-        screen.blit(self.hud, (550, 10))
+        screen.blit(self.hud, (950, 10))
 
     def _clear(self):
         self.hud.fill(Color(255, 255, 0, 50))
