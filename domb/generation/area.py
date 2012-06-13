@@ -75,31 +75,27 @@ class AreaGenerator(object):
         data = {}
         dir1, dir2 = self.cross(dir)
 
+        offset = randint(1, width)
+
         # First wall
-        data[pos] = "wall"
-        for w in range(1, width + 2):
-            data[(pos + (dir1 * w))] = "wall"
-            data[(pos + (dir2 * w))] = "wall"
+        for w in range(width + 2):
+            data[pos + (dir1 * (w - offset))] = "wall"
 
         # contents of room + border walls
         for i in range(1, length + 1):
             # border
-            data[(pos + (dir1 * (width + 1))) + (i * dir)] = "wall"
+            data[pos + (dir1 * -offset) + (i * dir)] = "wall"
 
             # floor
-            data[pos + (i * dir)] = "floor"
             for w in range(1, width + 1):
-                data[pos + (i * dir) + (dir1 * w)] = "floor"
-                data[pos + (i * dir) + (dir2 * w)] = "floor"
+                data[pos + (i * dir) + (dir1 * (w - offset))] = "floor"
 
             # other border
-            data[(pos + (dir2 * (width + 1))) + (i * dir)] = "wall"
+            data[(pos + (dir1 * (width + 1 - offset))) + (i * dir)] = "wall"
 
         # last wall
-        data[pos + ((length + 1) * dir)] = "wall"
-        for w in range(1,  width + 2):
-            data[(pos + (dir1 * w)) + ((length + 1) * dir)] = "wall"
-            data[(pos + (dir2 * w)) + ((length + 1) * dir)] = "wall"
+        for w in range(width + 2):
+            data[pos + (dir1 * (w - offset)) + ((length + 1) * dir)] = "wall"
 
         return data
 
@@ -126,29 +122,29 @@ class AreaGenerator(object):
 
 
 class Parameters(object):
-    initial_room_width = 0
+    initial_room_width = 1
     initial_room_height = 1
     door_probability = 1
     number_of_rooms = 1
     force_number = True
-    room_width = 0
+    room_width = 1
     room_height = 1
     directions = [N, S, E, W]
 
 
 class Corridors(Parameters):
-    initial_room_width = 0
+    initial_room_width = 1
     initial_room_height = 1
     door_probability = 0
     number_of_rooms = 100
 
 
 class SquareRooms(Parameters):
-    initial_room_width = 3
-    initial_room_height = 7
+    initial_room_width = 6
+    initial_room_height = 6
     number_of_rooms = 5
-    room_width = 3
-    room_height = 7
+    room_width = 6
+    room_height = 6
 
 
 class KindaRandom(Parameters):
@@ -157,7 +153,7 @@ class KindaRandom(Parameters):
 
     @property
     def room_width(self):
-        return randint(1, 3)
+        return randint(2, 6)
 
     @property
     def room_height(self):
@@ -171,12 +167,18 @@ class Horizontal(Parameters):
 
     @property
     def room_width(self):
-        return randint(3, 6)
+        return randint(6, 12)
+
+
+class OneSquareRoom(Parameters):
+    initial_room_width = 6
+    initial_room_height = 6
 
 
 def generate_dungeon(tiles):
-    corridors = AreaGenerator(Corridors()).build()
-    square_rooms = AreaGenerator(SquareRooms()).build()
-    kinda_random = AreaGenerator(KindaRandom()).build()
-    horizontal = AreaGenerator(Horizontal()).build()
-    return kinda_random
+    #area = AreaGenerator(Corridors()).build()
+    #area = AreaGenerator(SquareRooms()).build()
+    area = AreaGenerator(KindaRandom()).build()
+    #area = AreaGenerator(Horizontal()).build()
+    #area = AreaGenerator(OneSquareRoom()).build()
+    return area
