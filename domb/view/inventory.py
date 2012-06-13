@@ -2,7 +2,7 @@ from pygame import draw
 from pygame.locals import Color
 from vec2d import Vec2d
 from pygame.font import SysFont
-
+from domb.view.camera import Camera
 
 class InventoryView(object):
     SLOT_SIZE = 32
@@ -62,7 +62,7 @@ class InventoryView(object):
         return (self.pos * self.SLOT_SIZE) + Vec2d(slot * self.SLOT_SIZE, 0)
 
     def _draw_item(self, screen, slot, item):
-        item[0].draw(screen, self.pos + Vec2d(slot, 0))
+        item[0].draw(screen, self.pos + Vec2d(slot, 0), Camera())
         self._draw_item_quantity(screen, slot, item[1])
 
     def _draw_item_quantity(self, screen, slot, quantity):
