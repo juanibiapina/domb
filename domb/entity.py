@@ -3,8 +3,8 @@ class Entity(object):
         self.tile = tile
         self.attributes = attributes
 
-    def draw(self, screen, pos):
-        self.tile.draw(screen, pos)
+    def draw(self, screen, pos, camera):
+        self.tile.draw(screen, pos, camera)
 
     def get_attribute(self, attribute):
         return self.attributes.get(attribute, None)

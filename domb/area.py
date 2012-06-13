@@ -12,11 +12,11 @@ class Spot(object):
     def get_room_name(self):
         return self.data.get("room", None)
 
-    def draw(self, screen, pos):
+    def draw(self, screen, pos, camera):
         for entity in self.entities:
-            entity.draw(screen, pos)
+            entity.draw(screen, pos, camera)
         if self.item:
-            self.item.draw(screen, pos)
+            self.item.draw(screen, pos, camera)
 
     def add_entity(self, entity):
         self.entities.append(entity)
@@ -41,11 +41,11 @@ class Area(object):
     def get_random_position(self):
         return Vec2d(choice([pos for pos, spot in self._data.iteritems() if spot.is_walkable()]))
 
-    def draw(self, screen):
+    def draw(self, screen, camera):
         for pos, spot in self._data.iteritems():
-            spot.draw(screen, pos)
+            spot.draw(screen, pos, camera)
         for character in self.characters:
-            character.draw(screen)
+            character.draw(screen, camera)
 
     def walkable(self, pos):
         alive_characters = (ch.pos for ch in self.characters if not ch.is_incapacitated())

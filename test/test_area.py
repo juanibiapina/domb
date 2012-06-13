@@ -26,8 +26,9 @@ def test_walkable_over_dead_monster():
 
 
 def test_draw_characters():
-    area.draw(screen)
-    wolf.draw.assert_called_with(screen)
+    camera = Mock(name = "Camera")
+    area.draw(screen, camera)
+    wolf.draw.assert_called_with(screen, camera)
 
 
 def test_run_character_turns():

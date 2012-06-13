@@ -1,7 +1,9 @@
 import sys
 from pygame.locals import (KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE,
-                           K_a, K_s, K_w, K_d, K_i, K_e)
+                           K_a, K_s, K_w, K_d, K_i, K_e,
+                           K_h, K_j, K_k, K_l)
 import pygame
+from domb.vec2d import Vec2d
 
 import directions
 
@@ -12,9 +14,10 @@ DOWN = directions.S
 
 
 class InputHandler(object):
-    def __init__(self, player_character, inventory_view):
+    def __init__(self, player_character, inventory_view, camera):
         self.player_character = player_character
         self.inventory_view = inventory_view
+        self.camera = camera
 
     def handle_input(self):
         ev = pygame.event.poll()
@@ -27,6 +30,20 @@ class InputHandler(object):
             # toggle inventory
             if ev.key == K_i:
                 self.inventory_view.toggle()
+                return False
+
+            # Camera handle
+            if ev.key == K_h:
+                self.camera.offset(Vec2d(1,0))
+                return False
+            if ev.key == K_j:
+                self.camera.offset(Vec2d(0,1))
+                return False
+            if ev.key == K_k:
+                self.camera.offset(Vec2d(0,-1))
+                return False
+            if ev.key == K_l:
+                self.camera.offset(Vec2d(-1,0))
                 return False
 
             if self.inventory_view.is_active():  # inventory controls

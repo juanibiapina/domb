@@ -64,10 +64,10 @@ class Character(object):
         self.wis = attrs["wis"]
         self.cha = attrs["cha"]
 
-    def draw(self, surface):
-        self.tile.draw(surface, self.pos)
+    def draw(self, surface, camera):
+        self.tile.draw(surface, self.pos, camera)
         if self.is_incapacitated():
-            self.blood_tile.draw(surface, self.pos)
+            self.blood_tile.draw(surface, self.pos, camera)
 
     def move(self, delta):
         if not self.is_incapacitated():

@@ -14,7 +14,7 @@ from domb.item.items import Potion
 from domb.item.weapons import Longsword
 from vec2d import Vec2d
 from controls.inputhandler import InputHandler
-
+from domb.view.camera import Camera
 
 def main():
     screen = pygame.display.set_mode((1024, 768))
@@ -60,6 +60,9 @@ def show_title_screen(screen):
 def play_game(screen):
     # dungeon
     dungeon = generate_dungeon(tiles)
+    
+    # Camera
+    camera = Camera()
 
     # hud
     hud = Hud()
@@ -93,11 +96,11 @@ def play_game(screen):
     inventory_view = InventoryView(hero.inventory)
 
     # create input handler
-    input_handler = InputHandler(hero, inventory_view)
+    input_handler = InputHandler(hero, inventory_view, camera)
 
     def draw():
         screen.fill((0, 0, 0))
-        dungeon.draw(screen)
+        dungeon.draw(screen, camera)
         console.draw(screen)
         inventory_view.draw(screen)
         hud.draw(hero, screen)
