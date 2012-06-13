@@ -39,7 +39,7 @@ class Area(object):
         self.characters = []
 
     def get_random_position(self):
-        return Vec2d(choice(self._data.keys()))
+        return Vec2d(choice([pos for pos, spot in self._data.iteritems() if spot.is_walkable()]))
 
     def draw(self, screen):
         for pos, spot in self._data.iteritems():
