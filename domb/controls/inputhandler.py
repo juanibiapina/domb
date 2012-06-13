@@ -37,10 +37,10 @@ class InputHandler(object):
                 self.camera.offset(Vec2d(1,0))
                 return False
             if ev.key == K_j:
-                self.camera.offset(Vec2d(0,1))
+                self.camera.offset(Vec2d(0,-1))
                 return False
             if ev.key == K_k:
-                self.camera.offset(Vec2d(0,-1))
+                self.camera.offset(Vec2d(0,1))
                 return False
             if ev.key == K_l:
                 self.camera.offset(Vec2d(-1,0))
