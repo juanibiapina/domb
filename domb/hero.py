@@ -35,3 +35,6 @@ class Hero(Character):
 
     def get_xp(self):
         return self.xp.xp
+
+    def place_in_area(self):
+        self.pos = self.area.get_position_in_room("initial room")

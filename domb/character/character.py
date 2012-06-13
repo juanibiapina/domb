@@ -41,7 +41,6 @@ class Character(object):
 
     def __init__(self, area):
         self.area = area
-        self.pos = area.get_random_position()
         self.area.add_character(self)
         self.inventory = Inventory()
         self.set_attributes(self.attributes)
@@ -49,6 +48,10 @@ class Character(object):
         self.ac = AC(self)
         self.attack = Attack(self)
         self.damage = Damage(self)
+        self.place_in_area()
+
+    def place_in_area(self):
+        self.pos = self.area.get_random_position()
 
     def set_attributes(self, attributes):
         broken_attrs = attributes.split(",")
