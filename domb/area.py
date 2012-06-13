@@ -39,7 +39,7 @@ class Area(object):
         self.characters = []
 
     def get_random_position(self):
-        return Vec2d(choice([pos for pos, spot in self._data.iteritems() if spot.is_walkable()]))
+        return Vec2d(choice([pos for pos, spot in self._data.iteritems() if spot.is_walkable() and spot.get_room_name() != "initial room"]))
 
     def get_position_in_room(self, name):
         return Vec2d(choice([pos for pos, spot in self._data.iteritems() if spot.is_walkable() and spot.get_room_name() == name]))

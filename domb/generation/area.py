@@ -167,6 +167,24 @@ class Horizontal(Parameters):
         return randint(6, 12)
 
 
+class LotsOfCorridors(Parameters):
+    initial_room_width = 6
+    initial_room_height = 6
+    number_of_rooms = 20
+
+    @property
+    def room_width(self):
+        c = random()
+        if c <= 0.25:
+            return randint(6, 12)
+        else:
+            return 1
+
+    @property
+    def room_height(self):
+        return randint(3, 10)
+
+
 class OneSquareRoom(Parameters):
     initial_room_width = 6
     initial_room_height = 6
@@ -175,7 +193,8 @@ class OneSquareRoom(Parameters):
 def generate_dungeon(tiles):
     #area = AreaGenerator(Corridors()).build()
     #area = AreaGenerator(SquareRooms()).build()
-    area = AreaGenerator(KindaRandom()).build()
+    #area = AreaGenerator(KindaRandom()).build()
+    area = AreaGenerator(LotsOfCorridors()).build()
     #area = AreaGenerator(Horizontal()).build()
     #area = AreaGenerator(OneSquareRoom()).build()
     return area
