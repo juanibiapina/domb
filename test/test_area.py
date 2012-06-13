@@ -1,5 +1,6 @@
 from mock import Mock
 from domb.area import DungeonBuilder, Entity
+from domb.view.dungeon import DungeonView
 from domb.vec2d import Vec2d
 
 screen = Mock(name="screen")
@@ -27,7 +28,7 @@ def test_walkable_over_dead_monster():
 
 def test_draw_characters():
     camera = Mock(name = "Camera")
-    area.draw(screen, camera)
+    DungeonView(area).draw(screen, camera)
     wolf.draw.assert_called_with(screen, camera)
 
 
