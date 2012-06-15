@@ -1,7 +1,8 @@
 import sys
 from pygame.locals import (KEYUP, K_DOWN, K_UP, K_LEFT, K_RIGHT, K_ESCAPE,
-                           K_a, K_s, K_w, K_d, K_i, K_e,
-                           K_h, K_j, K_k, K_l)
+                           K_a, K_s, K_w, K_d, K_t, K_e,
+                           K_h, K_j, K_k, K_l,
+                           K_u, K_i, K_y, K_o)
 import pygame
 from domb.vec2d import Vec2d
 
@@ -28,22 +29,22 @@ class InputHandler(object):
                 sys.exit(0)
 
             # toggle inventory
-            if ev.key == K_i:
+            if ev.key == K_t:
                 self.inventory_view.toggle()
                 return False
 
             # Camera handle
             if ev.key == K_h:
-                self.camera.offset(Vec2d(1,0))
+                self.camera.offset(Vec2d(1, 0))
                 return False
             if ev.key == K_j:
-                self.camera.offset(Vec2d(0,-1))
+                self.camera.offset(Vec2d(0, -1))
                 return False
             if ev.key == K_k:
-                self.camera.offset(Vec2d(0,1))
+                self.camera.offset(Vec2d(0, 1))
                 return False
             if ev.key == K_l:
-                self.camera.offset(Vec2d(-1,0))
+                self.camera.offset(Vec2d(-1, 0))
                 return False
 
             if self.inventory_view.is_active():  # inventory controls
@@ -73,5 +74,13 @@ class InputHandler(object):
                     self.player_character.do_attack(TOP)
                 if ev.key == K_e:
                     self.player_character.pick_up_item()
+                if ev.key == K_u:
+                    self.player_character.open_door(DOWN)
+                if ev.key == K_i:
+                    self.player_character.open_door(TOP)
+                if ev.key == K_y:
+                    self.player_character.open_door(LEFT)
+                if ev.key == K_o:
+                    self.player_character.open_door(RIGHT)
                 return True
         return False

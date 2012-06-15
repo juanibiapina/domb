@@ -45,7 +45,7 @@ class AreaGenerator(object):
                 return False
         self.data.update(space)
         if random() <= self.parameters.door_probability:
-            self.data[apos] = Spot(Door(), room="door")
+            self.data[apos] = Spot(DungeonFloor(), Door(), room="door")
         else:
             self.data[apos] = Spot(DungeonFloor(), room=roomname)
         return True

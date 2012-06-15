@@ -4,7 +4,18 @@ import domb.tiles as t
 
 class Door(Entity):
     tile = t.DOOR
-    walkable = True
+    walkable = False
+
+    def __init__(self, closed=True):
+        self.closed = closed
+
+    def open(self):
+        self.closed = False
+        self.walkable = True
+
+    def draw(self, screen, pos, camera):
+        if self.closed:
+            super(Door, self).draw(screen, pos, camera)
 
 
 class DungeonFloor(Entity):

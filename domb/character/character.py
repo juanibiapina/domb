@@ -122,5 +122,8 @@ class Character(object):
         if item.use(self):
             self.inventory.remove_current()
 
+    def open_door(self, direction):
+        self.area.open_door(self.pos + direction)
+
     def resolve_xp(self, target):
         pass

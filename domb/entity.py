@@ -12,3 +12,6 @@ class Entity(object):
 
     def is_walkable(self):
         return self.walkable
+
+    def open(self):
+        pass

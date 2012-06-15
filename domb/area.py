@@ -32,6 +32,9 @@ class Spot(object):
         self.item = None
         return item
 
+    def open_door(self):
+        map(lambda e: e.open(), self.entities)
+
 
 class Area(object):
     def __init__(self, mapdata):
@@ -84,6 +87,9 @@ class Area(object):
             return self._data[pos].pick_up_item()
         else:
             return None
+
+    def open_door(self, pos):
+        self._data[pos].open_door()
 
 
 class DungeonBuilder(object):
