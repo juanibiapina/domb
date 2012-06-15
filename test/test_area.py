@@ -11,7 +11,7 @@ wolf.is_incapacitated.return_value = False
 wolf.pos = Vec2d(2, 2)
 
 builder = DungeonBuilder()
-builder.add_rectangle(1, 1, 4, 4, Entity(fake_tile, walkable=True))
+builder.add_rectangle(1, 1, 4, 4, Entity(fake_tile))
 
 area = builder.get_dungeon()
 area.add_character(wolf)
@@ -27,7 +27,7 @@ def test_walkable_over_dead_monster():
 
 
 def test_draw_characters():
-    camera = Mock(name = "Camera")
+    camera = Mock(name="Camera")
     DungeonView(area).draw(screen, camera)
     wolf.draw.assert_called_with(screen, camera)
 

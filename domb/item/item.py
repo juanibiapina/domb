@@ -9,9 +9,7 @@ logger = logging.getLogger('console')
 class Item(Entity):
     name = "Item"
     tile = None
-
-    def __init__(self):
-        super(Item, self).__init__(self.tile, walkable=True)
+    walkable = True
 
     def get_name(self):
         return self.name

@@ -2,8 +2,7 @@ from random import choice, randint, random
 
 from domb.directions import N, S, E, W
 from vec2d import Vec2d
-from entity import Entity
-import domb.tiles as tiles
+from entities import DungeonFloor, Door, Wall
 from domb.area import Spot
 from domb.area import Area
 
@@ -36,19 +35,19 @@ class AreaGenerator(object):
         pos, dir = self.random_wall()
         if dir:
             space = self.create_space(pos, dir, width, height, name)
-            return self.merge_space(pos, space)
+            return self.merge_space(pos, space, name)
         else:
             return False
 
-    def merge_space(self, apos, space):
+    def merge_space(self, apos, space, roomname):
         for pos, name in space.iteritems():
             if pos in self.data and self.data[pos] != "wall":
                 return False
         self.data.update(space)
         if random() <= self.parameters.door_probability:
-            self.data[apos] = Spot(Entity(tiles.DOOR, walkable=True))
+            self.data[apos] = Spot(Door(), room="door")
         else:
-            self.data[apos] = Spot(Entity(tiles.GROUND, walkable=True), room=name)
+            self.data[apos] = Spot(DungeonFloor(), room=roomname)
         return True
 
     def valid_dir(self, pos):
@@ -88,7 +87,7 @@ class AreaGenerator(object):
 
             # floor
             for w in range(1, width + 1):
-                data[pos + (i * dir) + (dir1 * (w - offset))] = Spot(Entity(tiles.GROUND, walkable=True), room=name)
+                data[pos + (i * dir) + (dir1 * (w - offset))] = Spot(DungeonFloor(), room=name)
 
             # other border
             data[(pos + (dir1 * (width + 1 - offset))) + (i * dir)] = "wall"
@@ -114,7 +113,7 @@ class AreaGenerator(object):
 
     def tile_for(self, name):
         if name == "wall":
-            return Spot(Entity(tiles.WALL, walkable=False))
+            return Spot(Wall())
         return name
 
 

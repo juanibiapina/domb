@@ -4,7 +4,7 @@ BASE_SET = TileSet("images/tileset.png")
 BLOOD_SET = TileSet("images/blood.png")
 
 WOLF = Tile(6, 1, BASE_SET)
-GROUND = Tile(9, 31, BASE_SET)
+FLOOR = Tile(9, 31, BASE_SET)
 HOLE = Tile(13, 32, BASE_SET)
 COW = Tile(5, 4, BASE_SET)
 HUNTER = Tile(18, 16, BASE_SET)

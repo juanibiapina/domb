@@ -22,7 +22,7 @@ class Spot(object):
         self.entities.append(entity)
 
     def is_walkable(self):
-        return reduce(lambda a, b: a and b, [entity.get_attribute('walkable') for entity in self.entities])
+        return all([entity.is_walkable() for entity in self.entities])
 
     def add_item(self, item):
         self.item = item
