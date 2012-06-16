@@ -41,11 +41,12 @@ class AreaGenerator(object):
 
     def merge_space(self, apos, space, roomname):
         for pos, name in space.iteritems():
-            if pos in self.data and self.data[pos] != "wall":
-                return False
+            if pos in self.data:
+                if self.data[pos] != name:
+                    return False
         self.data.update(space)
         if random() <= self.parameters.door_probability:
-            self.data[apos] = Spot(DungeonFloor(), Door(), room="door")
+            self.data[apos] = "door"
         else:
             self.data[apos] = Spot(DungeonFloor(), room=roomname)
         return True
@@ -114,6 +115,8 @@ class AreaGenerator(object):
     def tile_for(self, name):
         if name == "wall":
             return Spot(Wall())
+        if name == "door":
+            return Spot(DungeonFloor(), Door(), room="door")
         return name
 
 
@@ -128,11 +131,28 @@ class Parameters(object):
     directions = [N, S, E, W]
 
 
-class Corridors(Parameters):
+class TightCave(Parameters):
     initial_room_width = 1
     initial_room_height = 1
     door_probability = 0
     number_of_rooms = 100
+    room_width = 1
+    room_height = 1
+
+
+class Catacombs(Parameters):
+    initial_room_width = 1
+    initial_room_height = 1
+    door_probability = 0
+    number_of_rooms = 50
+
+    @property
+    def room_width(self):
+        return randint(2, 3)
+
+    @property
+    def room_height(self):
+        return randint(1, 6)
 
 
 class SquareRooms(Parameters):
@@ -143,9 +163,11 @@ class SquareRooms(Parameters):
     room_height = 6
 
 
-class KindaRandom(Parameters):
-    number_of_rooms = 10
-    door_probability = 0.8
+class HugeDungeon(Parameters):
+    initial_room_width = 4
+    initial_room_height = 4
+    number_of_rooms = 50
+    door_probability = 0.6
 
     @property
     def room_width(self):
@@ -190,10 +212,11 @@ class OneSquareRoom(Parameters):
 
 
 def generate_dungeon(tiles):
-    #area = AreaGenerator(Corridors()).build()
+    #area = AreaGenerator(TightCave()).build()
+    area = AreaGenerator(Catacombs()).build()
     #area = AreaGenerator(SquareRooms()).build()
-    #area = AreaGenerator(KindaRandom()).build()
-    area = AreaGenerator(LotsOfCorridors()).build()
+    #area = AreaGenerator(HugeDungeon()).build()
+    #area = AreaGenerator(LotsOfCorridors()).build()
     #area = AreaGenerator(Horizontal()).build()
     #area = AreaGenerator(OneSquareRoom()).build()
     return area
