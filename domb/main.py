@@ -92,7 +92,8 @@ def play_game(screen):
     place_monster(dungeon, constrictor_snake)
 
     # create items
-    place_item(dungeon, Potion())
+    for i in xrange(10):
+        place_item(dungeon, Potion())
     place_item(dungeon, Longsword())
 
     # set character AI
