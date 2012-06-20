@@ -15,8 +15,7 @@ from domb.item.weapons import Longsword
 from controls.inputhandler import InputHandler
 from domb.view.camera import Camera
 from domb.view.dungeon import DungeonView
-from domb.generation.placement.character import place_hero, place_monster
-from domb.generation.placement.item import place_item
+from domb.generation.placement import place_hero, place_monster, place_item
 
 
 def main():
