@@ -20,8 +20,8 @@ class Hero(Character):
     tile = tiles.FIGHTER
     blood_tile = blood_tile
 
-    def __init__(self, area):
-        super(Hero, self).__init__(area)
+    def __init__(self):
+        super(Hero, self).__init__()
         self.xp = XP(self.hit_dice)
 
     def resolve_damage(self, damage):
@@ -35,6 +35,3 @@ class Hero(Character):
 
     def get_xp(self):
         return self.xp.xp
-
-    def place_in_area(self):
-        self.pos = self.area.get_position_in_room("initial room")

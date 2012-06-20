@@ -12,10 +12,12 @@ from ai import ChaseAI, RandomAI
 from view.inventory import InventoryView
 from domb.item.items import Potion
 from domb.item.weapons import Longsword
-from vec2d import Vec2d
 from controls.inputhandler import InputHandler
 from domb.view.camera import Camera
 from domb.view.dungeon import DungeonView
+from domb.generation.placement.character import place_hero, place_monster
+from domb.generation.placement.item import place_item
+
 
 def main():
     screen = pygame.display.set_mode((1024, 768))
@@ -61,7 +63,7 @@ def show_title_screen(screen):
 def play_game(screen):
     # dungeon
     dungeon = generate_dungeon(tiles)
-    
+
     # Camera
     camera = Camera()
 
@@ -76,15 +78,22 @@ def play_game(screen):
     logger.info('Welcome to Dungeons of my Benga')
 
     # create characters
-    monsters.Wolf(dungeon)
-    hero = Hero(dungeon)
-    dog = monsters.Dog(dungeon)
-    cat = monsters.Cat(dungeon)
-    monsters.ConstrictorSnake(dungeon)
+    hero = Hero()
+    wolf = monsters.Wolf()
+    dog = monsters.Dog()
+    cat = monsters.Cat()
+    constrictor_snake = monsters.ConstrictorSnake()
+
+    # place hero and monsters
+    place_hero(dungeon, hero)
+    place_monster(dungeon, wolf)
+    place_monster(dungeon, dog)
+    place_monster(dungeon, cat)
+    place_monster(dungeon, constrictor_snake)
 
     # create items
-    dungeon.add_item(Potion(), Vec2d(3, 3))
-    dungeon.add_item(Longsword(), Vec2d(3, 4))
+    place_item(dungeon, Potion())
+    place_item(dungeon, Longsword())
 
     # set character AI
     dog.set_ai(ChaseAI(hero))

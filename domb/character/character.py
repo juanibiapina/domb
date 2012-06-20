@@ -39,19 +39,17 @@ class Character(object):
     feats = []
     weapon = Unarmed()
 
-    def __init__(self, area):
-        self.area = area
-        self.area.add_character(self)
+    def __init__(self):
         self.inventory = Inventory()
         self.set_attributes(self.attributes)
         self.hp = HP(self)
         self.ac = AC(self)
         self.attack = Attack(self)
         self.damage = Damage(self)
-        self.place_in_area()
 
-    def place_in_area(self):
-        self.pos = self.area.get_random_position()
+    def place(self, area):
+        self.area = area
+        self.area.add_character(self)
 
     def set_attributes(self, attributes):
         broken_attrs = attributes.split(",")
