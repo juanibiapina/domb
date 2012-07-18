@@ -33,20 +33,6 @@ class InputHandler(object):
                 self.inventory_view.toggle()
                 return False
 
-            # Camera handle
-            if ev.key == K_h:
-                self.camera.offset(Vec2d(1, 0))
-                return False
-            if ev.key == K_j:
-                self.camera.offset(Vec2d(0, -1))
-                return False
-            if ev.key == K_k:
-                self.camera.offset(Vec2d(0, 1))
-                return False
-            if ev.key == K_l:
-                self.camera.offset(Vec2d(-1, 0))
-                return False
-
             if self.inventory_view.is_active():  # inventory controls
                 if ev.key == K_LEFT:
                     self.inventory_view.previous_item()

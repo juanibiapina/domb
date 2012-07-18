@@ -26,4 +26,4 @@ class Tile(object):
         self.index = (x, y)
 
     def draw(self, surface, pos, camera):
-        self.tile_set.blit_tile(surface, self.index, camera.translate(pos))
+        self.tile_set.blit_tile(surface, self.index, camera.translate(pos, self.tile_set.TILE_SIZE))

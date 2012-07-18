@@ -64,7 +64,7 @@ def play_game(screen):
     dungeon = generate_dungeon(tiles)
 
     # Camera
-    camera = Camera()
+    camera = Camera(screen)
 
     # hud
     hud = Hud()
@@ -82,6 +82,8 @@ def play_game(screen):
     dog = monsters.Dog()
     cat = monsters.Cat()
     constrictor_snake = monsters.ConstrictorSnake()
+
+    camera.follow(hero)
 
     # place hero and monsters
     place_hero(dungeon, hero)

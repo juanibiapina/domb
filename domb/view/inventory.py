@@ -62,7 +62,7 @@ class InventoryView(object):
         return (self.pos * self.SLOT_SIZE) + Vec2d(slot * self.SLOT_SIZE, 0)
 
     def _draw_item(self, screen, slot, item):
-        item[0].draw(screen, self.pos + Vec2d(slot, 0), Camera())
+        item[0].draw(screen, self.pos + Vec2d(slot, 0), Camera(screen))
         self._draw_item_quantity(screen, slot, item[1])
 
     def _draw_item_quantity(self, screen, slot, quantity):
