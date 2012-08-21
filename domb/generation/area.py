@@ -114,7 +114,7 @@ class AreaGenerator(object):
 
     def tile_for(self, name):
         if name == "wall":
-            return Spot(Wall())
+            return Spot(Wall(), room="wall")
         if name == "door":
             return Spot(DungeonFloor(), Door(), room="door")
         return name
@@ -213,10 +213,10 @@ class OneSquareRoom(Parameters):
 
 def generate_dungeon(tiles):
     #area = AreaGenerator(TightCave()).build()
-    area = AreaGenerator(Catacombs()).build()
+    #area = AreaGenerator(Catacombs()).build()
     #area = AreaGenerator(SquareRooms()).build()
     #area = AreaGenerator(HugeDungeon()).build()
-    #area = AreaGenerator(LotsOfCorridors()).build()
+    area = AreaGenerator(LotsOfCorridors()).build()
     #area = AreaGenerator(Horizontal()).build()
     #area = AreaGenerator(OneSquareRoom()).build()
     return area

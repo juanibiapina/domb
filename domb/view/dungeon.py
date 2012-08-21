@@ -5,6 +5,7 @@ class DungeonView(object):
 
     def draw(self, screen, camera):
         for pos, spot in self.area._data.iteritems():
-            spot.draw(screen, pos, camera)
+            if spot.visible:
+                spot.draw(screen, pos, camera)
         for character in self.area.characters:
             character.draw(screen, camera)

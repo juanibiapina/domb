@@ -5,6 +5,7 @@ from domb.view.hud import Hud
 import logging
 
 import monsters
+from monsters import WolfIsDead
 from hero import Hero, HeroIsDead
 from domb.generation.area import generate_dungeon
 import tiles
@@ -26,7 +27,6 @@ def main():
     show_title_screen(screen)
 
     play_game(screen)
-    show_death_screen(screen)
 
 
 def wait_for_key():
@@ -39,6 +39,20 @@ def show_death_screen(screen):
     screen_copy.fill((0, 0, 0, 128))
     font = pygame.font.SysFont('Arial', 15)
     text_surface = font.render("You're a warm blood gushing corpse.", False, (255, 255, 255))
+    text_x = screen_copy.get_width() / 2 - text_surface.get_width() / 2
+    text_y = screen_copy.get_height() / 2 - text_surface.get_height() / 2
+    screen_copy.blit(text_surface, (text_x, text_y))
+
+    screen.blit(screen_copy, (0, 0))
+    pygame.display.flip()
+    wait_for_key()
+
+
+def show_win_screen(screen):
+    screen_copy = screen.copy().convert_alpha()
+    screen_copy.fill((0, 0, 0, 128))
+    font = pygame.font.SysFont('Arial', 15)
+    text_surface = font.render("The princess is in another castle.", False, (255, 255, 255))
     text_x = screen_copy.get_width() / 2 - text_surface.get_width() / 2
     text_y = screen_copy.get_height() / 2 - text_surface.get_height() / 2
     screen_copy.blit(text_surface, (text_x, text_y))
@@ -100,6 +114,7 @@ def play_game(screen):
     # set character AI
     dog.set_ai(ChaseAI(hero))
     cat.set_ai(RandomAI())
+    wolf.set_ai(ChaseAI(hero))
 
     # add some itens to see inventory
     hero.inventory.add_item(Potion())
@@ -128,6 +143,11 @@ def play_game(screen):
             draw()
     except HeroIsDead:
         draw()
+        show_death_screen(screen)
+    except WolfIsDead:
+        draw()
+        show_win_screen(screen)
+
 
 if __name__ == '__main__':
     main()

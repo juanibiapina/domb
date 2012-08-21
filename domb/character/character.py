@@ -18,6 +18,7 @@ logger = logging.getLogger('console')
 
 
 class Character(object):
+    light_source = False
     hit_dice = 1
     blood_tile = None
     tile = None
@@ -50,6 +51,8 @@ class Character(object):
     def place(self, area):
         self.area = area
         self.area.add_character(self)
+        if self.light_source:
+            self.area.make_room_visible(self.pos)
 
     def set_attributes(self, attributes):
         broken_attrs = attributes.split(",")
@@ -66,15 +69,18 @@ class Character(object):
         self.cha = attrs["cha"]
 
     def draw(self, surface, camera):
-        self.tile.draw(surface, self.pos, camera)
-        if self.is_incapacitated():
-            self.blood_tile.draw(surface, self.pos, camera)
+        if self.area.is_spot_visible(self.pos):
+            self.tile.draw(surface, self.pos, camera)
+            if self.is_incapacitated():
+                self.blood_tile.draw(surface, self.pos, camera)
 
     def move(self, delta):
         if not self.is_incapacitated():
             new_pos = self.pos + delta
-            if (self.area.walkable(new_pos)):
+            if self.area.walkable(new_pos):
                 self.pos = new_pos
+                if self.light_source:
+                    self.area.make_room_visible(self.pos)
 
     def set_ai(self, ai):
         self.ai = ai

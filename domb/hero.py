@@ -12,6 +12,7 @@ class HeroIsDead(Exception):
 
 
 class Hero(Character):
+    light_source = True
     name = "The Dude"
     hit_dice = 1
     type = Fighter()

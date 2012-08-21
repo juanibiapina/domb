@@ -7,6 +7,10 @@ import tiles
 blood_tile = tiles.BLOOD
 
 
+class WolfIsDead(Exception):
+    pass
+
+
 class Cat(Character):
     name = "Cat"
     hit_dice = 0.5
@@ -44,6 +48,11 @@ class Wolf(Character):
     weapon = Bite()
     tile = tiles.WOLF
     blood_tile = blood_tile
+
+    def resolve_damage(self, damage):
+        super(Wolf, self).resolve_damage(damage)
+        if self.is_incapacitated():
+            raise WolfIsDead()
 
 
 class ConstrictorSnake(Character):

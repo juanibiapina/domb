@@ -1,6 +1,7 @@
 from random import random, choice
 from vec2d import Vec2d
 from entity import Entity
+import directions as dirs
 
 
 class Spot(object):
@@ -8,6 +9,7 @@ class Spot(object):
         self.entities = list(entities)
         self.data = data
         self.item = None
+        self.visible = False
 
     def get_room_name(self):
         return self.data.get("room", None)
@@ -35,6 +37,9 @@ class Spot(object):
     def open_door(self):
         map(lambda e: e.open(), self.entities)
 
+    def set_visible(self):
+        self.visible = True
+
 
 class Area(object):
     def __init__(self, mapdata):
@@ -57,6 +62,22 @@ class Area(object):
         alive_characters = (ch.pos for ch in self.characters if not ch.is_incapacitated())
         if pos in self._data:
             return pos not in alive_characters and self._data[pos].is_walkable()
+        else:
+            return False
+
+    def make_room_visible(self, pos):
+        if pos in self._data:
+            name = self._data[pos].get_room_name()
+            if name == "door":
+                return
+            visible_spots = filter(lambda e: e[1].get_room_name() == name, self._data.iteritems())
+            map(lambda e: e[1].set_visible(), visible_spots)
+            for vpos, _ in visible_spots:
+                map(lambda wall_spot: wall_spot.set_visible(), map(lambda pos: self._data[pos], [vpos + adir for adir in dirs.all]))
+
+    def is_spot_visible(self, pos):
+        if pos in self._data:
+            return self._data[pos].visible
         else:
             return False
 
